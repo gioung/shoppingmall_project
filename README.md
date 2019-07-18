@@ -7,6 +7,6 @@
 
 ### 링크
 
-[회원가입 및 이메일 체크](https://github.com/gioung/shoppingmall/blob/master/APIDOC/01.md)
+[회원가입 및 이메일 체크](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/01.md)
 
 
