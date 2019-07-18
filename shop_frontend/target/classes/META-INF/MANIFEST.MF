@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: bit
+Build-Jdk: 11.0.2
+Implementation-Title: shop_frontend
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.cafe24
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/shoppingmall_project/shop_frontend
+Created-By: Maven Integration for Eclipse
+
