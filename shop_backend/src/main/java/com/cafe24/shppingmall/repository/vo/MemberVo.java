@@ -2,9 +2,9 @@ package com.cafe24.shppingmall.repository.vo;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
 import org.hibernate.validator.constraints.Email;
+
+import com.cafe24.shoppingmall.enums.Gender;
 
 public class MemberVo {
 	@NotNull @Email
@@ -17,7 +17,7 @@ public class MemberVo {
 	@NotNull
 	private String birth;
 	@NotNull
-	private char gender;
+	private Gender gender;
 	
 	private String tel_num;
 	@NotNull
@@ -47,10 +47,11 @@ public class MemberVo {
 	public void setBirth(String birth) {
 		this.birth = birth;
 	}
-	public char getGender() {
+	
+	public Gender getGender() {
 		return gender;
 	}
-	public void setGender(char gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 	public String getTel_num() {

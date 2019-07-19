@@ -30,22 +30,11 @@ public class UserService {
 		
 	}
 
-	public boolean existMember(String email, String password) {
+	public boolean existMember(MemberVo memberVo) {
 		
 		//이메일, 패스워드가 존재할 경우 TRUE
-		for(MemberVo vo : memberList) {
-			//존재하지 않으면 true
-			if(vo.getEmail().equals(email)) {
-				if(vo.getPassword().equals(password))
-						return true;
-				else
-						return false;
-			}
-					
-				
-		}
+		return memberDao.getMemberByEmailandPassword(memberVo);
 		
-		return false;
 	}
 
 	public boolean updateMember(MemberVo vo) {
@@ -60,13 +49,8 @@ public class UserService {
 	}
 
 	public boolean deleteMember(String email) {
-		for(int i=0; i<memberList.size();i++)
-			//해당 회원을 삭제
-			if(memberList.get(i).getEmail().equals(email)){
-				memberList.remove(i);
-				return true;
-			}
-		return false;
+		 	
+		return memberDao.deleteMember(email);
 	}
 
 	

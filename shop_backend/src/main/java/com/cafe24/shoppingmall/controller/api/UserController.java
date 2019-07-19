@@ -1,16 +1,23 @@
 package com.cafe24.shoppingmall.controller.api;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
+import javax.validation.Validation;
+import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
@@ -71,22 +78,30 @@ public class UserController {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "email", value = "이메일주소", required = true, paramType = "body", dataType = "string", defaultValue = ""),
 			@ApiImplicitParam(name = "password", value = "비밀번호", required = true, paramType = "body", dataType = "string", defaultValue = "")})
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public JSONResult login(@RequestParam(value = "email", required = true, defaultValue = "") String email,
-			@RequestParam(value = "password", required = true, defaultValue = "") String password) {
-
-		// 특수문자 검출
-		// 특수문자 검출시 Redirect
-
-		// 특수문자가 없을시 서비스로 value 넘김
-		//회원정보가 유효할 경우 TRUE 반환
-		boolean judge = userService.existMember(email, password);
+	@PostMapping(value="/login")
+	public ResponseEntity<JSONResult> login(@RequestBody MemberVo memberVo) {
+		
+		Validator validator = 
+				Validation.buildDefaultValidatorFactory().getValidator();
+		
+		Set<ConstraintViolation<MemberVo>> validatorResults = 
+				validator.validateProperty(memberVo, "email");
+		
+		Set<ConstraintViolation<MemberVo>> validatorResults2 = 
+				validator.validateProperty(memberVo, "password");
+		
+		// 아이디 또는 비밀번호 형식이 잘 안맞을 경우
+		if(!validatorResults.isEmpty() || !validatorResults2.isEmpty()) 
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("아이디 또는 비밀번호가 올바르지 않은 형식입니다."));
+		
+		boolean judge = userService.existMember(memberVo);
+		// 아이디 또는 비밀번호가 존재하는 경우
 		if(judge == true)
-			return JSONResult.success(judge);
+			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(memberVo));
 		else
-			return JSONResult.fail("로그인 실패");
+			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.fail("아이디 또는 비밀번호가 존재하지 않거나 틀렸습니다."));
+		
 	}
-
 	
 	//회원정보수정, forward
 	  @ApiOperation(value = "회원정보 수정")

@@ -15,4 +15,17 @@
 	select * from member where email=#{email };
 	]]>
 	</select>
+	
+	<select id="selectByEmailandPassword" parameterType="membervo" resultType="membervo">
+	<![CDATA[
+	select * from member where email=#{email } and password=#{password };
+	]]>
+	</select>
+	
+	<delete id="deleteByEmail" parameterType="string">
+	<![CDATA[
+	delete from member where email=#{email };
+	]]>
+	</delete>
+	
 </mapper>

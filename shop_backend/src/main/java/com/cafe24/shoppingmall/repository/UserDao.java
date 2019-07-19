@@ -32,5 +32,19 @@ public class UserDao {
 		MemberVo memberVo = sqlSession.selectOne("member.selectByEmail", email);
 		return memberVo!=null;
 	}
+
+
+
+	public Boolean getMemberByEmailandPassword(MemberVo memberVo) {
+		MemberVo member = sqlSession.selectOne("member.selectByEmailandPassword", memberVo);
+		return member!=null;
+	}
+
+
+
+	public boolean deleteMember(String email) {
+		
+		return 1 == sqlSession.delete("member.deleteByEmail",email);
+	}
 	
 }
