@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
+import com.cafe24.shoppingmall.repository.vo.MemberVo;
 import com.cafe24.shoppingmall.service.UserService;
-import com.cafe24.shppingmall.repository.vo.MemberVo;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -108,15 +108,15 @@ public class UserController {
 	  @ApiImplicitParams({
 			@ApiImplicitParam(name = "email", value = "이메일주소", required = true, paramType = "body", dataType = "string", defaultValue = "")
 			})
-	  @RequestMapping(value = "/info", method = RequestMethod.PUT) 
-	  public JSONResult userModify(@Valid MemberVo memberVo, BindingResult result) { 
+	  @RequestMapping(value = "/modification", method = RequestMethod.PUT) 
+	  public ResponseEntity<JSONResult> userModify(@RequestBody @Valid MemberVo memberVo, BindingResult result) { 
 	  //유효성 체크
 	  boolean judge =  userService.updateMember(memberVo);
 	  //유효할시 성공
 	  if(judge == true)
-			return JSONResult.success(judge);
+			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(judge));
 		else
-			return JSONResult.fail("회원정보 수정 실패"); 
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.success("회원정보 수정 실패")); 
 	  }
 	 
 	  //회원 탈퇴, redirect

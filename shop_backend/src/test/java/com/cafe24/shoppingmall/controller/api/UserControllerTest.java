@@ -25,8 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cafe24.shoppingmall.enums.Gender;
+import com.cafe24.shoppingmall.repository.vo.MemberVo;
 import com.cafe24.shoppingmall.service.UserService;
-import com.cafe24.shppingmall.repository.vo.MemberVo;
 import com.google.gson.Gson;
 
 

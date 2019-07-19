@@ -1,4 +1,4 @@
-package com.cafe24.shppingmall.repository.vo;
+package com.cafe24.shoppingmall.repository.vo;
 
 import javax.validation.constraints.NotNull;
 
@@ -20,8 +20,7 @@ public class ProductVo {
 		
 	}
 	
-	public ProductVo(long product_no, String name, long price) {
-		this.product_no = product_no;
+	public ProductVo(String name, long price) {
 		this.name = name;
 		this.price = price;
 	}

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cafe24.shoppingmall.repository.UserDao;
-import com.cafe24.shppingmall.repository.vo.MemberVo;
+import com.cafe24.shoppingmall.repository.vo.MemberVo;
 
 
 @Service
@@ -39,13 +39,8 @@ public class UserService {
 
 	public boolean updateMember(MemberVo vo) {
 			
-		for(int i=0; i<memberList.size();i++)
-			//회원정보를 이메일 일치로 판단
-			if(memberList.get(i).getEmail().equals(vo.getEmail())) {
-				memberList.set(i, vo);
-				return true;
-			}
-		return false;
+		
+		return memberDao.updateMember(vo);
 	}
 
 	public boolean deleteMember(String email) {

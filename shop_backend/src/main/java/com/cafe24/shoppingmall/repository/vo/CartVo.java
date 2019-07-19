@@ -1,4 +1,4 @@
-package com.cafe24.shppingmall.repository.vo;
+package com.cafe24.shoppingmall.repository.vo;
 
 
 public class CartVo {

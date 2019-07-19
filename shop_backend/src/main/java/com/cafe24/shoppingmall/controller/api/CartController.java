@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
+import com.cafe24.shoppingmall.repository.vo.CartVo;
 import com.cafe24.shoppingmall.service.CartService;
-import com.cafe24.shppingmall.repository.vo.CartVo;
 
 import io.swagger.annotations.ApiOperation;
 

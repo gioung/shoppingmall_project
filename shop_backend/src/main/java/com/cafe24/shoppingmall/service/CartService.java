@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.cafe24.shppingmall.repository.vo.CartVo;
+import com.cafe24.shoppingmall.repository.vo.CartVo;
 
 @Service
 public class CartService {

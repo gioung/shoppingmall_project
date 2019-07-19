@@ -5,12 +5,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cafe24.shppingmall.repository.vo.MemberVo;
+import com.cafe24.shoppingmall.repository.vo.MemberVo;
 
 @Repository
 public class UserDao {
-	/*@Autowired
-	private DataSource datasource;*/
 	@Autowired
 	private SqlSession sqlSession;
 	
@@ -45,6 +43,13 @@ public class UserDao {
 	public boolean deleteMember(String email) {
 		
 		return 1 == sqlSession.delete("member.deleteByEmail",email);
+	}
+
+
+
+	public boolean updateMember(MemberVo memberVo) {
+		
+		return 0 < sqlSession.update("member.updateMember", memberVo);
 	}
 	
 }

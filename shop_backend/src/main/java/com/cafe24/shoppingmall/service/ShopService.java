@@ -1,19 +1,27 @@
 package com.cafe24.shoppingmall.service;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cafe24.shppingmall.repository.vo.ProductVo;
+import com.cafe24.shoppingmall.repository.ShopDao;
+import com.cafe24.shoppingmall.repository.vo.ProductVo;
 
 @Service
 public class ShopService {
+	@Autowired
+	private ShopDao shopDao;
 	private List<ProductVo> list;
-	public boolean addProducts(List<ProductVo> vo) {
-		list = vo;
-		return list.size()>0;
+	
+	public boolean addProducts(List<ProductVo> list) {
+		Map<String, List<ProductVo>> map = new HashMap<>();
+		map.put("productList", list);
+		return shopDao.addProducts(map);
 	}
+	
 	// 특정 productNo를 가진 상품 조회
 	public boolean getProduct(long productNo) {
 		for(ProductVo vo:list) {
