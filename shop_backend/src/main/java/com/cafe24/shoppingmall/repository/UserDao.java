@@ -40,9 +40,9 @@ public class UserDao {
 
 
 
-	public boolean deleteMember(String email) {
+	public boolean deleteMember(MemberVo memberVo) {
 		
-		return 1 == sqlSession.delete("member.deleteByEmail",email);
+		return 1 == sqlSession.delete("member.deleteByEmail", memberVo);
 	}
 
 

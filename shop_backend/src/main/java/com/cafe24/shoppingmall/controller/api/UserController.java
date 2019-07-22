@@ -124,16 +124,16 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.success("회원정보 수정 실패")); 
 	  }
 	 
-	  //회원 탈퇴, redirect
+	  //회원 탈퇴
 	  @ApiOperation(value = "회원 탈퇴")
 	  @RequestMapping(value = "/out", method = RequestMethod.DELETE)
-	  public JSONResult userDelete(@RequestParam(value = "email", required = true, defaultValue = "") String email) {
+	  public JSONResult userDelete(@RequestBody MemberVo memberVo) {
 		//패스워드 인증은 되었다고 가정.
 		//유효성 체크
-		  boolean judge =  userService.deleteMember(email);
+		  boolean judge =  userService.deleteMember(memberVo);
 		//유효할시 성공
 		  if(judge == true)
-				return JSONResult.success(judge);
+				return JSONResult.success(memberVo);
 		  else
 				return JSONResult.fail("회원삭제 실패"); 
 		  

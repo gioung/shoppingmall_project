@@ -24,7 +24,7 @@
 	
 	<delete id="deleteByEmail" parameterType="membervo">
 	<![CDATA[
-	delete from member where email=#{email };
+	delete from member where email=#{email } and password=#{password };
 	]]>
 	</delete>
 	

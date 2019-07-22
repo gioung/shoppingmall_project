@@ -43,9 +43,9 @@ public class UserService {
 		return memberDao.updateMember(vo);
 	}
 
-	public boolean deleteMember(String email) {
+	public boolean deleteMember(MemberVo memberVo) {
 		 	
-		return memberDao.deleteMember(email);
+		return memberDao.deleteMember(memberVo);
 	}
 
 	

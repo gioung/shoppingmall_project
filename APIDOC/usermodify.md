@@ -87,18 +87,18 @@ Status = 400<br>
 
 **Request**
 
-HTTP Method = PUT
-      Request URI = /api/user/modification
-       Parameters = {}
-          Headers = [Content-Type:"application/json;charset=utf-8"]
+HTTP Method = PUT<br>
+      Request URI = /api/user/modification<br>
+       Parameters = {}<br>
+          Headers = [Content-Type:"application/json;charset=utf-8"]<br>
              Body = {"email":"gioung9833@gmail.com","name":"남기웅","password":"gioung1234!","birth":"1993-12-22","gender":"M","phone_num":"010-9958-9833"}
 
 **Response**       
 
-Status = 200
-    Error message = null
-          Headers = [Content-Type:"application/json;charset=UTF-8"]
-     Content type = application/json;charset=UTF-8
+Status = 200<br>
+    Error message = null<br>
+          Headers = [Content-Type:"application/json;charset=UTF-8"]<br>
+     Content type = application/json;charset=UTF-8<br>
              Body = {"result":"success","data":{"email":"gioung9833@gmail.com","name":"남기웅","password":"gioung1234!","birth":"1993-12-22","gender":"M","phone_num":"010-9958-9833"}}
 
 
@@ -135,18 +135,18 @@ Status = 200
 
 **Request**
 
- HTTP Method = POST
-      Request URI = /api/user/login
-       Parameters = {}
-          Headers = [Content-Type:"application/json;charset=utf-8"]
+ HTTP Method = POST<br>
+      Request URI = /api/user/login<br>
+       Parameters = {}<br>
+          Headers = [Content-Type:"application/json;charset=utf-8"]<br>
              Body = {"email":"gioung9833@gmail.com","password":"gioung1234!"}
 
 **Response**      
 
- Status = 200
-    Error message = null
-          Headers = [Content-Type:"application/json;charset=UTF-8"]
-     Content type = application/json;charset=UTF-8
+ Status = 200<br>
+    Error message = null<br>
+          Headers = [Content-Type:"application/json;charset=UTF-8"]<br>
+     Content type = application/json;charset=UTF-8<br>
              Body = {"result":"success","data":{"email":"gioung9833@gmail.com","password":"gioung1234!"}}
 
 
