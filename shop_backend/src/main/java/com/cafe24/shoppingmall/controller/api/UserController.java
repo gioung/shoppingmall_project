@@ -110,11 +110,16 @@ public class UserController {
 			})
 	  @RequestMapping(value = "/modification", method = RequestMethod.PUT) 
 	  public ResponseEntity<JSONResult> userModify(@RequestBody @Valid MemberVo memberVo, BindingResult result) { 
-	  //유효성 체크
+		  if (result.hasErrors()) {
+			  System.out.println(result.getFieldErrors());
+			  return new ResponseEntity<JSONResult>(JSONResult.fail("데이터 유효성에 어긋납니다."),HttpStatus.BAD_REQUEST);
+			}
+		  
+	//유효성 체크
 	  boolean judge =  userService.updateMember(memberVo);
 	  //유효할시 성공
 	  if(judge == true)
-			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(judge));
+			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(memberVo));
 		else
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.success("회원정보 수정 실패")); 
 	  }

@@ -21,6 +21,7 @@ public class MemberVo {
 	
 	private String tel_num;
 	@NotNull
+	@Pattern (regexp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$", message="핸드폰 번호 형식이 아닙니다.")
 	private String phone_num;
 	
 	public String getEmail() {

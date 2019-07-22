@@ -22,10 +22,17 @@
 	]]>
 	</select>
 	
-	<delete id="deleteByEmail" parameterType="string">
+	<delete id="deleteByEmail" parameterType="membervo">
 	<![CDATA[
 	delete from member where email=#{email };
 	]]>
 	</delete>
+	
+	<update id="updateMember" parameterType="membervo">
+		<![CDATA[
+		update member set password=#{password },name=#{name },phone_num=#{phone_num}
+		 where email = #{email };
+		]]>
+	</update>
 	
 </mapper>

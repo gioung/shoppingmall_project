@@ -3,6 +3,8 @@ package com.cafe24.shoppingmall.controller.api;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -21,7 +23,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cafe24.shoppingmall.enums.Gender;
@@ -56,7 +57,10 @@ public class UserControllerTest {
 		System.out.println("Test Start!!");
 	}
 	
-	
+	@AfterClass 
+		public static void endTest(){
+			System.out.println("Test End!");
+	}
 	
 	/* #1.회원가입 테스트  */
 	// case1. 성공 케이스
@@ -240,58 +244,103 @@ public class UserControllerTest {
 	  }
 	  
 	  
-	  @AfterClass 
-		public static void endTest(){
-			System.out.println("Test End!");
-		  }
+	 
 	  
-	  //#4.회원정보 수정 테스트
+	  //#3.회원정보 수정 테스트
+	 
+	// case1. 유효성 검사 실패
+	  @Test 
+	  public void TestC_1() throws Exception {
+		  System.out.println("회원정보 수정 테스트");
+		  MemberVo vo = new MemberVo(); 
+		  vo.setEmail("gioung9833@gmail.com");
+		  vo.setName("남기웅");
+		  vo.setPassword("1234"); //비밀번호 4자리로 변경시도
+		  vo.setBirth("1993-12-22"); 
+		  vo.setGender(Gender.M);
+		  vo.setPhone_num("123456"); //번호 형식 무시 
+		  
+		  ResultActions resultActions = mockMvc.perform(put(SHAREDURL+"/modification")
+		  .contentType(MediaType.APPLICATION_JSON)
+		  .content(new Gson().toJson(vo))
+		  .characterEncoding("utf-8"));	  
+		  
+		  //응답은 200, success, 메시지가 나와야됨.
+		  resultActions.andExpect(status().isBadRequest())
+		  .andExpect(jsonPath("$.result",is("fail")))
+		  .andDo(print()); }
 	  
-//	  @Test public void TestD() throws Exception {
-//	  System.out.println("회원정보 수정 테스트"); String email = "gioung9833@gmail.com";
-//	  String password = "9876";
-//	  
-//	  ResultActions resultActions = mockMvc.perform(put(SHAREDURL+"//info")
-//	  .contentType(MediaType.APPLICATION_JSON).param("email",
-//	  email).param("password", password));
-//	  resultActions.andExpect(status().isOk()).andExpect(jsonPath("$.result",
-//	  is("success"))).andDo(print()); }
-//	  
+	  // case2. 성공케이스
+	  @Test 
+	  public void TestC_2() throws Exception {
+		  MemberVo vo = new MemberVo(); 
+		  vo.setEmail("gioung9833@gmail.com");
+		  vo.setName("남기웅");
+		  vo.setPassword("gioung1234!"); // ######### 변경부분 ##########
+		  vo.setBirth("1993-12-22");
+		  vo.setGender(Gender.M);
+		  vo.setPhone_num("010-9958-9833");
+		  
+		  ResultActions resultActions = mockMvc.perform(put(SHAREDURL+"/modification")
+		  .contentType(MediaType.APPLICATION_JSON)
+		  .content(new Gson().toJson(vo))
+		  .characterEncoding("utf-8"));	  
+		  
+		  //응답은 200, success, 메시지가 나와야됨.
+		  resultActions.andExpect(status().isOk())
+		  .andExpect(jsonPath("$.result",is("success")))
+		  .andDo(print()); 
+	}
+	 
+	  // case3. 정보수정후 로그인 테스트
+	  @Test 
+	  public void TestC_3() throws Exception {
+		  System.out.println("수정 후 로그인 테스트"); 
+		  MemberVo membervo = new MemberVo();
+		  membervo.setEmail("gioung9833@gmail.com");
+		  membervo.setPassword("gioung1234!");
+		  
+		  ResultActions resultActions =
+		  mockMvc.perform(post(SHAREDURL+"/login").contentType(MediaType.APPLICATION_JSON) 
+		  .content(new Gson().toJson(membervo))
+		  .characterEncoding("utf-8"));
+		  resultActions.andExpect(status().isOk())
+		  .andExpect(jsonPath("$.result",is("success")))
+		  .andDo(print()); 
+	  }
 	  
-//	  
-//	  //#5.정보수정 후 로그인 테스트
-//	  
-//	  @Test public void TestE() throws Exception {
-//	  System.out.println("수정 후 로그인 테스트"); String email = "gioung9833@gmail.com";
-//	  String password = "9876";
-//	  
-//	  ResultActions resultActions =
-//	  mockMvc.perform(post(SHAREDURL+"/login").contentType(MediaType.
-//	  APPLICATION_JSON) .param("email", email).param("password", password));
-//	  resultActions.andExpect(status().isOk()).andExpect(jsonPath("$.result",
-//	  is("success"))).andDo(print()); }
-//	  
-//	  //#6.회원 탈퇴 테스트
-//	  
-//	  @Test public void TestF() throws Exception { System.out.println("회원 탈퇴 테스트");
+	  //#5.회원 탈퇴
+	  
+//	  @Test public void TestD() throws Exception { 
+//	  System.out.println("회원 탈퇴 테스트");
+//	  MemberVo memberVo = new MemberVo();
 //	  String email = "gioung9833@gmail.com";
+//	  String password= "gioung1234!";
+//	  memberVo.setEmail(email);
+//	  memberVo.setPassword(password);
 //	  
 //	  ResultActions resultActions =
-//	  mockMvc.perform(delete(SHAREDURL+"/out").contentType(MediaType.
-//	  APPLICATION_JSON) .param("email", email));
-//	  resultActions.andExpect(status().isOk()) .andExpect(jsonPath("$.result",
-//	  is("success"))) .andDo(print()); }
+//	  mockMvc.perform(delete(SHAREDURL+"/out")
+//	  .contentType(MediaType.APPLICATION_JSON)
+//	  .content(new Gson().toJson(memberVo)));
+//	  resultActions.andExpect(status().isOk())
+//	  .andExpect(jsonPath("$.result",is("success"))) 
+//	  .andDo(print()); 
+//	  }
+////	  
+//	  //#6.회원 탈퇴 후 이메일 체크
 //	  
-//	  //#7.회원 탈퇴 후 이메일 체크
-//	  
-//	  @Test public void TestG() throws Exception {
-//	  System.out.println("탈퇴 후 이메일 체크 테스트"); String email = "gioung9833@gmail.com";
+//	  @Test public void TestD() throws Exception {
+//	  System.out.println("탈퇴 후 이메일 체크 테스트"); 
+//	  //탈퇴한 아이디
+//	  String email = "gioung9833@gmail.com";
 //	  ResultActions resultActions =
 //	  mockMvc.perform(get(SHAREDURL+"/checkemail").param("email",
 //	  email).contentType(MediaType.APPLICATION_JSON));
-//	  resultActions.andExpect(status().isOk()).andDo(print()).andExpect(jsonPath(
-//	  "$.result", is("success"))); //ska2253@naver.com 은 DB에 있는 데이터라 가정.
+//	  resultActions.andExpect(status().isOk())
+//	  .andDo(print())
+//	  .andExpect(jsonPath("$.result", is("success"))); //탈퇴했으므로 success
 //	  
 //	  }
-//	 
+	 
 }
