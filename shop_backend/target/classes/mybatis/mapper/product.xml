@@ -3,35 +3,28 @@
 
 <mapper namespace="product">
 
-	<insert id="addproducts" parameterType="java.util.Map">
+	<insert id="addproduct" parameterType="productvo">
 	<![CDATA[
 	insert into product(name, price, image, summary_desc, detail_desc, manufacturing_date, display,
-	material, provider, manufacturer, origin) values
+	material, provider, manufacturer, origin) values(#{name }, #{price },#{image },#{summary_desc },#{detail_desc }, now()
+	,#{display }, #{material },#{provider }, #{manufacturer },#{origin });
 	]]>
-	<foreach collection="productList" item="item" separator=" , ">
+	<selectKey keyProperty="product_no" resultType="long" order="AFTER">
 	<![CDATA[
-            (#{item.name}, #{item.price},'imageurl', '요약설명', 
-			'상세설명', '2019-07-15', true, '원재료', '제공업체', '제조업체', '원산지')
-    ]]>
-        </foreach>
+	select last_insert_id()
+	]]>
+	
+	</selectKey>
 	</insert>
 	
-	<select id="selectByEmail" parameterType="string" resultType="membervo">
+	<insert id="addProductDetail" parameterType="productdetailvo">
 	<![CDATA[
-	select * from member where email=#{email };
+		insert into pd_detail(pd_detail_no,product_no,option,inventory) values(#{pd_detail_no },#{product_no },#{option},#{ inventory});
 	]]>
-	</select>
+	</insert>
 	
-	<select id="selectByEmailandPassword" parameterType="membervo" resultType="membervo">
-	<![CDATA[
-	select * from member where email=#{email } and password=#{password };
-	]]>
+	<select id="maxProductDetailNo" parameterType="productvo" resultType="long">
+		select max(pd_detail_no) from pd_detail where product_no=#{product_no }; 
 	</select>
-	
-	<delete id="deleteByEmail" parameterType="string">
-	<![CDATA[
-	delete from member where email=#{email };
-	]]>
-	</delete>
 	
 </mapper>

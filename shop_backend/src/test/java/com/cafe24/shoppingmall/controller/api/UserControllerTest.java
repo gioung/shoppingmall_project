@@ -27,7 +27,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.cafe24.shoppingmall.enums.Gender;
 import com.cafe24.shoppingmall.repository.vo.MemberVo;
-import com.cafe24.shoppingmall.service.UserService;
 import com.google.gson.Gson;
 
 
@@ -43,8 +42,6 @@ public class UserControllerTest {
 	private static final String SHAREDURL = "/api/user";
 	@Autowired
 	private WebApplicationContext webApplicationContext;
-	@Autowired
-	private UserService userService;
 	 // @Autowired private LocalValidatorFactoryBean validator;
 	@Before
 	public void setup() {
@@ -55,11 +52,27 @@ public class UserControllerTest {
 	@BeforeClass
 	public static void startTest() {
 		System.out.println("Test Start!!");
+		
+		
 	}
 	
 	@AfterClass 
 		public static void endTest(){
 			System.out.println("Test End!");
+	}
+	//ska2253@naver.com insert
+	@Test
+	public void TestA_0() throws Exception{
+		 MemberVo vo = new MemberVo(); 
+		  vo.setEmail("ska2253@naver.com");
+		  vo.setName("남기웅");
+		  vo.setPassword("gioung1234!");
+		  vo.setBirth("1993-12-22");
+		  vo.setGender(Gender.M);
+		  vo.setPhone_num("010-9958-9833");
+		  
+		  mockMvc.perform(post(SHAREDURL+"/signup").contentType(MediaType.APPLICATION_JSON)
+					 .content(new Gson().toJson(vo)).characterEncoding("utf-8")); 
 	}
 	
 	/* #1.회원가입 테스트  */
@@ -92,7 +105,6 @@ public class UserControllerTest {
 		  vo.setBirth("1993-12-22");
 		  vo.setGender(Gender.M);
 		  vo.setPhone_num("010-9958-9833");
-		  System.out.println(vo);
 		  
 		  ResultActions resultActions =
 		  mockMvc.perform(post(SHAREDURL+"/signup").contentType(MediaType.APPLICATION_JSON)
@@ -355,11 +367,24 @@ public class UserControllerTest {
 	  .contentType(MediaType.APPLICATION_JSON)
 	  .characterEncoding("utf-8"));
 	  
+	  //ok인지 확인
 	  resultActions.andExpect(status().isOk())
-	  .andDo(print())
-	  //탈퇴했으므로 success
-	  .andExpect(jsonPath("$.result", is("success"))); 
+	  .andDo(print()); 
 	  
 	  }
 	 
+	  //ska2253@naver.com 삭제
+	  @Test 
+	  public void TestZ() throws Exception{
+		  MemberVo memberVo = new MemberVo();
+		  String email = "ska2253@naver.com";
+		  String password= "gioung1234!";
+		  memberVo.setEmail(email);
+		  memberVo.setPassword(password);
+		  
+		  mockMvc.perform(delete(SHAREDURL+"/out")
+		  .contentType(MediaType.APPLICATION_JSON)
+		  .content(new Gson().toJson(memberVo))
+		  .characterEncoding("utf-8"));
+	  }
 }

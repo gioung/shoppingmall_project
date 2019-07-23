@@ -2,18 +2,35 @@ package com.cafe24.shoppingmall.repository.vo;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
+
 public class ProductVo {
+	//상품 번호
 	private long product_no;
+	//이름
+	@NotNull
 	private String name;
+	//가격
+	@NotNull
 	private long price;
+	//이미지
 	private String image;
+	//요약설명
+	@NotNull
+	@Length(min = 1, max = 255) //요약설명은 최대 1자이상, 255자 이하
 	private String summary_desc;
+	//상세설명
+	@NotNull
 	private String detail_desc;
-	private String manufacturing_date;
+	@NotNull
 	private boolean display;
+	@NotNull
 	private String material;
+	@NotNull
 	private String provider;
+	@NotNull
 	private String manufacturer;
+	@NotNull
 	private String origin;
 	
 	public ProductVo() {
@@ -25,6 +42,22 @@ public class ProductVo {
 		this.price = price;
 	}
 	
+	
+	public ProductVo(@NotNull String name, @NotNull long price, String image,
+			@NotNull String summary_desc, @NotNull String detail_desc, @NotNull boolean display,
+			@NotNull String material, @NotNull String provider, @NotNull String manufacturer, @NotNull String origin) {
+		this.name = name;
+		this.price = price;
+		this.image = image;
+		this.summary_desc = summary_desc;
+		this.detail_desc = detail_desc;
+		this.display = display;
+		this.material = material;
+		this.provider = provider;
+		this.manufacturer = manufacturer;
+		this.origin = origin;
+	}
+
 	public long getProduct_no() {
 		return product_no;
 	}
@@ -61,12 +94,6 @@ public class ProductVo {
 	public void setDetail_desc(String detail_desc) {
 		this.detail_desc = detail_desc;
 	}
-	public String getManufacturing_date() {
-		return manufacturing_date;
-	}
-	public void setManufacturing_date(String manufacturing_date) {
-		this.manufacturing_date = manufacturing_date;
-	}
 	public boolean isDisplay() {
 		return display;
 	}
@@ -97,13 +124,15 @@ public class ProductVo {
 	public void setOrigin(String origin) {
 		this.origin = origin;
 	}
+
 	@Override
 	public String toString() {
 		return "ProductVo [product_no=" + product_no + ", name=" + name + ", price=" + price + ", image=" + image
-				+ ", summary_desc=" + summary_desc + ", detail_desc=" + detail_desc + ", manufacturing_date="
-				+ manufacturing_date + ", display=" + display + ", material=" + material + ", provider=" + provider
-				+ ", manufacturer=" + manufacturer + ", origin=" + origin + "]";
+				+ ", summary_desc=" + summary_desc + ", detail_desc=" + detail_desc + ", display=" + display
+				+ ", material=" + material + ", provider=" + provider + ", manufacturer=" + manufacturer + ", origin="
+				+ origin + "]";
 	}
+	
 	
 	
 }

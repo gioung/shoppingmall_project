@@ -1,13 +1,13 @@
 package com.cafe24.shoppingmall.service;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cafe24.shoppingmall.repository.ShopDao;
+import com.cafe24.shoppingmall.repository.vo.ProductDetailVo;
 import com.cafe24.shoppingmall.repository.vo.ProductVo;
 
 @Service
@@ -16,19 +16,22 @@ public class ShopService {
 	private ShopDao shopDao;
 	private List<ProductVo> list;
 	
-	public boolean addProducts(List<ProductVo> list) {
-		Map<String, List<ProductVo>> map = new HashMap<>();
-		map.put("productList", list);
-		return shopDao.addProducts(map);
-	}
 	
-	// 특정 productNo를 가진 상품 조회
-	public boolean getProduct(long productNo) {
-		for(ProductVo vo:list) {
-			if(vo.getProduct_no() == productNo)
-				return true;
-		}
-		return false;
+	public boolean addProduct(ProductVo productVo, ProductDetailVo productDetailVo, List<String> list) {
+	
+	//상품 등록
+	long product_no = shopDao.addProduct(productVo);
+	//###상품 상세 등록###
+	//등록된 상품 번호로 product_no 설정
+	productDetailVo.setProduct_no(product_no);
+	
+	for(int i=0; i<list.size(); i++) {
+		productDetailVo.setOption(list.get(i));
+		productDetailVo.setProduct_no(i+1);
+		shopDao.addProductDetail(productDetailVo);
+	}
+	//옵션설정
+	return product_no > 0;
 		
 	}
 	public long getProductPrice(long productNo, long quantity) {
@@ -42,5 +45,11 @@ public class ShopService {
 		return price*quantity;
 		
 	}
+	public boolean getProduct(long productNo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	
 
 }

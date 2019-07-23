@@ -19,4 +19,4 @@
 
 [회원정보수정](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/usermodify.md)
 
-[회원탈퇴]()
+[회원탈퇴](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/userout.md)

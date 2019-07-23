@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="option">
+
+	<select id="isExistThisOption" parameterType="optionvo" resultType="long">
+	<![CDATA[
+		select opt_no from option where opt_name = #{opt_name }
+	]]>
+	</select>
+	
+	<insert id="addOption" parameterType="optionvo">
+	<![CDATA[
+		insert into option(opt_name) values(#{opt_name });
+	]]>
+	</insert>
+	
+<!-- 	<select id="maxOptionProNoInOptionNo" parameterType="optionvo" resultType="long">
+	<![CDATA[
+		select max(opt_pro_no) from opt_detail where opt_no=#{opt_no }; 
+	]]>
+	</select>
+	
+	<insert id="addOptionDetail" parameterType="optionvo">
+	<![CDATA[ 
+		insert into opt_detail(opt_no,opt_pro_no,opt_val) 
+		values(#{opt_no },#{opt_pro_no },#{opt_val })
+	]]>
+	</insert> -->
+</mapper>
