@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -218,14 +219,21 @@ public class AdminShopControllerTest {
 			
 		}
 		
+		//#6 상품삭제
+		//case1. 성공 케이스
 		@Test
-		public void testZ() throws Exception{
-			System.out.println("상품 및 상품디테일 삭제");
+		public void testF() throws Exception{
+			long no = 1L;
 			
-			shopService.deleteProductDetail();
-			shopService.deleteProduct();
+			ResultActions resultActions = mockMvc.perform(delete(SHOPADMINURL+"/list/{no}",no)
+					.characterEncoding("utf-8"));
+			
+			resultActions
+			.andDo(print())
+			.andExpect(status().isOk());
 			
 		}
+		
 		
 		@AfterClass
 		public static void endTest() {

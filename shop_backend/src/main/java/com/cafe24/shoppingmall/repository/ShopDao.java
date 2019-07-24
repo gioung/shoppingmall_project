@@ -109,8 +109,17 @@ public class ShopDao {
 		
 	}
 	
-	//특정 상품상세 조회
+	/*  DELETE  */
 	
+	//해당 상품삭제 전 옵션 삭제
+	public boolean deleteProductDetailInProduct(long product_no) {
+		return 0<sqlSession.delete("product.deleteProductDetailInProduct",product_no);
+	}
+	
+	//해당 상품 삭제
+	public boolean deleteProduct(long product_no) {
+		return 1 == sqlSession.delete("product.deleteProduct",product_no);
+	}
 
 	
 	

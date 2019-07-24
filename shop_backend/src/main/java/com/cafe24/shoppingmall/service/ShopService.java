@@ -74,10 +74,14 @@ public class ShopService {
 			
 	}	
 		
-	public boolean deleteProduct() {
-		return shopDao.deleteProduct();
+	public boolean deleteProduct(long product_no) {
+		if(shopDao.deleteProductDetailInProduct(product_no))
+			return shopDao.deleteProduct(product_no);
 		
+		return false;
 	}
+	
+	
 	
 	//########### UPDATE ############	
 	//관리자 상품 수정
@@ -92,6 +96,8 @@ public class ShopService {
 		System.out.println();
 		return num==0;
 	}
+	
+	
 	
 	
 	

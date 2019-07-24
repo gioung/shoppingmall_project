@@ -127,4 +127,18 @@ public class AdminShopController {
 		}
 	}
 	
+	@ApiOperation(value = "관리자 해당 상품 삭제")
+	@RequestMapping(value = "/list/{no}", method = RequestMethod.DELETE)
+	public ResponseEntity<JSONResult> deleteProduct(@PathVariable("no") Long no) {
+		
+		boolean judge = shopService.deleteProduct(no);
+		
+		if(judge) {
+			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(true));
+		}
+		else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("상품 삭제 실패"));
+		}
+	}
+	
 }

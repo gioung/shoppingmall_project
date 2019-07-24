@@ -1,18 +1,19 @@
 ## 작업계획 (테이블)
 
-| api 목록              | 메소드 | URL                       | 예상일정 | 예상소요시간 | 개발일정   | 개발시간      |
-| --------------------- | ------ | ------------------------- | -------- | ------------ | ---------- | ------------- |
-| 회원가입              | POST   | /api/user/signup          | 7.17     | 1h           | 7.17       | 1h            |
-| 이메일체크            | GET    | /api/user/checkemail      | 7.17     | 30분         | 7.17       | 30분          |
-| 로그인                | POST   | /api/user/login           | 7.17     | 1h           | 7.17~ 7.18 | 30분          |
-| 회원정보수정          | PUT    | /api/user/modification    | 7.18     | 50분         | 7.19       | 45분          |
-| 회원탈퇴              | DELETE | /api/user/out             | 7.18     | 50분         | 7.19       | 30분          |
-| 옵션목록생성          | POST   | /api/option/list          | 7.19     | 50분         | 7.23       | 2h(밑에 이유) |
-| 관리자 상품등록       | POST   | /api/admin/shop/list      | 7.19     | 50분         | 7.23       | 2h(밑에 이유) |
-| 관리자 상품목록조회   | GET    | /api/admin/shop/list      | 7.20     | 30분         | 7.24       | 20분          |
-| 관리자 특정 상품조회  | GET    | /api/admin/shop/list/{no} | 7.20     | 40분         | 7.24       | 20분          |
-| 관리자 특정 상품수정  | PUT    | /api/admin/shop/list/{no} | 7.20     | 30분         | 7.24       | 1h(밑에이유)  |
-| 관리자 특정 상품 삭제 | DELETE | /api/admin/shop/list/{no} | 7.20     | 30분         |            |               |
+| api 목록                    | 메소드 | URL                              | 예상일정 | 예상소요시간 | 개발일정   | 개발시간      |
+| --------------------------- | ------ | -------------------------------- | -------- | ------------ | ---------- | ------------- |
+| 회원가입                    | POST   | /api/user/signup                 | 7.17     | 1h           | 7.17       | 1h            |
+| 이메일체크                  | GET    | /api/user/checkemail             | 7.17     | 30분         | 7.17       | 30분          |
+| 로그인                      | POST   | /api/user/login                  | 7.17     | 1h           | 7.17~ 7.18 | 30분          |
+| 회원정보수정                | PUT    | /api/user/modification           | 7.18     | 50분         | 7.19       | 45분          |
+| 회원탈퇴                    | DELETE | /api/user/out                    | 7.18     | 50분         | 7.19       | 30분          |
+| 옵션목록생성                | POST   | /api/option/list                 | 7.19     | 50분         | 7.23       | 2h(밑에 이유) |
+| 관리자 상품등록             | POST   | /api/admin/shop/list             | 7.19     | 50분         | 7.23       | 2h(밑에 이유) |
+| 관리자 상품목록조회         | GET    | /api/admin/shop/list             | 7.20     | 30분         | 7.24       | 20분          |
+| 관리자 특정 상품조회        | GET    | /api/admin/shop/list/{no}        | 7.20     | 40분         | 7.24       | 20분          |
+| 관리자 특정 상품수정        | PUT    | /api/admin/shop/list/{no}        | 7.20     | 30분         | 7.24       | 1h(밑에이유)  |
+| 관리자 특정 상품 삭제       | DELETE | /api/admin/shop/list/{no}        | 7.20     | 30분         | 7.24       | 15분          |
+| 관리자 특정 상품 옵션  삭제 | DELETE | /api/admin/shop/list/{no}/{d_no} | 7.21     | 30분         |            |               |
 
 
 
@@ -39,4 +40,6 @@
 
 [관리자 특정 상품조회](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/AdminSelectSpecificProductList.md)
 
-[관리자 특정 상품수정]()
+[관리자 특정 상품수정](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/AdminUpdateProduct.md)
+
+[관리자 특정 상품 삭제]()

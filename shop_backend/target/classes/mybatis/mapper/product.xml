@@ -71,11 +71,25 @@
 	]]>
 	</update>
 	
+	<!-- ############### UPDATE ################# -->
+	
+	<!-- 해당 상품 삭제 전 옵션삭제 -->
+	<delete id="deleteProductDetailInProduct" parameterType="long">
+	<![CDATA[
+		delete from pd_detail where product_no=#{product_no };
+	]]>	
+	</delete>
+	
+	<!-- 해당 상품 삭제 -->
+	<delete id="deleteProduct" parameterType="long">
+	<![CDATA[
+		delete from product where product_no=#{product_no };
+	]]>	
+	</delete>
+	
 	<delete id="deleteProductDetail">
 		delete from pd_detail where pd_detail_no>=0;
 	</delete>
 	
-	<delete id="deleteProduct">
-		delete from product where product_no>=1;
-	</delete>
+	
 </mapper>
