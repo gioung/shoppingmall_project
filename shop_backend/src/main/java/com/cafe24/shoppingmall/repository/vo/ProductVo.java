@@ -8,29 +8,29 @@ public class ProductVo {
 	//상품 번호
 	private long product_no;
 	//이름
-	@NotNull
+	@NotNull(message = "반드시 값이 있어야 합니다.")
 	private String name;
 	//가격
-	@NotNull
+	@NotNull(message = "반드시 값이 있어야 합니다.")
 	private long price;
 	//이미지
 	private String image;
 	//요약설명
-	@NotNull
-	@Length(min = 1, max = 255) //요약설명은 최대 1자이상, 255자 이하
+	@NotNull(message = "반드시 값이 있어야 합니다.")
+	@Length(min = 1, max = 255, message = "요약설명은 최대 1자이상, 255자 이하") //요약설명은 최대 1자이상, 255자 이하
 	private String summary_desc;
 	//상세설명
-	@NotNull
+	@NotNull(message = "반드시 값이 있어야 합니다.")
 	private String detail_desc;
-	@NotNull
+	@NotNull(message = "반드시 값이 있어야 합니다.")
 	private boolean display;
-	@NotNull
+	@NotNull(message = "반드시 값이 있어야 합니다.")
 	private String material;
-	@NotNull
+	@NotNull(message = "반드시 값이 있어야 합니다.")
 	private String provider;
-	@NotNull
+	@NotNull(message = "반드시 값이 있어야 합니다.")
 	private String manufacturer;
-	@NotNull
+	@NotNull(message = "반드시 값이 있어야 합니다.")
 	private String origin;
 	
 	public ProductVo() {

@@ -4,10 +4,18 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
+import javax.validation.Validation;
+import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
+import com.cafe24.shoppingmall.repository.vo.MemberVo;
 import com.cafe24.shoppingmall.repository.vo.ProductDetailVo;
 import com.cafe24.shoppingmall.repository.vo.ProductVo;
 import com.cafe24.shoppingmall.service.ShopService;
@@ -33,8 +42,10 @@ public class AdminShopController {
 	// 상품 등록
 	@ApiOperation(value = "관리자 상품 등록")
 	@RequestMapping(value = "/list", method = RequestMethod.POST) 
-	public ResponseEntity<JSONResult> addProducts(@RequestBody Map<String,Object> map) {
+	public ResponseEntity<JSONResult> addProducts(@RequestBody Map<String,Object> map, BindingResult bindingResult) {
 			
+			
+		
 			Gson gson = new GsonBuilder().create();
 			Type listType = new TypeToken<ArrayList<ProductDetailVo>>(){}.getType();
 			
@@ -77,6 +88,42 @@ public class AdminShopController {
 		}
 		else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("없는 상품입니다."));
+		}
+	}
+	
+	@ApiOperation(value = "관리자 상품 수정")
+	@RequestMapping(value = "/list/{no}", method = RequestMethod.PUT)
+	public ResponseEntity<JSONResult> updateProduct(@PathVariable("no") Long no,
+			@RequestBody Map<String,Object> map) {
+		
+		System.out.println("map = " + map);
+		
+		Gson gson = new GsonBuilder().create();
+		Type listType = new TypeToken<ArrayList<ProductDetailVo>>(){}.getType();
+		
+		ProductVo productVo = gson.fromJson(String.valueOf(map.get("product")), ProductVo.class);
+		List<ProductDetailVo> productDetailVoList = gson.fromJson(String.valueOf(map.get("productDetailList")), listType);
+		
+		Validator validator = 
+				Validation.buildDefaultValidatorFactory().getValidator();
+		Set<ConstraintViolation<ProductVo>> validatorResults = validator.validate(productVo);
+		if(!validatorResults.isEmpty())
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail(validatorResults.toString()));
+		
+		Set<ConstraintViolation<ProductDetailVo>> validatorResults2;
+		for(ProductDetailVo pdv:productDetailVoList) {
+			validatorResults2 = validator.validate(pdv);
+			if(!validatorResults2.isEmpty())
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail(validatorResults2.toString()));
+		}
+		
+		boolean judge = shopService.updateProduct(productVo, productDetailVoList);
+		
+		if(judge) {
+			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(map));
+		}
+		else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("상품 수정 실패"));
 		}
 	}
 	

@@ -3,6 +3,7 @@ package com.cafe24.shoppingmall.controller.api;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -140,6 +141,7 @@ public class AdminShopControllerTest {
 		}
 		
 		//#4. 관리자 상품 조회
+		// case1. 성공케이스 
 		@Test
 		public void testD() throws Exception{
 			System.out.println("관리자 상품 조회 테스트");
@@ -150,6 +152,70 @@ public class AdminShopControllerTest {
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.result", is("success")))
 			.andDo(print());
+		}
+		
+		//#5 관리사 상품 수정
+		//case1. 성공케이스
+		@Test
+		public void testE_1() throws Exception{
+			System.out.println("관리자 상품 수정 테스트");
+			long no = 1L;
+			ProductVo productVo = new ProductVo(no,"청바지", 50000L, "imageURL", "요약설명", "상세설명", true, "원자재", "공급사", "제조사", "원산지");
+			long[] inventorys = {100L, 90L, 95L, 77L};
+			String[] options = {"검정95", "회색105", "빨강110", "초록100"};
+			List<ProductDetailVo> productDetailVoList = new ArrayList<>();
+			
+			
+			for(int i=0; i<inventorys.length; i++) {
+				optionValList.set(i, options[i]);
+				productDetailVoList.add(new ProductDetailVo(i+1, no, optionValList.get(i), inventorys[i]));
+			}
+			Map<String, Object> map = new HashMap<>();
+			map.put("product", productVo);
+			map.put("productDetailList", productDetailVoList);
+			
+			System.out.println("requestJSON = " + new Gson().toJson(map));
+			ResultActions resultActions = mockMvc.perform(put(SHOPADMINURL+"/list/{no}",no)
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(new Gson().toJson(map))
+					.characterEncoding("utf-8"));
+			
+			resultActions
+			.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.result", is("success")));
+			
+		}
+		//case2. 필수값을 넣지 않았을경우
+		//name = null 로 수정
+		@Test
+		public void testE_2() throws Exception{
+			long no = 1L;
+			ProductVo productVo = new ProductVo(no,null, 50000L, "imageURL", "요약설명", "상세설명", true, "원자재", "공급사", "제조사", "원산지");
+			long[] inventorys = {100L, 90L, 95L, 77L};
+			String[] options = {"검정95", "회색105", "빨강110", "초록100"};
+			List<ProductDetailVo> productDetailVoList = new ArrayList<>();
+			
+			
+			for(int i=0; i<inventorys.length; i++) {
+				optionValList.set(i, options[i]);
+				productDetailVoList.add(new ProductDetailVo(i+1, no, optionValList.get(i), inventorys[i]));
+			}
+			Map<String, Object> map = new HashMap<>();
+			map.put("product", productVo);
+			map.put("productDetailList", productDetailVoList);
+			
+			
+			ResultActions resultActions = mockMvc.perform(put(SHOPADMINURL+"/list/{no}",no)
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(new Gson().toJson(map))
+					.characterEncoding("utf-8"));
+			
+			resultActions
+			.andDo(print())
+			.andExpect(status().isBadRequest())
+			.andExpect(jsonPath("$.result", is("fail")));
+			
 		}
 		
 		@Test

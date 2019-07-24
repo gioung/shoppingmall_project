@@ -11,7 +11,7 @@
 | 관리자 상품등록       | POST   | /api/admin/shop/list      | 7.19     | 50분         | 7.23       | 2h(밑에 이유) |
 | 관리자 상품목록조회   | GET    | /api/admin/shop/list      | 7.20     | 30분         | 7.24       | 20분          |
 | 관리자 특정 상품조회  | GET    | /api/admin/shop/list/{no} | 7.20     | 40분         | 7.24       | 20분          |
-| 관리자 특정 상품수정  | PUT    | /api/admin/shop/list/{no} | 7.20     | 30분         |            |               |
+| 관리자 특정 상품수정  | PUT    | /api/admin/shop/list/{no} | 7.20     | 30분         | 7.24       | 1h(밑에이유)  |
 | 관리자 특정 상품 삭제 | DELETE | /api/admin/shop/list/{no} | 7.20     | 30분         |            |               |
 
 
@@ -21,6 +21,7 @@
  	1. 옵션목록생성 : DB설계를 이렇게 하면되지 않을까? 하고 설계를 한 후 바로 구현에 들어가다보니 문제가 생겼습니다.<br>지금의 DB구조로는 안될것 같아서 다시 DB를 수정후 구현, 이를 반복하였습니다. <br> 이런 과정을 반복하다보니 DB설계를 신중히 해야된다는 것을 느꼈고 구현을 할때도 가장 간단한 모델이 무엇인지 고민하는 습관을 길렀습니다.
 
 2. 상품등록 : 이론상으로는 문제가 없었지만 구현을 함에 있어서 사소한 부분 (mybatis 문법오류) 에서 애를먹어서 늦어지게 되었습니다. <br>처음에는 각종 blog를 참고하다가 틀린정보가 많아 공식문서를 참조하여 해결하였습니다.
+3. 관리자 특정 상품수정: 기존의 사용하던 유효성 검사방법은 하나의 vo객체를 request message에 실어서 보낼때 @Valid를 이용하여 검사하는 방법이였습니다.<br> 하지만, 두 개 이상의 vo객체를 request message에 담아보낼때는 Map을 이용하는 방법으로 보냈습니다.<br> 따라서, 기존의 @Valid 방법이 먹히지 않아 새로운 유효성 검사 방법인 Validator객체를 이용하는 방법을 찾아 적용하는데 시간이 걸렸습니다.
 
 ### 링크
 
@@ -34,6 +35,8 @@
 
 [옵션목록 생성 및 상품등록](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/CreateProduct.md)
 
-[관리자 상품목록조회]()
+[관리자 상품목록조회](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/AdminSelectProductList.md)
 
-[관리자 특정 상품조회]()
+[관리자 특정 상품조회](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/AdminSelectSpecificProductList.md)
+
+[관리자 특정 상품수정]()

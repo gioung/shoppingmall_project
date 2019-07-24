@@ -24,6 +24,8 @@
 	]]>
 	</insert>
 	
+	<!-- ############ SELECT ############ -->
+	
 	<select id="maxProductDetailNo" parameterType="productvo" resultType="long">
 		select max(pd_detail_no) from pd_detail where product_no=#{product_no }; 
 	</select>
@@ -39,13 +41,36 @@
 	
 	<!-- 특정 상품 조회 -->
 	<select id="getSpecificProduct" parameterType="long" resultType="productvo">
+	<![CDATA[
 		select * from product where product_no=#{product_no };
+	]]>
 	</select>
 	
 	<!-- 특정 상품 상세 조회 -->
 	<select id="getSpecificProductDetail" parameterType="long" resultType="productdetailvo">
+	<![CDATA[
 		select * from pd_detail where product_no=#{product_no };
+	]]>
 	</select>
+	
+	<!-- ############### UPDATE ################# -->
+	<!-- 상품 수정 -->
+	<update id="updateProduct" parameterType="productvo">
+	<![CDATA[
+		update product set name=#{name },price=#{price } ,image=#{image } ,summary_desc=#{summary_desc } ,detail_desc=#{detail_desc } 
+		,manufacturing_date=now() ,display=#{display } ,material=#{material } ,provider=#{provider } 
+		,manufacturer=#{manufacturer } ,origin=#{origin }
+        where product_no=#{product_no };
+	]]>
+	</update>
+	
+	<!-- 상품 상세 수정 -->
+	<update id="updateProductDetail" parameterType="productdetailvo">
+	<![CDATA[
+		update pd_detail set option=#{option },inventory=#{inventory } where product_no=#{product_no } and pd_detail_no=#{pd_detail_no };
+	]]>
+	</update>
+	
 	<delete id="deleteProductDetail">
 		delete from pd_detail where pd_detail_no>=0;
 	</delete>

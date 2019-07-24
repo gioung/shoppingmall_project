@@ -95,6 +95,19 @@ public class ShopDao {
 	public List<ProductDetailVo> getSpecificProductDetail(long productNo) {
 		return sqlSession.selectList("product.getSpecificProductDetail", productNo);
 	}
+
+	/*  UPDATE  */
+	//특정 상품 수정
+	public boolean updateProduct(ProductVo productVo) {
+		return 1==sqlSession.update("product.updateProduct", productVo);
+		
+	}
+
+	//특정 상품상세 수정
+	public boolean updateProductDetail(ProductDetailVo pdv) {
+		return 1==sqlSession.update("product.updateProductDetail",pdv);
+		
+	}
 	
 	//특정 상품상세 조회
 	

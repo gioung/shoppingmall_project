@@ -79,6 +79,20 @@ public class ShopService {
 		
 	}
 	
+	//########### UPDATE ############	
+	//관리자 상품 수정
+	public boolean updateProduct(ProductVo productVo, List<ProductDetailVo> productDetailVoList) {
+		System.out.println("Service 실행");
+		int num = productDetailVoList.size();
+		if(shopDao.updateProduct(productVo)) {
+			for(ProductDetailVo pdv:productDetailVoList)
+				if(shopDao.updateProductDetail(pdv))
+					num--;
+		}
+		System.out.println();
+		return num==0;
+	}
+	
 	
 	
 	

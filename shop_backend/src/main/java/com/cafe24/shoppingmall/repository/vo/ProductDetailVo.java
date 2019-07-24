@@ -1,11 +1,13 @@
 package com.cafe24.shoppingmall.repository.vo;
 
-import java.util.List;
+import javax.validation.constraints.NotNull;
 
 public class ProductDetailVo {
 	private long pd_detail_no;
 	private long product_no;
+	@NotNull(message = "반드시 값이 있어야 합니다.")
 	private String option;
+	@NotNull(message = "반드시 값이 있어야 합니다.")
 	private long inventory;
 	
 	public ProductDetailVo() {
@@ -17,6 +19,15 @@ public class ProductDetailVo {
 		this.inventory = inventory;
 	}
 	
+	
+	
+	public ProductDetailVo(long pd_detail_no, long product_no, @NotNull String option, @NotNull long inventory) {
+		this.pd_detail_no = pd_detail_no;
+		this.product_no = product_no;
+		this.option = option;
+		this.inventory = inventory;
+	}
+
 	public long getPd_detail_no() {
 		return pd_detail_no;
 	}
