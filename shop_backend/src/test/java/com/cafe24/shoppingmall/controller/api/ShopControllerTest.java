@@ -1,6 +1,7 @@
 package com.cafe24.shoppingmall.controller.api;
 
 import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -11,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.assertj.core.util.Arrays;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -47,7 +47,7 @@ public class ShopControllerTest {
 	ShopService shopService;
 	
 	@Before
-	public void setup() {
+	public void setup() { 
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
 	
@@ -130,20 +130,32 @@ public class ShopControllerTest {
 		.andDo(print());
 	}
 	//#2. 특정상품 조회 테스트
-//	@Test
-//	public void testB() throws Exception{
-//		System.out.println("특정상품 조회 테스트");
-//		long productNo = 1L;
-//		
-//		ResultActions resultActions = mockMvc.perform(get(SHOPURL+"/list/{no}",productNo).contentType(MediaType.APPLICATION_JSON));
-//		
-//		resultActions
-//		.andExpect(status().isOk())
-//		.andExpect(jsonPath("$.result", is("success")))
-//		.andDo(print());
-//		
-//	}
-//	
+	@Test
+	public void testC() throws Exception{
+		System.out.println("특정상품 조회 테스트");
+		long productNo = 1L;
+		
+		ResultActions resultActions = mockMvc.perform(get(SHOPURL+"/list/{no}",productNo).contentType(MediaType.APPLICATION_JSON));
+		
+		resultActions
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.result", is("success")))
+		.andDo(print());
+		
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//	
 //	//#3. 특정상품 가격
 //	@Test
 //	public void testC() throws Exception{

@@ -34,7 +34,7 @@
 	}
 ```
 
-- [서비스코드]()
+- [서비스코드](https://github.com/gioung/shoppingmall_project/blob/master/shop_backend/src/main/java/com/cafe24/shoppingmall/service/OptionService.java)
 
 
 
@@ -63,7 +63,7 @@
 	}
 ```
 
-- [서비스코드]()
+- [서비스코드](https://github.com/gioung/shoppingmall_project/blob/master/shop_backend/src/main/java/com/cafe24/shoppingmall/service/ShopService.java)
 
 ### 테스트케이스
 
