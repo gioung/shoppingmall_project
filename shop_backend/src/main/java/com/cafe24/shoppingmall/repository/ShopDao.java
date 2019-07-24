@@ -17,7 +17,8 @@ public class ShopDao {
 	public long addProduct(ProductVo productVo) {
 		
 		sqlSession.insert("product.addproduct", productVo);
-		return productVo.getProduct_no();
+		
+		return 1L;
 	}
 
 //	public Long addOption(OptionVo optionVo) {
@@ -60,6 +61,45 @@ public class ShopDao {
 		}
 			return 0 == num;
 	}
+	
+	/*  SELECT  */
+	//모든 상품리스트 조회
+	public List<ProductVo> getAllProductList() {
+		return sqlSession.selectList("product.getAllProductList");
+		
+	}
+	//진열상태가 true인 상품리스트 조회
+	public List<ProductVo> getProductList() {
+		
+		return sqlSession.selectList("product.getProductList");
+	}
+
+	//테스트용 상품디테일 삭제
+	public boolean deleteProductDetail() {
+		return 0 < sqlSession.delete("product.deleteProductDetail");
+		
+	}
+
+	public boolean deleteProduct() {
+
+		return 0 < sqlSession.delete("product.deleteProduct");
+	}
+	
+	//특정 상품 조회
+	public ProductVo getSpecificProduct(long productNo) {
+		return sqlSession.selectOne("product.getSpecificProduct",productNo);
+		
+	}
+
+	//특정 상품상세 조회
+	public List<ProductDetailVo> getSpecificProductDetail(long productNo) {
+		return sqlSession.selectList("product.getSpecificProductDetail", productNo);
+	}
+	
+	//특정 상품상세 조회
+	
+
+	
 	
 	
 	

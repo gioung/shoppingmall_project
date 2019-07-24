@@ -15,8 +15,10 @@ import java.util.Map;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -34,11 +36,11 @@ import com.google.gson.Gson;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ShopControllerTest {
 
 	private MockMvc mockMvc;
 	private static final String SHOPURL = "/api/shop";
-	private static final String OPTIONURL = "/api/option";
 	private static final String CARTURL = "/api/cart";
 	private static List<String> optionValList = new ArrayList<>();
 	@Autowired
@@ -63,52 +65,12 @@ public class ShopControllerTest {
 //	}
 //
 	
-	//#1. 옵션리스트 생성 테스트
+	
+	//#2-1. 상품등록(진열상태 false)
 	@Test
-	public void testA() throws Exception{
-		System.out.println("옵션리스트 생성 테스트");
-		// 옵션1
-		OptionVo optionVo1 = new OptionVo();
-		optionVo1.setOpt_name("색상");
-		List<String> valueList1 = new ArrayList<>();
-		valueList1.add("레드"); valueList1.add("블루");
-		optionVo1.setOpt_val(valueList1);
-		
-		// 옵션2
-		OptionVo optionVo2 = new OptionVo();
-		optionVo2.setOpt_name("사이즈");
-		List<String> valueList2 = new ArrayList<>();
-		valueList2.add("100"); valueList2.add("105");
-		optionVo2.setOpt_val(valueList2);
-		
-		Map<String,Object> map = new HashMap<>();
-		map.put("option1", optionVo1);
-		map.put("option2", optionVo2);
-		
-		// 옵션 값 리스트 생성
-		for(int i=0; i<valueList1.size(); i++) {
-			for(int j=0; j<valueList2.size(); j++) {
-				optionValList.add(valueList1.get(i).concat(valueList2.get(j)));
-			}
-		}
-		System.out.println("optionValList = "+ optionValList);
-		
-		ResultActions resultAction = mockMvc.perform(post(OPTIONURL+"/list")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(new Gson().toJson(map))
-				.characterEncoding("utf-8"));
-		
-		resultAction.andExpect(status().isCreated())
-		.andExpect(jsonPath("$.result", is("success")))
-		.andDo(print());
-		
-		
-	}
-	//#2. 상품등록 테스트
-	@Test
-	public void testB() throws Exception {
+	public void testB_2() throws Exception {
 		System.out.println("상품등록 테스트");
-		ProductVo productVo = new ProductVo("티셔츠", 42000L, "imageURL", "요약설명", "상세설명", true, "원자재", "공급사", "제조사", "원산지");
+		ProductVo productVo = new ProductVo(1L,"청바지", 35000L, "imageURL", "요약설명", "상세설명", false, "원자재", "공급사", "제조사", "원산지");
 		long[] inventorys = {100L, 90L, 95L, 77L};
 		List<ProductDetailVo> productDetailVoList = new ArrayList<>();
 		
@@ -129,24 +91,33 @@ public class ShopControllerTest {
 		.andExpect(status().isCreated())
 		.andDo(print());
 	}
-	//#2. 특정상품 조회 테스트
-	@Test
-	public void testC() throws Exception{
-		System.out.println("특정상품 조회 테스트");
-		long productNo = 1L;
-		
-		ResultActions resultActions = mockMvc.perform(get(SHOPURL+"/list/{no}",productNo).contentType(MediaType.APPLICATION_JSON));
-		
-		resultActions
-		.andExpect(status().isOk())
-		.andExpect(jsonPath("$.result", is("success")))
-		.andDo(print());
-		
-	}
+	
+	
+	
+	//#3. 상품목록 조회 테스트 (사용자가 보는 화면에 뿌려주는 데이터)
+//	@Test
+//	public void testC() throws Exception{
+//		System.out.println("상품목록 조회 테스트");
+//		
+//		ResultActions resultActions = mockMvc.perform(get(SHOPURL+"/list"));
+//		
+//		resultActions
+//		.andExpect(status().isOk())
+//		.andExpect(jsonPath("$.result", is("success")))
+//		.andDo(print());
+//		
+//	}
 
 	
 	
-	
+	@Test
+	public void testZ() throws Exception{
+		System.out.println("상품 및 상품디테일 삭제");
+		
+		shopService.deleteProductDetail();
+		shopService.deleteProduct();
+		
+	}
 	
 	
 	

@@ -43,9 +43,10 @@ public class ProductVo {
 	}
 	
 	
-	public ProductVo(@NotNull String name, @NotNull long price, String image,
+	public ProductVo(long product_no, @NotNull String name, @NotNull long price, String image,
 			@NotNull String summary_desc, @NotNull String detail_desc, @NotNull boolean display,
 			@NotNull String material, @NotNull String provider, @NotNull String manufacturer, @NotNull String origin) {
+		this.product_no = product_no;
 		this.name = name;
 		this.price = price;
 		this.image = image;

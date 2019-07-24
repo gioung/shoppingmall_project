@@ -5,8 +5,8 @@
 
 	<insert id="addproduct" parameterType="productvo">
 	<![CDATA[
-	insert into product(name, price, image, summary_desc, detail_desc, manufacturing_date, display,
-	material, provider, manufacturer, origin) values(#{name }, #{price },#{image },#{summary_desc },#{detail_desc }, now()
+	insert into product(product_no, name, price, image, summary_desc, detail_desc, manufacturing_date, display,
+	material, provider, manufacturer, origin) values(#{product_no}, #{name }, #{price },#{image },#{summary_desc },#{detail_desc }, now()
 	,#{display }, #{material },#{provider }, #{manufacturer },#{origin });
 	]]>
 	<selectKey keyProperty="product_no" resultType="long" order="AFTER">
@@ -28,4 +28,29 @@
 		select max(pd_detail_no) from pd_detail where product_no=#{product_no }; 
 	</select>
 	
+	<!-- 모든 상품 조회 -->
+	<select id="getAllProductList" resultType="productvo">
+		select * from product;
+	</select>
+	
+	<select id="getProductList" resultType="productvo">
+		select * from product where display=true;
+	</select>
+	
+	<!-- 특정 상품 조회 -->
+	<select id="getSpecificProduct" parameterType="long" resultType="productvo">
+		select * from product where product_no=#{product_no };
+	</select>
+	
+	<!-- 특정 상품 상세 조회 -->
+	<select id="getSpecificProductDetail" parameterType="long" resultType="productdetailvo">
+		select * from pd_detail where product_no=#{product_no };
+	</select>
+	<delete id="deleteProductDetail">
+		delete from pd_detail where pd_detail_no>=0;
+	</delete>
+	
+	<delete id="deleteProduct">
+		delete from product where product_no>=1;
+	</delete>
 </mapper>

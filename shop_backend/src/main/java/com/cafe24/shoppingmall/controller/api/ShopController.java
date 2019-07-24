@@ -37,27 +37,18 @@ public class ShopController {
 	 *  
 	 * */
 	
-	// 상품 등록
-	@ApiOperation(value = "상품 등록")
-	@RequestMapping(value = "/list", method = RequestMethod.POST) 
-	public ResponseEntity<JSONResult> addProducts(@RequestBody Map<String,Object> map) {
+	
+	//상품목록 조회
+	@ApiOperation(value = "상품목록 조회")
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public JSONResult getProductList() {
+		//display가 true이고 재고가 0이 아닌 상품조회
+		List<ProductVo> productList = shopService.getProductList();
 		
-		Gson gson = new GsonBuilder().create();
-		Type listType = new TypeToken<ArrayList<ProductDetailVo>>(){}.getType();
-		
-		ProductVo productVo = gson.fromJson(String.valueOf(map.get("product")), ProductVo.class);
-		List<ProductDetailVo> productDetailVoList = gson.fromJson(String.valueOf(map.get("productDetailList")), listType);
-
-		System.out.println(productVo);
-		System.out.println(productDetailVoList);
-		// 상품 등록
-		boolean judge = shopService.addProduct(productVo, productDetailVoList);
-		if(!judge)
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("상품 등록 실패")); 
-		
-		
-		// Service에 삽입 요청을 하는 code
-		return ResponseEntity.status(HttpStatus.CREATED).body(JSONResult.success(map));
+		if(productList != null)
+			return JSONResult.success(productList);
+		else
+			return JSONResult.fail("상품 조회 실패");
 	}
 	
 	//상품목록 조회
