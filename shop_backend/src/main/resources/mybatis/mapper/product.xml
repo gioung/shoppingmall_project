@@ -19,7 +19,8 @@
 	
 	<insert id="addProductDetail" parameterType="productdetailvo">
 	<![CDATA[
-		insert into pd_detail(pd_detail_no,product_no,option,inventory) values(#{pd_detail_no },#{product_no },#{option},#{ inventory});
+		insert into pd_detail(pd_detail_no,product_no,option,inventory) 
+		values(#{pd_detail_no },#{product_no },#{option },#{inventory });
 	]]>
 	</insert>
 	

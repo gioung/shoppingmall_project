@@ -1,5 +1,6 @@
 package com.cafe24.shoppingmall.controller.api;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import com.cafe24.shoppingmall.repository.vo.ProductVo;
 import com.cafe24.shoppingmall.service.ShopService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -41,18 +43,21 @@ public class ShopController {
 	public ResponseEntity<JSONResult> addProducts(@RequestBody Map<String,Object> map) {
 		
 		Gson gson = new GsonBuilder().create();
-		ProductVo productVo = gson.fromJson(String.valueOf(map.get("product")), ProductVo.class);
-		ProductDetailVo productDetailVo = gson.fromJson(String.valueOf(map.get("productDetail")), ProductDetailVo.class);
-		List<String> list = gson.fromJson(String.valueOf(map.get("list")), ArrayList.class);
+		Type listType = new TypeToken<ArrayList<ProductDetailVo>>(){}.getType();
 		
+		ProductVo productVo = gson.fromJson(String.valueOf(map.get("product")), ProductVo.class);
+		List<ProductDetailVo> productDetailVoList = gson.fromJson(String.valueOf(map.get("productDetailList")), listType);
+
+		System.out.println(productVo);
+		System.out.println(productDetailVoList);
 		// 상품 등록
-		boolean judge = shopService.addProduct(productVo, productDetailVo, list);
+		boolean judge = shopService.addProduct(productVo, productDetailVoList);
 		if(!judge)
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("상품 등록 실패")); 
 		
 		
 		// Service에 삽입 요청을 하는 code
-		return ResponseEntity.status(HttpStatus.CREATED).body(JSONResult.success(productVo));
+		return ResponseEntity.status(HttpStatus.CREATED).body(JSONResult.success(map));
 	}
 	
 	//상품목록 조회

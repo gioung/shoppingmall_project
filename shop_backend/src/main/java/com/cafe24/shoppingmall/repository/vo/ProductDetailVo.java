@@ -8,6 +8,14 @@ public class ProductDetailVo {
 	private String option;
 	private long inventory;
 	
+	public ProductDetailVo() {
+		
+	}
+	
+	public ProductDetailVo(String option, long inventory) {
+		this.option = option;
+		this.inventory = inventory;
+	}
 	
 	public long getPd_detail_no() {
 		return pd_detail_no;
@@ -33,6 +41,12 @@ public class ProductDetailVo {
 	}
 	public void setOption(String option) {
 		this.option = option;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductDetailVo [pd_detail_no=" + pd_detail_no + ", product_no=" + product_no + ", option=" + option
+				+ ", inventory=" + inventory + "]";
 	}
 	
 	

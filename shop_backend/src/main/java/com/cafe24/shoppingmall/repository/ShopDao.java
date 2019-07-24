@@ -1,10 +1,11 @@
 package com.cafe24.shoppingmall.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.cafe24.shoppingmall.repository.vo.OptionVo;
 import com.cafe24.shoppingmall.repository.vo.ProductDetailVo;
 import com.cafe24.shoppingmall.repository.vo.ProductVo;
 
@@ -51,9 +52,13 @@ public class ShopDao {
 		return pd_detail_no;
 	}
 
-	public boolean addProductDetail(ProductDetailVo productDetailVo) {
-		
-		return 1 == sqlSession.insert("product.addProductDetail", productDetailVo);
+	public boolean addProductDetail(List<ProductDetailVo> list) {
+		int num = list.size();
+		for(ProductDetailVo productDetailVo:list) {
+			sqlSession.insert("product.addProductDetail", productDetailVo);
+			num--;
+		}
+			return 0 == num;
 	}
 	
 	
