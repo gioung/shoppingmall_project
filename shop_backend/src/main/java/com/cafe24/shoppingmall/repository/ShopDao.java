@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cafe24.shoppingmall.repository.vo.CategoryVo;
 import com.cafe24.shoppingmall.repository.vo.ProductDetailVo;
 import com.cafe24.shoppingmall.repository.vo.ProductVo;
 
@@ -14,6 +15,8 @@ public class ShopDao {
 	@Autowired
 	private SqlSession sqlSession;
 
+	/*  CREATE  */
+	// 상품 생성
 	public long addProduct(ProductVo productVo) {
 		
 		sqlSession.insert("product.addproduct", productVo);
@@ -21,30 +24,22 @@ public class ShopDao {
 		return 1L;
 	}
 
-//	public Long addOption(OptionVo optionVo) {
-//		sqlSession.insert("option.addOption", optionVo);
-//		System.out.println("lastno = "+optionVo.getOpt_no());
-//		return optionVo.getOpt_no();
-//	}
-//
-//	public Long isExistThisOption(OptionVo optionVo) {
-//		return sqlSession.selectOne("option.isExistThisOption", optionVo);
-//		
-//	}
-//	
-//	public long maxOptionProNoInOptionNo(OptionVo optionVo) {
-//		long no = 0;
-//		Long result = sqlSession.selectOne("option.maxOptionProNoInOptionNo");
-//		if(null != result)
-//				no = (Long)result;
-//		System.out.println("no = " + no);
-//	return no;
-//	}
-//
-//	public boolean addOptionDetail(OptionVo optionVo) {
-//			return 1 == sqlSession.insert("option.addOptionDetail", optionVo);
-//		
-//	}
+	// 카테고리 생성
+	public boolean addCategory(List<CategoryVo> categoryList) {
+		int num = categoryList.size();
+		for(CategoryVo categoryVo:categoryList) {
+		if(categoryVo.getSub_no()==0L) {
+			if(1 == sqlSession.insert("category.addMainCategory", categoryVo))
+				num--;
+			}
+		else {
+			if(1 == sqlSession.insert("category.addSubCategory", categoryVo))
+				num--;
+			}
+		}
+		System.out.println("num = "+num);
+		return num == 0;
+	}
 
 	public long maxProductDetailNo(ProductVo productVo) {
 		Long pd_detail_no = sqlSession.selectOne("product.maxProductDetailNo", productVo); 

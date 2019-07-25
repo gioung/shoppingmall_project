@@ -6,8 +6,9 @@
 	<insert id="addproduct" parameterType="productvo">
 	<![CDATA[
 	insert into product(product_no, name, price, image, summary_desc, detail_desc, manufacturing_date, display,
-	material, provider, manufacturer, origin) values(#{product_no}, #{name }, #{price },#{image },#{summary_desc },#{detail_desc }, now()
-	,#{display }, #{material },#{provider }, #{manufacturer },#{origin });
+	material, provider, manufacturer, origin, main_no, sub_no) 
+	values(#{product_no}, #{name }, #{price },#{image },#{summary_desc },#{detail_desc }, now()
+	,#{display }, #{material },#{provider }, #{manufacturer },#{origin },#{main_no }, #{sub_no });
 	]]>
 	<selectKey keyProperty="product_no" resultType="long" order="AFTER">
 	<![CDATA[
@@ -71,7 +72,7 @@
 	]]>
 	</update>
 	
-	<!-- ############### UPDATE ################# -->
+	<!-- ############### DELETE ################# -->
 	
 	<!-- 해당 상품 삭제 전 옵션삭제 -->
 	<delete id="deleteProductDetailInProduct" parameterType="long">

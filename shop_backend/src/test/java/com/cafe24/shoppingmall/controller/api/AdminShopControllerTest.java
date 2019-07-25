@@ -30,6 +30,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.cafe24.shoppingmall.repository.vo.CategoryVo;
 import com.cafe24.shoppingmall.repository.vo.OptionVo;
 import com.cafe24.shoppingmall.repository.vo.ProductDetailVo;
 import com.cafe24.shoppingmall.repository.vo.ProductVo;
@@ -101,11 +102,37 @@ public class AdminShopControllerTest {
 			
 			
 		}
+		//# 카테고리 등록 테스트
+		@Test
+		public void testB_0() throws Exception {
+			System.out.println("카테고리 등록 테스트");
+			// 메인 카테고리 1
+			CategoryVo categoryVo1 = new CategoryVo(1L, "TOP");
+			
+			//서브 카테고리 1-1
+			CategoryVo subCategoryVo1 = new CategoryVo(1L, 1L, "반팔티");
+		
+			
+			List<CategoryVo> categoryList = new ArrayList<>();
+			categoryList.add(categoryVo1);
+			categoryList.add(subCategoryVo1);
+		
+			
+			ResultActions resultActions = mockMvc.perform(post(SHOPADMINURL+"/category")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(new Gson().toJson(categoryList))
+					.characterEncoding("utf-8"));
+			
+			resultActions.andDo(print())
+			.andExpect(status().isCreated());
+					
+		}
+		
 		//#2. 상품등록 테스트
 		@Test
 		public void testB_1() throws Exception {
 			System.out.println("상품등록 테스트");
-			ProductVo productVo = new ProductVo(1L,"티셔츠", 42000L, "imageURL", "요약설명", "상세설명", true, "원자재", "공급사", "제조사", "원산지");
+			ProductVo productVo = new ProductVo(1L,"티셔츠", 42000L, "imageURL", "요약설명", "상세설명", true, "원자재", "공급사", "제조사", "원산지",1L ,1L);
 			long[] inventorys = {100L, 90L, 95L, 77L};
 			List<ProductDetailVo> productDetailVoList = new ArrayList<>();
 			
@@ -161,7 +188,7 @@ public class AdminShopControllerTest {
 		public void testE_1() throws Exception{
 			System.out.println("관리자 상품 수정 테스트");
 			long no = 1L;
-			ProductVo productVo = new ProductVo(no,"청바지", 50000L, "imageURL", "요약설명", "상세설명", true, "원자재", "공급사", "제조사", "원산지");
+			ProductVo productVo = new ProductVo(no,"청바지", 50000L, "imageURL", "요약설명", "상세설명", true, "원자재", "공급사", "제조사", "원산지",1L ,1L);
 			long[] inventorys = {100L, 90L, 95L, 77L};
 			String[] options = {"검정95", "회색105", "빨강110", "초록100"};
 			List<ProductDetailVo> productDetailVoList = new ArrayList<>();
@@ -192,7 +219,7 @@ public class AdminShopControllerTest {
 		@Test
 		public void testE_2() throws Exception{
 			long no = 1L;
-			ProductVo productVo = new ProductVo(no,null, 50000L, "imageURL", "요약설명", "상세설명", true, "원자재", "공급사", "제조사", "원산지");
+			ProductVo productVo = new ProductVo(no,null, 50000L, "imageURL", "요약설명", "상세설명", true, "원자재", "공급사", "제조사", "원산지",1L ,1L);
 			long[] inventorys = {100L, 90L, 95L, 77L};
 			String[] options = {"검정95", "회색105", "빨강110", "초록100"};
 			List<ProductDetailVo> productDetailVoList = new ArrayList<>();
@@ -266,6 +293,7 @@ public class AdminShopControllerTest {
 			.andExpect(status().isOk());
 			
 		}
+		
 		
 		
 		@AfterClass

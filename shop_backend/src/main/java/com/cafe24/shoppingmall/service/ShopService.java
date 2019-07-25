@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cafe24.shoppingmall.repository.ShopDao;
+import com.cafe24.shoppingmall.repository.vo.CategoryVo;
 import com.cafe24.shoppingmall.repository.vo.ProductDetailVo;
 import com.cafe24.shoppingmall.repository.vo.ProductVo;
 
@@ -40,6 +41,11 @@ public class ShopService {
 			}
 		}
 		return price*quantity;
+		
+	}
+	
+	public boolean addCategory(List<CategoryVo> categoryList) {
+		return shopDao.addCategory(categoryList);
 		
 	}
 	
@@ -96,6 +102,7 @@ public class ShopService {
 		System.out.println();
 		return num==0;
 	}
+	
 	
 	
 	

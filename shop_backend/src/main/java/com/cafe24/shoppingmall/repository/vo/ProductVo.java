@@ -32,6 +32,8 @@ public class ProductVo {
 	private String manufacturer;
 	@NotNull(message = "반드시 값이 있어야 합니다.")
 	private String origin;
+	private long main_no;
+	private long sub_no;
 	
 	public ProductVo() {
 		
@@ -45,7 +47,8 @@ public class ProductVo {
 	
 	public ProductVo(long product_no, @NotNull String name, @NotNull long price, String image,
 			@NotNull String summary_desc, @NotNull String detail_desc, @NotNull boolean display,
-			@NotNull String material, @NotNull String provider, @NotNull String manufacturer, @NotNull String origin) {
+			@NotNull String material, @NotNull String provider, @NotNull String manufacturer, @NotNull String origin,
+			@NotNull long main_no, long sub_no) {
 		this.product_no = product_no;
 		this.name = name;
 		this.price = price;
@@ -57,6 +60,8 @@ public class ProductVo {
 		this.provider = provider;
 		this.manufacturer = manufacturer;
 		this.origin = origin;
+		this.main_no = main_no;
+		this.sub_no = sub_no;
 	}
 
 	public long getProduct_no() {
@@ -131,8 +136,10 @@ public class ProductVo {
 		return "ProductVo [product_no=" + product_no + ", name=" + name + ", price=" + price + ", image=" + image
 				+ ", summary_desc=" + summary_desc + ", detail_desc=" + detail_desc + ", display=" + display
 				+ ", material=" + material + ", provider=" + provider + ", manufacturer=" + manufacturer + ", origin="
-				+ origin + "]";
+				+ origin + ", main_no=" + main_no + ", sub_no=" + sub_no + "]";
 	}
+
+	
 	
 	
 	

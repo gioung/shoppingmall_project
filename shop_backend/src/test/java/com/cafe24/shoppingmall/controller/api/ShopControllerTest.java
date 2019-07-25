@@ -70,7 +70,7 @@ public class ShopControllerTest {
 	@Test
 	public void testB_2() throws Exception {
 		System.out.println("상품등록 테스트");
-		ProductVo productVo = new ProductVo(1L,"청바지", 35000L, "imageURL", "요약설명", "상세설명", false, "원자재", "공급사", "제조사", "원산지");
+		ProductVo productVo = new ProductVo(1L,"청바지", 35000L, "imageURL", "요약설명", "상세설명", false, "원자재", "공급사", "제조사", "원산지",1L,1L);
 		long[] inventorys = {100L, 90L, 95L, 77L};
 		List<ProductDetailVo> productDetailVoList = new ArrayList<>();
 		

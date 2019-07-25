@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Valid;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
-import com.cafe24.shoppingmall.repository.vo.MemberVo;
+import com.cafe24.shoppingmall.repository.vo.CategoryVo;
 import com.cafe24.shoppingmall.repository.vo.ProductDetailVo;
 import com.cafe24.shoppingmall.repository.vo.ProductVo;
 import com.cafe24.shoppingmall.service.ShopService;
@@ -39,6 +37,8 @@ public class AdminShopController {
 
 	@Autowired
 	ShopService shopService;
+	
+
 	// 상품 등록
 	@ApiOperation(value = "관리자 상품 등록")
 	@RequestMapping(value = "/list", method = RequestMethod.POST) 
@@ -155,4 +155,15 @@ public class AdminShopController {
 		
 	}
 	
+	@ApiOperation(value = "카테고리 생성")
+	@RequestMapping(value="/category", method = RequestMethod.POST)
+	public ResponseEntity<JSONResult> addCategory(@RequestBody List<CategoryVo> categoryList){
+		
+		if(shopService.addCategory(categoryList))
+			return ResponseEntity.status(HttpStatus.CREATED).body(JSONResult.success(true));
+		else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("카테고리 등록 실패"));
+		}
+		
+	}
 }
