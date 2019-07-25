@@ -43,6 +43,7 @@ import com.google.gson.Gson;
 public class AdminShopControllerTest {
 	private MockMvc mockMvc;
 	private static final String SHOPADMINURL = "/api/admin/product";
+	private static final String SHOPCOMMONURL = "/api/product";
 	private static final String OPTIONURL = "/api/option";
 	
 	private static List<String> optionValList = new ArrayList<>();
@@ -108,14 +109,23 @@ public class AdminShopControllerTest {
 			System.out.println("카테고리 등록 테스트");
 			// 메인 카테고리 1
 			CategoryVo categoryVo1 = new CategoryVo(1L, "TOP");
-			
+			CategoryVo categoryVo2 = new CategoryVo(2L, "PANTS");
 			//서브 카테고리 1-1
 			CategoryVo subCategoryVo1 = new CategoryVo(1L, 1L, "반팔티");
-		
+			//서브 카테고리 1-2
+			CategoryVo subCategoryVo2 = new CategoryVo(1L, 2L, "나시");
+			//서브 카테고리 2-1
+			CategoryVo subCategoryVo3 = new CategoryVo(2L, 1L, "반바지");
+			//서브 카테고리 2-2
+			CategoryVo subCategoryVo4 = new CategoryVo(2L, 2L, "슬렉스");
 			
 			List<CategoryVo> categoryList = new ArrayList<>();
 			categoryList.add(categoryVo1);
+			categoryList.add(categoryVo2);
 			categoryList.add(subCategoryVo1);
+			categoryList.add(subCategoryVo2);
+			categoryList.add(subCategoryVo3);
+			categoryList.add(subCategoryVo4);
 		
 			
 			ResultActions resultActions = mockMvc.perform(post(SHOPADMINURL+"/category")
@@ -126,6 +136,32 @@ public class AdminShopControllerTest {
 			resultActions.andDo(print())
 			.andExpect(status().isCreated());
 					
+		}
+		
+		//# 카테고리 조회
+		@Test
+		public void testB_01() throws Exception{
+			System.out.println("카테고리 전체 조회 테스트");
+			//상품 등록 view에서 카테고리를 고르는데 쓰일 수 있다.
+			ResultActions resultActions = mockMvc.perform(get(SHOPCOMMONURL+"/category/list"));
+			
+			resultActions.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.result", is("success")));
+		
+					
+		}
+		//# 특정 카테고리 조회
+		@Test
+		public void testB_02() throws Exception{
+			System.out.println("특정 카테고리 리스트(상위 - 하위,하위..)");
+			//유저가 화면에서 상위옵션에 마우스 커서를 올렸을때 특정 상위옵션의 하위옵션들을 조회하여야 하는 경우
+			ResultActions resultActions = mockMvc.perform(get(SHOPCOMMONURL+"/category/list/{no}",2L));
+			
+			resultActions.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.result", is("success")));
+			
 		}
 		
 		//#2. 상품등록 테스트
@@ -149,6 +185,7 @@ public class AdminShopControllerTest {
 			.content(new Gson().toJson(map))
 			.characterEncoding("utf-8"));
 			
+		
 			resultActions
 			.andExpect(status().isCreated())
 			.andDo(print());
@@ -278,6 +315,13 @@ public class AdminShopControllerTest {
 			.andExpect(status().isBadRequest());
 		}
 		
+		// 카테고리 삭제
+		//case1. 성공 케이스
+		@Test
+		public void TestF_3() throws Exception{
+			//카테고리 삭제
+			shopService.deleteCategory();
+		}
 		
 		//#7 상품삭제
 		//case1. 성공 케이스
@@ -293,6 +337,8 @@ public class AdminShopControllerTest {
 			.andExpect(status().isOk());
 			
 		}
+		
+		
 		
 		
 		

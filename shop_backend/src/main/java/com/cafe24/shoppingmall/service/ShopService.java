@@ -72,6 +72,12 @@ public class ShopService {
 		map.put("productDetailList", productDetailVoList);
 		return map;		
 	}
+	
+	//카테고리 전체 조회
+	public List<CategoryVo> getCategoryList() {
+		return shopDao.getCategoryList();
+		
+	}
 		
 		
 	//########### DELETE ############	
@@ -102,6 +108,15 @@ public class ShopService {
 		System.out.println();
 		return num==0;
 	}
+	public void deleteCategory() {
+		shopDao.deleteCategory();
+		
+	}
+	public List<CategoryVo> getSubCategoryList(long no) {
+		
+		return shopDao.getSubCategoryList(no);
+	}
+	
 	
 	
 	

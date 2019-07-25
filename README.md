@@ -14,7 +14,9 @@
 | 관리자 특정 상품수정        | PUT    | /api/admin/product/list/{no}        | 7.20     | 30분         | 7.24       | 1h(밑에이유)  |
 | 관리자 특정 상품 삭제       | DELETE | /api/admin/product/list/{no}        | 7.20     | 30분         | 7.24       | 15분          |
 | 관리자 특정 상품 옵션  삭제 | DELETE | /api/admin/product/list/{no}/{d_no} | 7.21     | 30분         | 7.25       | 15분          |
-| 카테고리 등록               | POST   | /api/admin/product/category         | 7.21     | 30분         | 7.25       |               |
+| 카테고리 등록               | POST   | /api/admin/product/category         | 7.21     | 30분         | 7.25       | 15분          |
+| 카테고리 전체조회           | GET    | /api/product/category/list          | 7.21     | 30분         | 7.25       | 15분          |
+| 하위 카테고리 조회          | GET    | /api/product/category/list/{no}     | 7.21     | 30분         | 7.25       | 15분          |
 
 
 
@@ -47,4 +49,8 @@
 
 [관리자 상품 특정 옵션 삭제](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/AdminDeleteProductOption.md)
 
-[카테고리 등록]()
+[카테고리 등록](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/AdminCreateCategory.md)
+
+[카테고리 전체조회]()
+
+[하위 카테고리 조회]()

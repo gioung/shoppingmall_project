@@ -74,6 +74,14 @@
 	
 	<!-- ############### DELETE ################# -->
 	
+	<!-- 카테고리 삭제 Test용 -->
+	<delete id="deleteSubCategory">
+		delete from sub_category where main_no >=1;
+	</delete>
+	<delete id="deleteMainCategory">
+		delete from main_category where main_no >=1;
+	</delete>
+	
 	<!-- 해당 상품 삭제 전 옵션삭제 -->
 	<delete id="deleteProductDetailInProduct" parameterType="long">
 	<![CDATA[

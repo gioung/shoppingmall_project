@@ -79,7 +79,19 @@ public class ShopDao {
 	public List<ProductDetailVo> getSpecificProductDetail(long productNo) {
 		return sqlSession.selectList("product.getSpecificProductDetail", productNo);
 	}
-
+	
+	//전체 카테고리 조회
+	public List<CategoryVo> getCategoryList() {
+		List<CategoryVo> categoryList = sqlSession.selectList("category.getCategoryList");
+		categoryList.addAll(sqlSession.selectList("category.getSubCategoryList"));
+		return categoryList;
+		}
+	
+	//특정 카테고리 조회
+	public List<CategoryVo> getSubCategoryList(long no) {
+		
+		return sqlSession.selectList("category.getSpecificSubCategoryList",no);
+	}
 	/*  UPDATE  */
 	//특정 상품 수정
 	public boolean updateProduct(ProductVo productVo) {
@@ -92,6 +104,8 @@ public class ShopDao {
 		return 1==sqlSession.update("product.updateProductDetail",pdv);
 		
 	}
+	
+	
 	
 	/*  DELETE  */
 	
@@ -109,6 +123,13 @@ public class ShopDao {
 	public boolean deleteProduct(long product_no) {
 		return 1 == sqlSession.delete("product.deleteProduct",product_no);
 	}
+
+	public void deleteCategory() {
+		sqlSession.delete("product.deleteSubCategory");
+		sqlSession.delete("product.deleteMainCategory");
+	}
+
+	
 
 	
 	
