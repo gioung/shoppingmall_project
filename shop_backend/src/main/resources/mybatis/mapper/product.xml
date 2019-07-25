@@ -87,8 +87,11 @@
 	]]>	
 	</delete>
 	
-	<delete id="deleteProductDetail">
-		delete from pd_detail where pd_detail_no>=0;
+	<!-- 해당 상품 특정 옵션 삭제 -->
+	<delete id="deleteProductOption" parameterType="productdetailvo">
+	<![CDATA[
+		delete from pd_detail where product_no=#{product_no } and pd_detail_no=#{pd_detail_no }
+	]]>
 	</delete>
 	
 	

@@ -73,17 +73,6 @@ public class ShopDao {
 		
 		return sqlSession.selectList("product.getProductList");
 	}
-
-	//테스트용 상품디테일 삭제
-	public boolean deleteProductDetail() {
-		return 0 < sqlSession.delete("product.deleteProductDetail");
-		
-	}
-
-	public boolean deleteProduct() {
-
-		return 0 < sqlSession.delete("product.deleteProduct");
-	}
 	
 	//특정 상품 조회
 	public ProductVo getSpecificProduct(long productNo) {
@@ -110,6 +99,11 @@ public class ShopDao {
 	}
 	
 	/*  DELETE  */
+	
+	//해당 상품 특정 옵션 삭제
+	public boolean deleteProductOption(ProductDetailVo pdv) {
+		return 1 == sqlSession.delete("product.deleteProductOption", pdv);
+	}
 	
 	//해당 상품삭제 전 옵션 삭제
 	public boolean deleteProductDetailInProduct(long product_no) {

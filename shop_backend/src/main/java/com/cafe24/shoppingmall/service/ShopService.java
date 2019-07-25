@@ -69,8 +69,8 @@ public class ShopService {
 		
 		
 	//########### DELETE ############	
-	public boolean deleteProductDetail() {
-		return shopDao.deleteProductDetail();
+	public boolean deleteProductDetail(ProductDetailVo pdv) {
+		return shopDao.deleteProductOption(pdv);
 			
 	}	
 		

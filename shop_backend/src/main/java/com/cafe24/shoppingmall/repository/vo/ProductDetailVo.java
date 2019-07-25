@@ -14,6 +14,16 @@ public class ProductDetailVo {
 		
 	}
 	
+	
+	
+	public ProductDetailVo(long pd_detail_no, long product_no) {
+		super();
+		this.pd_detail_no = pd_detail_no;
+		this.product_no = product_no;
+	}
+
+
+
 	public ProductDetailVo(String option, long inventory) {
 		this.option = option;
 		this.inventory = inventory;

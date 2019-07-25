@@ -13,7 +13,7 @@
 | 관리자 특정 상품조회        | GET    | /api/admin/shop/list/{no}        | 7.20     | 40분         | 7.24       | 20분          |
 | 관리자 특정 상품수정        | PUT    | /api/admin/shop/list/{no}        | 7.20     | 30분         | 7.24       | 1h(밑에이유)  |
 | 관리자 특정 상품 삭제       | DELETE | /api/admin/shop/list/{no}        | 7.20     | 30분         | 7.24       | 15분          |
-| 관리자 특정 상품 옵션  삭제 | DELETE | /api/admin/shop/list/{no}/{d_no} | 7.21     | 30분         |            |               |
+| 관리자 특정 상품 옵션  삭제 | DELETE | /api/admin/shop/list/{no}/{d_no} | 7.21     | 30분         | 7.25       | 15분          |
 
 
 
@@ -43,3 +43,5 @@
 [관리자 특정 상품수정](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/AdminUpdateProduct.md)
 
 [관리자 특정 상품 삭제]()
+
+[관리자 상품 특정 옵션 삭제]()

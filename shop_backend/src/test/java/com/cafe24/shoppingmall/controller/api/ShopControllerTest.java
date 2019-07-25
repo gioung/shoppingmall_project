@@ -110,14 +110,7 @@ public class ShopControllerTest {
 
 	
 	
-	@Test
-	public void testZ() throws Exception{
-		System.out.println("상품 및 상품디테일 삭제");
-		
-		shopService.deleteProductDetail();
-		shopService.deleteProduct();
-		
-	}
+
 	
 	
 	
