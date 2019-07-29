@@ -1,7 +1,5 @@
 package com.cafe24.shoppingmall.controller.api;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -69,6 +67,7 @@ public class ShopController {
 	@ApiOperation(value= "특정 하위카테고리 조회")
 	@RequestMapping(value = "/category/list/{no}", method = RequestMethod.GET)
 	public ResponseEntity<JSONResult> getSubCategoryList(@PathVariable("no") long no){
+		
 		List<CategoryVo> subCategoryList = shopService.getSubCategoryList(no);
 		
 		if(!subCategoryList.isEmpty())

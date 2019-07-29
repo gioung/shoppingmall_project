@@ -249,7 +249,7 @@ public class UserControllerTest {
 	  }
 	
 	    
-	  //#3.회원정보 수정 테스트
+	 //#3.회원정보 수정 테스트
 	 
 	// case1. 유효성 검사 실패
 	  @Test 
@@ -338,8 +338,9 @@ public class UserControllerTest {
 	  @Test 
 	  public void TestD_2() throws Exception { 
 		  MemberVo memberVo = new MemberVo();
-		  String email = "gioung9833@gmail.com";
-		  String password= "gioung1234!";
+		  
+		  String email = "gioung9833@gmail.com"; 
+		  String password = "gioung1234!";
 		  memberVo.setEmail(email);
 		  memberVo.setPassword(password);
 		  
@@ -377,10 +378,8 @@ public class UserControllerTest {
 	  @Test 
 	  public void TestZ() throws Exception{
 		  MemberVo memberVo = new MemberVo();
-		  String email = "ska2253@naver.com";
-		  String password= "gioung1234!";
-		  memberVo.setEmail(email);
-		  memberVo.setPassword(password);
+		  memberVo.setEmail("ska2253@naver.com");
+		  memberVo.setPassword("gioung1234!");
 		  
 		  mockMvc.perform(delete(SHAREDURL+"/out")
 		  .contentType(MediaType.APPLICATION_JSON)
