@@ -33,4 +33,40 @@
 	select * from sub_category where main_no = #{main_no };
 ]]>
 </select>
+
+<!-- 상위 카테고리 수정 -->
+<update id="updateMainCategory" parameterType="categoryvo">
+<![CDATA[
+	update main_category set name=#{name } where main_no=#{main_no };
+]]>
+</update>
+
+<!-- 하위 카테고리 수정 -->
+<update id="updateSubCategory" parameterType="categoryvo">
+<![CDATA[
+	update sub_category set name=#{name } where main_no=#{main_no } and sub_no=#{sub_no };
+]]>
+</update>
+
+<!-- 상위 카테고리 삭제 -->
+<delete id="deleteMainCategory" parameterType="categoryvo">
+<![CDATA[
+	delete from main_category where main_no=#{main_no };
+]]>
+</delete>
+<delete id="deleteSubCategoryByMain" parameterType="categoryvo">
+<![CDATA[
+	delete from sub_category where main_no=#{main_no };
+]]>
+</delete>
+
+<!-- 하위 카테고리 삭제 -->
+<delete id="deleteSubCategory" parameterType="categoryvo">
+<![CDATA[
+	delete from sub_category where main_no=#{main_no } and sub_no=#{sub_no };
+]]>
+</delete>
+
+
+
 </mapper>

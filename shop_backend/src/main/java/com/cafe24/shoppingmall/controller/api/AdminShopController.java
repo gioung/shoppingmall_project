@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -167,6 +169,62 @@ public class AdminShopController {
 		
 	}
 	
+	@ApiOperation(value= "카테고리 수정")
+	@PutMapping(value="/category/list/{no}")
+	public ResponseEntity<JSONResult> updateMainCategory(@PathVariable("no") long no,
+			@RequestBody CategoryVo categoryVo){
+		
+		categoryVo.setMain_no(no);
+		if(shopService.updateMainCategory(categoryVo))
+			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(true));
+		else
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("메인 카테고리 수정 실패"));
+	}
+	
+	@ApiOperation(value= "하위 카테고리 수정")
+	@PutMapping(value="/category/list/{no}/{s_no}")
+	public ResponseEntity<JSONResult> updateMainCategory(@PathVariable("no") long no,
+			@PathVariable("s_no") long s_no, @RequestBody CategoryVo categoryVo){
+		
+		categoryVo.setMain_no(no);
+		categoryVo.setSub_no(s_no);
+		
+		if(shopService.updateSubCategory(categoryVo))
+			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(true));
+		else
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("서브 카테고리 수정 실패"));
+	}
+	
+	@ApiOperation(value = "하위 카테고리 삭제")
+	@DeleteMapping(value="/category/list/{no}/{s_no}")
+	public ResponseEntity<JSONResult> deleteSubCategory(@PathVariable("no") Long main_no,
+			@PathVariable("s_no") Long sub_no){
+		CategoryVo categoryVo = new CategoryVo();
+		categoryVo.setMain_no(main_no);
+		categoryVo.setSub_no(sub_no);
+		
+		if(shopService.deleteSubCategory(categoryVo)) {
+			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(true));
+		}
+		else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("하위 카테고리 삭제 실패"));
+		}
+	}
+	@ApiOperation(value = "상위 카테고리 삭제")
+	@DeleteMapping(value="/category/list/{no}")
+	public ResponseEntity<JSONResult> deleteMainCategory(@PathVariable("no") Long main_no
+		){
+		CategoryVo categoryVo = new CategoryVo();
+		categoryVo.setMain_no(main_no);
+			
+		if(shopService.deleteMainCategory(categoryVo)) {
+			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(true));
+		}
+		else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("상위 카테고리 삭제 실패"));
+			}
+	
+	}
 	
 	
 }

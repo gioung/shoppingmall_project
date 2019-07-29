@@ -1,5 +1,6 @@
 package com.cafe24.shoppingmall.repository;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -105,6 +106,17 @@ public class ShopDao {
 		
 	}
 	
+	/* 메인 카테고리 수정 */
+	public boolean updateMainCategory(CategoryVo categoryVo) {
+		
+		return (1==sqlSession.update("category.updateMainCategory", categoryVo));
+	}
+	
+	/* 하위 카테고리 수정 */
+	public boolean updateSubCategory(CategoryVo categoryVo) {
+		
+		return 1==sqlSession.update("category.updateSubCategory", categoryVo);
+	}
 	
 	
 	/*  DELETE  */
@@ -124,10 +136,24 @@ public class ShopDao {
 		return 1 == sqlSession.delete("product.deleteProduct",product_no);
 	}
 
-	public void deleteCategory() {
-		sqlSession.delete("product.deleteSubCategory");
-		sqlSession.delete("product.deleteMainCategory");
+
+	
+	//하위 카테고리 삭제
+	public boolean deleteSubCategory(CategoryVo categoryVo) {
+		
+		return 1 == sqlSession.delete("category.deleteSubCategory", categoryVo);
 	}
+
+	//메인 카테고리 삭제
+	public boolean deleteMainCategory(CategoryVo categoryVo) {
+		
+		sqlSession.delete("category.deleteSubCategoryByMain", categoryVo);
+		return 1 == sqlSession.delete("category.deleteMainCategory", categoryVo);
+	}
+
+	
+
+	
 
 	
 

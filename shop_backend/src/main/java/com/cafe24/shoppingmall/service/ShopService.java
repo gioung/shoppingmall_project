@@ -93,6 +93,17 @@ public class ShopService {
 		return false;
 	}
 	
+	/* 서브 카테고리 삭제 */
+	public boolean deleteSubCategory(CategoryVo categoryVo) {
+		// 
+		return shopDao.deleteSubCategory(categoryVo);
+	}
+	
+	/* 메인 카테고리 삭제 */
+	public boolean deleteMainCategory(CategoryVo categoryVo) {
+		// TODO Auto-generated method stub
+		return shopDao.deleteMainCategory(categoryVo);
+	}
 	
 	
 	//########### UPDATE ############	
@@ -108,14 +119,23 @@ public class ShopService {
 		System.out.println();
 		return num==0;
 	}
-	public void deleteCategory() {
-		shopDao.deleteCategory();
-		
-	}
 	public List<CategoryVo> getSubCategoryList(long no) {
 		
 		return shopDao.getSubCategoryList(no);
 	}
+	
+	/* 카테고리 수정 */
+	public boolean updateMainCategory(CategoryVo categoryVo) {
+			
+		return shopDao.updateMainCategory(categoryVo);
+	}
+	public boolean updateSubCategory(CategoryVo categoryVo) {
+		
+		return shopDao.updateSubCategory(categoryVo);
+	}
+	
+
+	
 	
 	
 	
