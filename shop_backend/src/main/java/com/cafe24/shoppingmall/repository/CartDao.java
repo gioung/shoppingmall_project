@@ -1,5 +1,7 @@
 package com.cafe24.shoppingmall.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,6 +23,11 @@ public class CartDao {
 		return sqlSession.selectOne("cart.getMaxSeqNo", id);
 			
 	}
+	//카트리스트 조회
+	public List<CartVo> getProductListInCart(String id) {
+			
+		return sqlSession.selectList("cart.getProductListInCart", id);
+	}
 	
 	// 상품이 담겨져 있는가?
 	public CartVo getProductInCart(CartVo cartVo) {
@@ -33,12 +40,34 @@ public class CartDao {
 		
 		return 1 == sqlSession.update("cart.addProductQty", cartVo);
 	}
+	
+	//회원가입시 tempId -> 회원 Id
+	public boolean convertTempIdToUser(CartVo cartVo) {
 
+		return 0 < sqlSession.update("cart.convertTempIdToUser", cartVo);
+	}
+	
+	//상품 수량 수정
+	public boolean updateProductQty(CartVo cartVo) {
+		return 1 == sqlSession.update("cart.updateProductQty", cartVo);
+	}
+	
 	// ######### DELETE ############
 	public boolean deleteCart(String id) {
 		
 		return 0 < sqlSession.delete("cart.deleteCart", id);
 	}
+	
+//	장바구니 상품 삭제
+	public boolean deleteProductInCart(CartVo cartVo) {
+		
+		return 1 == sqlSession.delete("cart.deleteProductInCart", cartVo);
+	}
+
+	
+
+	
+	
 
 	
 

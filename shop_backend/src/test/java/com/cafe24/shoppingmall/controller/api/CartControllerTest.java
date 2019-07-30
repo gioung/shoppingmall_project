@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -163,7 +164,7 @@ public class CartControllerTest {
 			}
 	
 	//# 장바구니 담기 비회원일 경우
-		@Test
+	@Test
 	public void TestA3() throws Exception {
 		System.out.println("비회원 장바구니 담기");
 		CartVo cartVo = new CartVo(3L, 1L, 1L, false);
@@ -174,6 +175,24 @@ public class CartControllerTest {
 		resultActions.andDo(print()).andExpect(status().isCreated()).andExpect(jsonPath("$.result", is("success")));
 
 	}
+	
+	//# 장바구니 아이디 수정
+	@Test
+	public void TestA3_1() throws Exception{
+		System.out.println("비회원 회원으로 전환시 장바구니 id 변환 테스트");
+		String id ="ska2253@naver.com"; // 해당 id로 회원가입
+		CartVo cartVo = new CartVo();
+		cartVo.setId(id); 
+		cartVo.setIsmember(true);
+		cartVo.setTempId(cartService.getTempId());
+		
+		ResultActions resultActions = mockMvc.perform(put(CARTURL + "/list")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(new Gson().toJson(cartVo))
+				.characterEncoding("utf-8"));
+		
+		resultActions.andDo(print()).andExpect(status().isOk()).andExpect(jsonPath("$.result", is("success")));
+	}
 
 	// # 장바구니 담기 회원일 경우
 	@Test
@@ -181,7 +200,7 @@ public class CartControllerTest {
 
 		System.out.println("회원 장바구니 담기 ");
 		String id = "ska2253@naver.com";
-		CartVo cartVo = new CartVo(3L, 1L, 1L, true);
+		CartVo cartVo = new CartVo(3L, 3L, 1L, true);
 		cartVo.setId(id);
 
 		ResultActions resultActions = mockMvc.perform(post(CARTURL + "/list").contentType(MediaType.APPLICATION_JSON)
@@ -211,27 +230,69 @@ public class CartControllerTest {
 	@Test
 	public void TestB1() throws Exception {
 		System.out.println("장바구니 조회");
+		String id = "ska2253@naver.com";
 		
+		ResultActions resultActions = mockMvc.perform(get(CARTURL + "/list").contentType(MediaType.APPLICATION_JSON)
+				.content(new Gson().toJson(id)).characterEncoding("utf-8"));
+		
+		resultActions.andDo(print())
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.result", is("success")));
 	}
- 	//# 장바구니 아이디 수정
-	//# 장바구니 상품 수정
-	//# 장바구니 상품 삭제
-		
-	//# 비회원 장바구니 삭제
+	
+	//# 장바구니 수량 수정
 	@Test
-	public void TestF_1() throws Exception{
-		System.out.println("비회원 장바구니 삭제");
-		String id=cartService.getTempId();
+	public void TestB2() throws Exception {
+		System.out.println("장바구니 수량 수정");
+		String id = "ska2253@naver.com";
+		CartVo cartVo = new CartVo();
+		cartVo.setId(id);
+		cartVo.setQty(10L); //수량을 10개로 변경
+		cartVo.setIsmember(true);
+	
+		ResultActions resultActions = mockMvc.perform(put(CARTURL + "/list/{seq_no}",1L).contentType(MediaType.APPLICATION_JSON)
+				.content(new Gson().toJson(cartVo)).characterEncoding("utf-8"));
 		
-		ResultActions resultActions = mockMvc.perform(delete(CARTURL+"/list")
+		resultActions.andDo(print())
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.result", is("success"))); 
+	}
+	
+	//# 장바구니 상품 삭제
+	@Test
+	public void TestC1() throws Exception{
+		//회원이 ska2253@naver.com 이고 seq_no = 1인 상품을 삭제
+		System.out.println("장바구니 상품 삭제");
+		String id="ska2253@naver.com";
+		CartVo cartVo = new CartVo();
+		cartVo.setId(id);
+		cartVo.setIsmember(true);
+		
+		ResultActions resultActions = mockMvc.perform(delete(CARTURL+"/list/{seq_no}",1L)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(new Gson().toJson(id))
+				.content(new Gson().toJson(cartVo))
 				.characterEncoding("utf-8"));
 		
 		resultActions.andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("$.result", is("success")));
 	}
+		
+	//# 비회원 장바구니 삭제
+//	@Test
+//	public void TestF_1() throws Exception{
+//		System.out.println("비회원 장바구니 삭제");
+//		String id=cartService.getTempId();
+//		
+//		ResultActions resultActions = mockMvc.perform(delete(CARTURL+"/list")
+//				.contentType(MediaType.APPLICATION_JSON)
+//				.content(new Gson().toJson(id))
+//				.characterEncoding("utf-8"));
+//		
+//		resultActions.andDo(print())
+//		.andExpect(status().isOk())
+//		.andExpect(jsonPath("$.result", is("success")));
+//	}
 	
 	//# 회원 장바구니 삭제
 	@Test
@@ -252,6 +313,7 @@ public class CartControllerTest {
 	// 상품삭제
 	@Test
 	public void TestG_1() throws Exception{
+		System.out.println("상품 삭제");
 		long no = 1L;
 		
 		mockMvc.perform(delete(SHOPADMINURL+"/list/{no}",no)

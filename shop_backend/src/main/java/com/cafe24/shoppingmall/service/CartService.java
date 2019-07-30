@@ -51,8 +51,45 @@ CartDao cartDao;
 	return cartDao.addProductToCart(cartVo);
 		
 	}
+	
+	/* ######## SELECT ######### */
+	// 카트리스트 조회
+	public List<CartVo> getProductListInCart(String id) {
+		return cartDao.getProductListInCart(id);
+	}
 
+	// 임시 ID 조회
+	public String getTempId() {
+		return TempId;
+	}
+	
+	/* ######## UPDATE ######### */
+	//회원가입시 TempId가 회원 Id로 변환
+	public boolean convertTempIdToUser(CartVo cartVo) {
+		return cartDao.convertTempIdToUser(cartVo);
+	}
+	
+	//장바구니 상품 수량 수정
+	public boolean updateProductQty(CartVo cartVo) {
 
+		return cartDao.updateProductQty(cartVo);
+	}
+	
+	
+	/* ######## DELETE ######### */
+	//장바구니 삭제
+	public boolean deleteCart(String id) {
+		return cartDao.deleteCart(id);
+		
+	}
+	
+	// 장바구니 상품 삭제
+	public boolean deleteProductInCart(CartVo cartVo) {
+		
+		return cartDao.deleteProductInCart(cartVo);
+	}
+	
+	
 	private String createTempId() {
 		StringBuffer strbuff = new StringBuffer();
 		Random random = new Random();
@@ -76,13 +113,11 @@ CartDao cartDao;
 		
 		return strbuff.toString();
 	}
+
 	
-	public String getTempId() {
-		return TempId;
-	}
-	/* ######## DELETE ######### */
-	public boolean deleteCart(String id) {
-		return cartDao.deleteCart(id);
-		
-	}
+
+	
+
+	
+
 }

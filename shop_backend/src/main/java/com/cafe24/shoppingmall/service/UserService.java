@@ -44,7 +44,7 @@ public class UserService {
 	}
 
 	public boolean deleteMember(MemberVo memberVo) {
-		 	
+		 
 		return memberDao.deleteMember(memberVo);
 	}
 

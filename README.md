@@ -22,11 +22,11 @@
 | 카테고리 삭제               | DELETE | /api/admin/product/category/list/{no}        | 7.22     | 30m          | 7.26       | 15m           |
 | 서브 카테고리 삭제          | DELETE | /api/admin/product/category/list/{no}/{s_no} | 7.22     | 30m          | 7.26       | 15m           |
 | 장바구니 담기               | POST   | /api/cart/list                               | 7.23     | 1h           | 7.29       | 1h 20m        |
-| 장바구니 목록               | GET    | /api/cart/list                               | 7.23     | 1h           |            |               |
-| 장바구니 상품 수정          | PUT    | /api/cart/list/{no}                          | 7.23     | 1h           |            |               |
-| 장바구니 아이디 수정        | PUT    | /api/cart/list                               | 7.23     | 1h           |            |               |
-| 장바구니 삭제               | DELETE | /api/cart/list                               | 7.23     | 1h           |            |               |
-| 장바구니 상품 삭제          | DELETE | /api/cart/list/{no}                          | 7.23     | 1h           |            |               |
+| 장바구니 목록               | GET    | /api/cart/list                               | 7.23     | 1h           | 7.29       | 30m           |
+| 장바구니 수량 수정          | PUT    | /api/cart/list/{no}                          | 7.23     | 1h           | 7.29       | 30m           |
+| 장바구니 아이디 수정        | PUT    | /api/cart/list                               | 7.23     | 1h           | 7.29       | 40m           |
+| 장바구니 삭제               | DELETE | /api/cart/list                               | 7.23     | 1h           | 7.29       | 15m           |
+| 장바구니 상품 삭제          | DELETE | /api/cart/list/{no}                          | 7.23     | 1h           | 7.29       | 15m           |
 
 **개발시간 지연 사유**
 
@@ -64,3 +64,15 @@
 [카테고리 수정]()
 
 [카테고리 삭제](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/AdminDeleteCategory.md)
+
+[장바구니 담기]()
+
+[장바구니 목록]()
+
+[장바구니 수량 수정]()
+
+[장바구니 아이디 수정]()
+
+[장바구니 삭제]()
+
+[장바구니 상품 삭제]()

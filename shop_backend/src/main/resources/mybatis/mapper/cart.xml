@@ -20,9 +20,17 @@
 ]]>
 </select>
 
+<!-- 카트안에 상품이 있는가? -->
 <select id="getProductInCart" parameterType="cartvo" resultType="cartvo">
 <![CDATA[
 	select * from cart where id=#{id } and product_no=#{product_no } and pd_detail_no=#{pd_detail_no };
+]]>
+</select>
+
+<!-- 특정 회원의 장바구니 리스트 -->
+<select id="getProductListInCart" parameterType="string" resultType="cartvo">
+<![CDATA[
+	select * from cart where id=#{id };
 ]]>
 </select>
 
@@ -34,12 +42,36 @@
 ]]>
 </update>
 
+<!-- TempId 를 UserId 로  -->
+<update id="convertTempIdToUser" parameterType="cartvo">
+<![CDATA[
+	update cart set id='${id }',ismember=${ismember } where id='${tempId }';
+]]>
+</update>
+
+<!-- 상품 수량 변경 -->
+<update id="updateProductQty" parameterType="cartvo">
+<![CDATA[
+	update cart set qty=#{qty } where id=#{id } and seq_no=#{seq_no };
+]]>
+</update>
+
+
+
 <!-- #####DELETE###### -->
 <delete id="deleteCart" parameterType="string">
 <![CDATA[
 	delete from cart where id=#{id }; 
 ]]>
 </delete>
+
+<!-- 장바구니 상품 삭제 -->
+<delete id="deleteProductInCart" parameterType="cartvo">
+<![CDATA[
+	delete from cart where id=#{id } and seq_no=#{seq_no }; 
+]]>
+</delete>
+
 
 
 
