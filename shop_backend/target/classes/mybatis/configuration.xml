@@ -7,13 +7,14 @@
 		<typeAlias alias="optionvo" type="com.cafe24.shoppingmall.repository.vo.OptionVo"/>
 		<typeAlias alias="productdetailvo" type="com.cafe24.shoppingmall.repository.vo.ProductDetailVo"/>
 		<typeAlias alias="categoryvo" type="com.cafe24.shoppingmall.repository.vo.CategoryVo"/>
-		<!-- <typeAlias alias="cartvo" type="com.cafe24.shoppingmall.repository.vo.CartVo"/> -->
+		<typeAlias alias="cartvo" type="com.cafe24.shoppingmall.repository.vo.CartVo"/>
+		
     	</typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mapper/member.xml" />
 		<mapper resource="mybatis/mapper/product.xml" />
 		<mapper resource="mybatis/mapper/option.xml" />
 		<mapper resource="mybatis/mapper/category.xml" />
-		<!-- <mapper resource="mybatis/mapper/cart.xml" /> -->
+		<mapper resource="mybatis/mapper/cart.xml" />
 	</mappers>
 </configuration>

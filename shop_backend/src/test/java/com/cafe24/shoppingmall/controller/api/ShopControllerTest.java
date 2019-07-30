@@ -349,10 +349,23 @@ public class ShopControllerTest {
 			.andExpect(status().isBadRequest());
 		}
 		
-		// 하위 카테고리 삭제
+	// #7 상품삭제
+	// case1. 성공 케이스
+	@Test
+	public void testF_3() throws Exception {
+		long no = 1L;
+
+		ResultActions resultActions = mockMvc
+				.perform(delete(SHOPADMINURL + "/list/{no}", no).characterEncoding("utf-8"));
+
+		resultActions.andDo(print()).andExpect(status().isOk());
+
+	}
+
+	// 하위 카테고리 삭제
 		//case1. 성공 케이스
 		@Test
-		public void TestF_3() throws Exception{
+		public void testF_4() throws Exception{
 			System.out.println("하위 카테고리 삭제");
 			long main_no = 1L; //main_no = 1 이고
 			long sub_no = 1L; //sub_no = 1 인 카테고리 삭제
@@ -366,7 +379,7 @@ public class ShopControllerTest {
 		
 		// 메인 카테고리 삭제 
 		@Test
-		public void TestF_4() throws Exception{
+		public void testF_5() throws Exception{
 			System.out.println("상위 카테고리 삭제");
 			long main_no = 2L; // main_no = 2 에 속하는 모든 카테고리 삭제
 			
@@ -382,20 +395,7 @@ public class ShopControllerTest {
 			shopService.deleteMainCategory(categoryVo);
 		}
 		
-		//#7 상품삭제
-		//case1. 성공 케이스
-		@Test
-		public void testG() throws Exception{
-			long no = 1L;
-			
-			ResultActions resultActions = mockMvc.perform(delete(SHOPADMINURL+"/list/{no}",no)
-					.characterEncoding("utf-8"));
-			
-			resultActions
-			.andDo(print())
-			.andExpect(status().isOk());
-			
-		}
+		
 		
 		
 		

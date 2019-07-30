@@ -1,57 +1,115 @@
 package com.cafe24.shoppingmall.repository.vo;
 
+import java.sql.Date;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class CartVo {
-	private String member_id;
-	private String temp_id;
+
+	private String id;
+
 	private long seq_no;
-	private String reg_date;
+	@NotNull
 	private long qty;
-	private long charge;
-	private long sum;
-	private long product_no;
+	
+	private Date reg_date;
+	@NotNull
 	private long pd_detail_no;
-	public String getMember_id() {
-		return member_id;
+	@NotNull
+	private long product_no;
+	@NotNull
+	private boolean ismember;
+	
+	
+	public CartVo(@NotBlank long qty, @NotBlank long pd_detail_no,
+			@NotBlank long product_no, @NotBlank boolean ismember) {
+		
+		this.qty = qty;
+		this.pd_detail_no = pd_detail_no;
+		this.product_no = product_no;
+		this.ismember = ismember;
 	}
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	
+	
+	
+	
+	public CartVo(String id, long seq_no, @NotNull long qty, Date reg_date, @NotNull long pd_detail_no,
+			@NotNull long product_no, @NotNull boolean ismember) {
+		super();
+		this.id = id;
+		this.seq_no = seq_no;
+		this.qty = qty;
+		this.reg_date = reg_date;
+		this.pd_detail_no = pd_detail_no;
+		this.product_no = product_no;
+		this.ismember = ismember;
 	}
-	public String getTemp_id() {
-		return temp_id;
+
+
+
+
+	public String getId() {
+		return id;
 	}
-	public void setTemp_id(String temp_id) {
-		this.temp_id = temp_id;
+
+
+
+
+	public void setId(String id) {
+		this.id = id;
 	}
+
+
+
+
 	public long getSeq_no() {
 		return seq_no;
 	}
+
+
+
+
 	public void setSeq_no(long seq_no) {
 		this.seq_no = seq_no;
 	}
-	public String getReg_date() {
-		return reg_date;
-	}
-	public void setReg_date(String reg_date) {
-		this.reg_date = reg_date;
-	}
+
+
+
+
 	public long getQty() {
 		return qty;
 	}
+
+
+
+
 	public void setQty(long qty) {
 		this.qty = qty;
 	}
-	public long getCharge() {
-		return charge;
+
+
+
+
+	public Date getReg_date() {
+		return reg_date;
 	}
-	public void setCharge(long charge) {
-		this.charge = charge;
+
+
+
+
+	public void setReg_date(Date reg_date) {
+		this.reg_date = reg_date;
 	}
-	public long getSum() {
-		return sum;
+
+
+
+
+	public long getPd_detail_no() {
+		return pd_detail_no;
 	}
-	public void setSum(long sum) {
-		this.sum = sum;
+	public void setPd_detail_no(long pd_detail_no) {
+		this.pd_detail_no = pd_detail_no;
 	}
 	public long getProduct_no() {
 		return product_no;
@@ -59,29 +117,20 @@ public class CartVo {
 	public void setProduct_no(long product_no) {
 		this.product_no = product_no;
 	}
-	public long getPd_detail_no() {
-		return pd_detail_no;
+	public boolean isIsmember() {
+		return ismember;
 	}
-	public void setPd_detail_no(long pd_detail_no) {
-		this.pd_detail_no = pd_detail_no;
+	public void setIsmember(boolean ismember) {
+		this.ismember = ismember;
 	}
 	@Override
 	public String toString() {
-		return "CartVo [member_id=" + member_id + ", temp_id=" + temp_id + ", seq_no=" + seq_no + ", reg_date="
-				+ reg_date + ", qty=" + qty + ", charge=" + charge + ", sum=" + sum + ", product_no=" + product_no
-				+ ", pd_detail_no=" + pd_detail_no + "]";
+		return "CartVo [id=" + id + ", seq_no=" + seq_no + ", qty=" + qty + ", reg_date=" + reg_date + ", pd_detail_no="
+				+ pd_detail_no + ", product_no=" + product_no + ", ismember=" + ismember + "]";
 	}
-	
 	
 	
 	
 }
 
-
-
-/* ---------- 개선 해야 할 것 -------------- 
- * 
- * 유효성 추가하기
- * DB 다듬기
- * */
 

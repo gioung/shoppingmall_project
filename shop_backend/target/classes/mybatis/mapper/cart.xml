@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cart">
+
+<!-- ######INSERT####### -->
+<insert id="addProductToCart" parameterType="cartvo">
+<![CDATA[
+	insert into cart(id, seq_no, qty, reg_date, pd_detail_no, product_no, ismember)  
+	values(#{id }, #{seq_no }, #{qty }, now(), 
+	#{pd_detail_no}, #{product_no }, #{ismember });	
+]]>
+</insert>
+
+
+<!-- ######SELECT###### -->
+<select id="getMaxSeqNo" parameterType="string" resultType="long">
+<![CDATA[
+	select max(seq_no) from cart where id=#{id };
+]]>
+</select>
+
+<select id="getProductInCart" parameterType="cartvo" resultType="cartvo">
+<![CDATA[
+	select * from cart where id=#{id } and product_no=#{product_no } and pd_detail_no=#{pd_detail_no };
+]]>
+</select>
+
+
+<!-- #####UPDATE##### -->
+<update id="addProductQty" parameterType="cartvo">
+<![CDATA[
+	update cart set qty=qty + #{qty } where id=#{id } and product_no=#{product_no } and pd_detail_no=#{pd_detail_no };
+]]>
+</update>
+
+<!-- #####DELETE###### -->
+<delete id="deleteCart" parameterType="string">
+<![CDATA[
+	delete from cart where id=#{id }; 
+]]>
+</delete>
+
+
+
+</mapper>
