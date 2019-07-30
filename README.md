@@ -30,6 +30,8 @@
 
 **개발시간 지연 사유**
 
+
+
  	1. 옵션목록생성 : DB설계를 이렇게 하면되지 않을까? 하고 설계를 한 후 바로 구현에 들어가다보니 문제가 생겼습니다.지금의 DB구조로는 안될것 같아서 다시 DB를 수정후 구현, 이를 반복하였습니다.  이런 과정을 반복하다보니 DB설계를 신중히 해야된다는 것을 느꼈고 구현을 할때도 가장 간단한 모델이 무엇인지 고민하는 습관을 길렀습니다.
 
 2. 상품등록 : 이론상으로는 문제가 없었지만 구현을 함에 있어서 사소한 부분 (mybatis 문법오류) 에서 애를먹어서 늦어지게 되었습니다. 처음에는 각종 blog를 참고하다가 틀린정보가 많아 공식문서를 참조하여 해결하였습니다.
@@ -61,18 +63,18 @@
 
 [카테고리 조회](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/AdminSelectCategory.md)
 
-[카테고리 수정]()
+[카테고리 수정](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/AdminUpdateCategory.md)
 
 [카테고리 삭제](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/AdminDeleteCategory.md)
 
-[장바구니 담기]()
+[장바구니 담기](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/AddProductToCart.md)
 
-[장바구니 목록]()
+[장바구니 목록](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/GetProductListInCart.md)
 
-[장바구니 수량 수정]()
+[장바구니 수량 수정](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/updateProductQty.md)
 
-[장바구니 아이디 수정]()
+[장바구니 아이디 수정](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/convertTempIdToUser.md)
 
-[장바구니 삭제]()
+[장바구니 삭제](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/deleteCart.md)
 
-[장바구니 상품 삭제]()
+[장바구니 상품 삭제](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/deleteProductInCart.md)
