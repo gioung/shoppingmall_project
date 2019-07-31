@@ -29,7 +29,7 @@ public class OptionController {
 	
 	//옵션 등록
 	@ApiOperation(value = "옵션 리스트 조회")
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/list", method = RequestMethod.POST)
 	public ResponseEntity<JSONResult> addOption(@RequestBody Map<String,Object> map) {
 		
 		Gson gson = new GsonBuilder().create();
@@ -42,7 +42,7 @@ public class OptionController {
 		List<String> optionValList = optionService.addOptionValList(optionList);
 	
 		if(optionValList != null){
-			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(optionValList));
+			return ResponseEntity.status(HttpStatus.CREATED).body(JSONResult.success(optionValList));
 		}
 		else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("옵션 리스트 생성 실패"));

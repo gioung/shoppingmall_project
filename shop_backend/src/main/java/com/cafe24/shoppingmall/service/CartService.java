@@ -90,7 +90,7 @@ CartDao cartDao;
 	}
 	
 	
-	private String createTempId() {
+	private static String createTempId() {
 		StringBuffer strbuff = new StringBuffer();
 		Random random = new Random();
 		for (int i = 0; i < 20; i++) {

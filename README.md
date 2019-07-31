@@ -9,28 +9,29 @@
 | 회원탈퇴                    | DELETE | /api/user/out                                | 7.18     | 50m          | 7.19       | 30m           |
 | 옵션목록생성                | POST   | /api/option/list                             | 7.19     | 50m          | 7.23       | 2h(밑에 이유) |
 | 관리자 상품등록             | POST   | /api/admin/product/list                      | 7.19     | 50m          | 7.23       | 2h(밑에 이유) |
-| 관리자 상품목록조회         | GET    | /api/admin/product/list                      | 7.20     | 30m          | 7.24       | 20m           |
-| 관리자 특정 상품조회        | GET    | /api/admin/product/list/{no}                 | 7.20     | 40m          | 7.24       | 20m           |
-| 관리자 특정 상품수정        | PUT    | /api/admin/product/list/{no}                 | 7.20     | 30m          | 7.24       | 1h(밑에이유)  |
-| 관리자 특정 상품 삭제       | DELETE | /api/admin/product/list/{no}                 | 7.20     | 30m          | 7.24       | 15m           |
-| 관리자 특정 상품 옵션  삭제 | DELETE | /api/admin/product/list/{no}/{d_no}          | 7.21     | 30m          | 7.25       | 15m           |
-| 카테고리 등록               | POST   | /api/admin/product/category                  | 7.21     | 30m          | 7.25       | 15m           |
-| 카테고리 전체조회           | GET    | /api/product/category/list                   | 7.21     | 30m          | 7.25       | 15m           |
-| 하위 카테고리 조회          | GET    | /api/product/category/list/{no}              | 7.21     | 30m          | 7.25       | 15m           |
-| 카테고리 수정               | PUT    | /api/admin/product/category/list/{no}        | 7.22     | 30m          | 7.26       | 15m           |
-| 서브 카테고리 수정          | PUT    | /api/admin/product/category/list/{no}/{s_no} | 7.22     | 30m          | 7.26       | 15m           |
-| 카테고리 삭제               | DELETE | /api/admin/product/category/list/{no}        | 7.22     | 30m          | 7.26       | 15m           |
-| 서브 카테고리 삭제          | DELETE | /api/admin/product/category/list/{no}/{s_no} | 7.22     | 30m          | 7.26       | 15m           |
-| 장바구니 담기               | POST   | /api/cart/list                               | 7.23     | 1h           | 7.29       | 1h 20m        |
-| 장바구니 목록               | GET    | /api/cart/list                               | 7.23     | 1h           | 7.29       | 30m           |
-| 장바구니 수량 수정          | PUT    | /api/cart/list/{no}                          | 7.23     | 1h           | 7.29       | 30m           |
-| 장바구니 아이디 수정        | PUT    | /api/cart/list                               | 7.23     | 1h           | 7.29       | 40m           |
-| 장바구니 삭제               | DELETE | /api/cart/list                               | 7.23     | 1h           | 7.29       | 15m           |
-| 장바구니 상품 삭제          | DELETE | /api/cart/list/{no}                          | 7.23     | 1h           | 7.29       | 15m           |
+| 관리자 상품목록조회         | GET    | /api/admin/product/list                      | 7.22     | 30m          | 7.24       | 20m           |
+| 관리자 특정 상품조회        | GET    | /api/admin/product/list/{no}                 | 7.22     | 40m          | 7.24       | 20m           |
+| 관리자 특정 상품수정        | PUT    | /api/admin/product/list/{no}                 | 7.22     | 30m          | 7.24       | 1h(밑에이유)  |
+| 관리자 특정 상품 삭제       | DELETE | /api/admin/product/list/{no}                 | 7.22     | 30m          | 7.24       | 15m           |
+| 관리자 특정 상품 옵션  삭제 | DELETE | /api/admin/product/list/{no}/{d_no}          | 7.23     | 30m          | 7.25       | 15m           |
+| 카테고리 등록               | POST   | /api/admin/product/category                  | 7.23     | 30m          | 7.25       | 15m           |
+| 카테고리 전체조회           | GET    | /api/product/category/list                   | 7.23     | 30m          | 7.25       | 15m           |
+| 하위 카테고리 조회          | GET    | /api/product/category/list/{no}              | 7.23     | 30m          | 7.25       | 15m           |
+| 카테고리 수정               | PUT    | /api/admin/product/category/list/{no}        | 7.24     | 30m          | 7.26       | 15m           |
+| 서브 카테고리 수정          | PUT    | /api/admin/product/category/list/{no}/{s_no} | 7.24     | 30m          | 7.26       | 15m           |
+| 카테고리 삭제               | DELETE | /api/admin/product/category/list/{no}        | 7.24     | 30m          | 7.26       | 15m           |
+| 서브 카테고리 삭제          | DELETE | /api/admin/product/category/list/{no}/{s_no} | 7.24     | 30m          | 7.26       | 15m           |
+| 장바구니 담기               | POST   | /api/cart/list                               | 7.25     | 1h           | 7.29       | 1h 20m        |
+| 장바구니 목록               | GET    | /api/cart/list                               | 7.25     | 1h           | 7.29       | 30m           |
+| 장바구니 수량 수정          | PUT    | /api/cart/list/{no}                          | 7.25     | 1h           | 7.29       | 30m           |
+| 장바구니 아이디 수정        | PUT    | /api/cart/list                               | 7.26     | 1h           | 7.29       | 40m           |
+| 장바구니 삭제               | DELETE | /api/cart/list                               | 7.26     | 1h           | 7.29       | 15m           |
+| 장바구니 상품 삭제          | DELETE | /api/cart/list/{no}                          | 7.26     | 1h           | 7.29       | 15m           |
+| 주문 하기                   | POST   | /api/order/list                              | 7.29     | 1h           | 7.30       | 3h( 밑에이유) |
+| 주문내역조회                | GET    | /api/order/list/{no}                         | 7.29     | 1h           |            |               |
+| 주문 삭제                   | DELETE | /api/order/list/{no}                         | 7.29     | 1h           |            |               |
 
 **개발시간 지연 사유**
-
-
 
  	1. 옵션목록생성 : DB설계를 이렇게 하면되지 않을까? 하고 설계를 한 후 바로 구현에 들어가다보니 문제가 생겼습니다.지금의 DB구조로는 안될것 같아서 다시 DB를 수정후 구현, 이를 반복하였습니다.  이런 과정을 반복하다보니 DB설계를 신중히 해야된다는 것을 느꼈고 구현을 할때도 가장 간단한 모델이 무엇인지 고민하는 습관을 길렀습니다.
 
@@ -55,7 +56,7 @@
 
 [관리자 특정 상품수정](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/AdminUpdateProduct.md)
 
-[관리자 특정 상품 삭제]()
+[관리자 특정 상품 삭제](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/AdminDeleteProduct.md)
 
 [관리자 상품 특정 옵션 삭제](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/AdminDeleteProductOption.md)
 

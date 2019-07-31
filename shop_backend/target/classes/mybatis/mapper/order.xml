@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="order">
+<!-- ##### CREATE #####-->
+<!-- 주문하기 -->
+<insert id="doOrder" parameterType="ordervo">
+<![CDATA[
+	insert into orders(order_no, recv_name, recv_tel, destination, ord_name, ord_tel, is_same, order_date, pay, ismember, iscart, id) 
+    values(#{order_no },#{ recv_name },#{recv_tel },#{destination },#{ord_name },#{ord_tel },#{is_same },
+    now(),#{pay },#{ismember },#{iscart },aes_encrypt(#{id },SHA2('shopmall',512)));
+]]>
+</insert>
+
+<!-- 주문 내역 삽입 -->
+<insert id="addOrderList" parameterType="java.util.List">
+<![CDATA[
+	insert into orderlist(order_no, product_no, pd_detail_no, qty, pay) 
+	values
+	]]>
+	<foreach collection="list" item="item" separator=" , " >
+        (${item.order_no }, ${item.product_no }, ${item.pd_detail_no }, ${item.qty } ,${item.pay })
+    </foreach>
+</insert>
+
+<!-- ##### SELECT #####-->
+<select id="isOwner" parameterType="ordervo" resultType="ordervo">
+<![CDATA[
+	select aes_decrypt(id,SHA2('shopmall',512)) as id from orders where order_no=#{order_no } and id=aes_encrypt(#{id },SHA2('shopmall',512));
+]]>
+</select>
+
+
+<!-- ##### DELETE #####-->
+<delete id="cancelOrder" parameterType="ordervo">
+<![CDATA[
+	delete from orders where order_no=#{order_no };
+]]>
+</delete>
+
+<!-- 주문 내역 취소 -->
+<delete id="cancelOrderList" parameterType="ordervo">
+<![CDATA[
+	delete from orderlist where order_no=#{order_no };	
+]]>
+</delete>
+
+</mapper>

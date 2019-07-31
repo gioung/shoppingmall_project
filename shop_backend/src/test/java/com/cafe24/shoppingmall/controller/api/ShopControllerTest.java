@@ -92,12 +92,12 @@ public class ShopControllerTest {
 			}
 			System.out.println("optionValList = "+ optionValList);
 			
-			ResultActions resultAction = mockMvc.perform(get(OPTIONURL+"/list")
+			ResultActions resultAction = mockMvc.perform(post(OPTIONURL+"/list")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(new Gson().toJson(map))
 					.characterEncoding("utf-8"));
 			
-			resultAction.andExpect(status().isOk())
+			resultAction.andExpect(status().isCreated())
 			.andExpect(jsonPath("$.result", is("success")))
 			.andDo(print());
 			

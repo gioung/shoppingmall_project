@@ -1,6 +1,5 @@
 package com.cafe24.shoppingmall.repository;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;

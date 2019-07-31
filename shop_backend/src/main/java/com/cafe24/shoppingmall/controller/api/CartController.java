@@ -105,31 +105,4 @@ public class CartController {
 		
 	} 
 	  
-	//장바구니 목록, forward 
-	//member_id, tempid 값을 받아서 나열
-//	@ApiOperation(value = "장바구니 목록")
-//	@RequestMapping(value = "/list", method = RequestMethod.GET)
-//	public JSONResult addProductToCart(@RequestParam String member_id,
-//			@RequestParam String temp_id) {
-//		
-//		List<CartVo> list = cartService.getProductList(member_id, temp_id);
-//		if(list.size()==0)
-//			return JSONResult.fail("장바구니에 담은 상품이 없습니다.");
-//		else
-//			return JSONResult.success(list);
-//		
-//	}
-//	
-//	@ApiOperation(value = "장바구니 목록 삭제")
-//	@RequestMapping(value = "/list/{no}", method = RequestMethod.DELETE)
-//	public JSONResult deleteProductsToCart(@RequestParam String member_id,
-//			@RequestParam String temp_id, @PathVariable long no) {
-//		
-//		boolean judge = cartService.deleteProducts(member_id, temp_id, no);
-//		
-//		if(judge == true)
-//			return JSONResult.success(judge);
-//		else
-//			return JSONResult.fail("장바구니 목록 삭제 실패");
-//	}
 }

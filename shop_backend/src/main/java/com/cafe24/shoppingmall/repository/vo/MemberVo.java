@@ -24,6 +24,8 @@ public class MemberVo {
 	@Pattern (regexp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$", message="핸드폰 번호 형식이 아닙니다.")
 	private String phone_num;
 	
+	private String address;
+	
 	public String getEmail() {
 		return email;
 	}
@@ -68,7 +70,12 @@ public class MemberVo {
 		this.phone_num = phone_num;
 	}
 	
-
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	@Override
 	public String toString() {
 		return "MemberVo [email=" + email + ", name=" + name + ", password=" + password

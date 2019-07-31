@@ -1,11 +1,14 @@
 package com.cafe24.shoppingmall.repository;
 
 
+import static org.junit.Assert.assertNotNull;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe24.shoppingmall.repository.vo.MemberVo;
+import com.cafe24.shoppingmall.repository.vo.OrderVo;
 
 @Repository
 public class UserDao {
@@ -16,7 +19,7 @@ public class UserDao {
 		System.out.println("UserDao Constructor");
 	}
 	
-
+	// ####### INSERT ########
 	
 	public boolean addMember(MemberVo memberVo) {
 		int count = sqlSession.insert("member.insertMember", memberVo);
@@ -24,7 +27,13 @@ public class UserDao {
 		
 	}
 
-
+	// ####### SELECT ########
+	//멤버 주소가 존재하지 않는가?
+	public boolean existMemberAddress(String id) {
+		String address = sqlSession.selectOne("member.existMemberAddress", id);
+		System.out.println("address = "+address);
+		return null==address;
+	}
 
 	public Boolean getEmail(String email) {
 		MemberVo memberVo = sqlSession.selectOne("member.selectByEmail", email);
@@ -38,7 +47,7 @@ public class UserDao {
 		return member!=null;
 	}
 
-
+	// ####### DELETE ########
 
 	public boolean deleteMember(MemberVo memberVo) {
 		
@@ -46,10 +55,22 @@ public class UserDao {
 	}
 
 
+	// ####### UPDATE ########
 
 	public boolean updateMember(MemberVo memberVo) {
 		
 		return 0 < sqlSession.update("member.updateMember", memberVo);
 	}
+
+	public boolean addMemberAddress(MemberVo memberVo) {
+		return 1 == sqlSession.update("member.addMemberAddress", memberVo);
+		
+	}
+
+	
+
+
+
+	
 	
 }

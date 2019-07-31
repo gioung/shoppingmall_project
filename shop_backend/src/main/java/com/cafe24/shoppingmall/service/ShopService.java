@@ -32,17 +32,7 @@ public class ShopService {
 		return shopDao.addProductDetail(productDetailVoList); 
 		
 	}
-	public long getProductPrice(long productNo, long quantity) {
-		long price = 0;
-		for(int i=0; i<list.size(); i++) {
-			if (list.get(i).getProduct_no() == productNo) {
-				price = list.get(i).getPrice();
-				break;
-			}
-		}
-		return price*quantity;
-		
-	}
+	
 	
 	public boolean addCategory(List<CategoryVo> categoryList) {
 		return shopDao.addCategory(categoryList);
@@ -76,6 +66,18 @@ public class ShopService {
 	//카테고리 전체 조회
 	public List<CategoryVo> getCategoryList() {
 		return shopDao.getCategoryList();
+		
+	}
+	//가격 계산
+	public long getProductPrice(long productNo, long quantity) {
+		long price = 0;
+		for(int i=0; i<list.size(); i++) {
+			if (list.get(i).getProduct_no() == productNo) {
+				price = list.get(i).getPrice();
+				break;
+			}
+		}
+		return price*quantity;
 		
 	}
 		
