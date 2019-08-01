@@ -32,6 +32,8 @@
 | 주문내역 상세조회           | GET    | /api/order/list/{no}                         | 7.29     | 30m          | 7.31       | 30m           |
 | 주문 삭제                   | DELETE | /api/order/list/{no}                         | 7.29     | 20m          | 7.31       | 30m           |
 
+
+
 **개발시간 지연 사유**
 
    	1. 옵션목록생성 : DB설계를 이렇게 하면되지 않을까? 하고 설계를 한 후 바로 구현에 들어가다보니 문제가 생겼습니다.지금의 DB구조로는 안될것 같아서 다시 DB를 수정후 구현, 이를 반복하였습니다.  이런 과정을 반복하다보니 DB설계를 신중히 해야된다는 것을 느꼈고 구현을 할때도 가장 간단한 모델이 무엇인지 고민하는 습관을 길렀습니다.
@@ -81,10 +83,10 @@
 
 [장바구니 상품 삭제](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/deleteProductInCart.md)
 
-[주문 하기]()
+[주문 하기](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/doOrder.md)
 
 [주문내역조회]()
 
-[주문내역 상세조회]()
+[주문내역 상세조회]() - 미완
 
-[주문 삭제]()
+[주문 삭제]() - 미완
