@@ -85,7 +85,7 @@
 
 [주문 하기](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/doOrder.md)
 
-[주문내역조회]()
+[주문내역조회](https://github.com/gioung/shoppingmall_project/blob/master/APIDOC/doOrder.md)
 
 [주문내역 상세조회]() - 미완
 
