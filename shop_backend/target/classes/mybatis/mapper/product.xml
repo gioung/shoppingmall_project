@@ -54,6 +54,12 @@
 	]]>
 	</select>
 	
+	<!-- 재고 조회 -->
+	<select id="getQtyByOrderList" parameterType="productdetailvo" resultType="long">
+		<![CDATA[
+			select inventory from pd_detail where product_no=#{product_no } and pd_detail_no=#{pd_detail_no };
+			]]> 
+	</select>
 	<!-- ############### UPDATE ################# -->
 	<!-- 상품 수정 -->
 	<update id="updateProduct" parameterType="productvo">

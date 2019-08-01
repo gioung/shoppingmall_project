@@ -30,6 +30,21 @@
 ]]>
 </select>
 
+<select id="getOrderList" parameterType="string" resultType="ordervo">
+	<![CDATA[
+		select order_no,aes_decrypt(id,SHA2('shopmall',512)) as id,recv_name,recv_tel,destination,
+		ord_name,ord_tel,is_same,order_date,pay
+		 from orders where id=aes_encrypt(#{id },SHA2('shopmall',512));
+	]]>
+</select>
+
+<select id="getOrderDetailList" parameterType="ordervo" resultType="orderedproductvo">
+	<![CDATA[
+		select b.order_no,b.product_no,b.pd_detail_no,b.qty,b.pay  
+		 from orders a,orderlist b 
+		 where a.id=aes_encrypt(#{id },SHA2('shopmall',512)) and a.order_no=b.order_no and a.order_no=#{order_no };
+	]]>
+</select>
 
 <!-- ##### DELETE #####-->
 <delete id="cancelOrder" parameterType="ordervo">

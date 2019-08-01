@@ -89,7 +89,7 @@ CartDao cartDao;
 		return cartDao.deleteProductInCart(cartVo);
 	}
 	
-	
+	//임시 아이디 생성 코드
 	private static String createTempId() {
 		StringBuffer strbuff = new StringBuffer();
 		Random random = new Random();

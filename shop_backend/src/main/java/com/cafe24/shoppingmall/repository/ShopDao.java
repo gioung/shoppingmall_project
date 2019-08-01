@@ -1,5 +1,6 @@
 package com.cafe24.shoppingmall.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe24.shoppingmall.repository.vo.CategoryVo;
+import com.cafe24.shoppingmall.repository.vo.OrderedProductVo;
 import com.cafe24.shoppingmall.repository.vo.ProductDetailVo;
 import com.cafe24.shoppingmall.repository.vo.ProductVo;
 
@@ -88,9 +90,24 @@ public class ShopDao {
 		}
 	
 	//특정 카테고리 조회
+	
 	public List<CategoryVo> getSubCategoryList(long no) {
 		
 		return sqlSession.selectList("category.getSpecificSubCategoryList",no);
+	}
+	
+	//재고 리스트 조회
+	public List<Long> getQtyByOrderList(List<ProductDetailVo> list) {
+		System.out.println("size = " + list.size());
+		System.out.println("productdetailvoList = "+list);
+		List<Long> qtyList = new ArrayList<>(list.size());
+		for(int i=0; i<list.size(); i++) {
+			Long qty = sqlSession.selectOne("product.getQtyByOrderList", list.get(i));
+			System.out.println("Qty = "+qty);
+			qtyList.add(qty);
+		}
+		System.out.println("qtyList = "+qtyList);
+		return qtyList;
 	}
 	/*  UPDATE  */
 	//특정 상품 수정
@@ -149,6 +166,8 @@ public class ShopDao {
 		sqlSession.delete("category.deleteSubCategoryByMain", categoryVo);
 		return 1 == sqlSession.delete("category.deleteMainCategory", categoryVo);
 	}
+
+	
 
 	
 

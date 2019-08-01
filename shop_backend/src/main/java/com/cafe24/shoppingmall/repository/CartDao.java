@@ -53,6 +53,7 @@ public class CartDao {
 	}
 	
 	// ######### DELETE ############
+	//장바구니 삭제
 	public boolean deleteCart(String id) {
 		
 		return 0 < sqlSession.delete("cart.deleteCart", id);

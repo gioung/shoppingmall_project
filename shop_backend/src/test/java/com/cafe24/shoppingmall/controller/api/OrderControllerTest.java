@@ -195,7 +195,7 @@ public class OrderControllerTest {
 
 	}
 	
-	// # 주문하기(비회원) + 상품페이지에서 주문
+	// # 주문하기(비회원) + 상품페이지에서 주문 
 	@Test
 	public void TestA04() throws Exception{
 		System.out.println("비회원 주문하기");
@@ -214,13 +214,10 @@ public class OrderControllerTest {
 				.content(new Gson().toJson(orderVo))
 				.characterEncoding("utf-8"));
 				
-			
 				resultActions
 				.andDo(print())
 				.andExpect(status().isCreated())
-				.andExpect(jsonPath("$.result", is("success")));
-				
-		
+				.andExpect(jsonPath("$.result", is("success")));	
 	}
 	
 	// # 주문하기(회원) + 회원 추가정보 insert
@@ -262,7 +259,7 @@ public class OrderControllerTest {
 		// 상품 주문
 		orderList.add(new OrderedProductVo(order_no, 1L, 1L, 4L, 42000L * 4L));
 		// 주문자와 받는자가 다르다. 두번재는 받는자의 이름, 세번째는 받는자의 전화번호
-		OrderVo orderVo = new OrderVo(order_no, "문상수", "111-1111-1111", "서울", "남기웅", "010-1234-5678", true, false, id);
+		OrderVo orderVo = new OrderVo(order_no, "문상수", "111-1111-1111", "서울", "남기웅", "010-1234-5678", false, false, id);
 		// 회원임을 표시
 		orderVo.setIsmember(true);
 		orderVo.setOrderList(orderList);
@@ -295,26 +292,89 @@ public class OrderControllerTest {
 			resultActions.andDo(print()).andExpect(status().isCreated()).andExpect(jsonPath("$.result", is("success")));
 
 		}
+		
 	// # 장바구니로 주문할 경우 장바구니 삭제
 	@Test
 	public void TestA08() throws Exception {
-		System.out.println("장바구니로 주문할 경우 장바구니 삭제 (2개이상 주문)");
-		long order_no = 4L;
+		System.out.println("장바구니로 주문시 장바구니 삭제");
+		long order_no = 5L;
 		String id = "ska2253@naver.com";
-		// 주문자와 받는자가 다르다. 두번재는 받는자의 이름, 세번째는 받는자의 전화번호
-		OrderVo orderVo = new OrderVo(order_no,"문상수", "111-1111-1111", "서울", "남기웅", "010-1234-5678", true, id);
+		OrderVo orderVo = new OrderVo(order_no, "문상수", "111-1111-1111", "서울", "남기웅", "010-1234-5678", true, id);
 		// 회원임을 표시
 		orderVo.setIsmember(true);
 		// 장바구니 사용 표시
 		orderVo.setIscart(true);
-		
+
 		ResultActions resultActions = mockMvc.perform(post(ORDERURL + "/list").contentType(MediaType.APPLICATION_JSON)
 				.content(new Gson().toJson(orderVo)).characterEncoding("utf-8"));
 
 		resultActions.andDo(print()).andExpect(status().isCreated()).andExpect(jsonPath("$.result", is("success")));
 	}
 	
+	// # 재고보다 주문 수량이 많을 경우
+	@Test
+	public void TestA09() throws Exception {
+		System.out.println("재고보다 주문 수량이 많을 경우");
+		long order_no = 6L;
+		String id = "ska2253@naver.com";
+		List<OrderedProductVo> orderList = new ArrayList<>();
+		//상품 주문시 상품번호가 1이고 상품 디테일번호가 2인 상품을 900개 (재고 초과)주문 한다고 가정
+		orderList.add(new OrderedProductVo(order_no, 1L, 2L, 900L,42000L*4L));
+		//주문자와 받는자가 같으므로 두번째 , 세번째는 null값
+		OrderVo orderVo = new OrderVo(order_no, null, null, "서울", "남기웅", 
+				"010-1234-5678", true, false, id);
+		//회원임을 표시
+		orderVo.setIsmember(true);
+		orderVo.setOrderList(orderList);
+		
+		ResultActions resultActions = mockMvc.perform(post(ORDERURL+"/list")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(new Gson().toJson(orderVo))
+				.characterEncoding("utf-8"));
+		//fail이 떠야된다.
+		resultActions
+		.andDo(print())
+		.andExpect(status().isBadRequest()) 
+		.andExpect(jsonPath("$.result", is("fail")));
+	}
+	
 	// # 주문내역 조회
+		@Test
+		public void TestB0() throws Exception{
+			System.out.println("주문내역 조회");
+			//ska2253@naver.com 의 주문내역 조회
+			String id = "ska2253@naver.com";
+			
+			ResultActions resultActions = mockMvc.perform(get(ORDERURL+"/list")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(new Gson().toJson(id))
+					.characterEncoding("utf-8"));
+			
+			resultActions.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.result", is("success")));
+		}
+		
+	// # 주문내역 상세 조회
+		@Test
+		public void TestB1() throws Exception{
+			System.out.println("주문내역 상세 조회");
+			String id = "ska2253@naver.com";
+			long order_no = 2L;
+			
+			OrderVo orderVo = new OrderVo();
+			orderVo.setId(id);
+			
+			ResultActions resultActions = mockMvc.perform(get(ORDERURL+"/list/{no}",order_no)
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(new Gson().toJson(orderVo))
+					.characterEncoding("utf-8"));
+			
+			resultActions.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.result", is("success")));
+		}
+	
 	// # 주문 취소
 		@Test
 		public void TestC00() throws Exception{
@@ -364,6 +424,12 @@ public class OrderControllerTest {
 					.characterEncoding("utf-8"));
 			
 			order_no = 4L;
+			mockMvc.perform(delete(ORDERURL+"/list/{no}",order_no)
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(new Gson().toJson(orderVo))
+					.characterEncoding("utf-8"));
+			
+			order_no = 5L;
 			mockMvc.perform(delete(ORDERURL+"/list/{no}",order_no)
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(new Gson().toJson(orderVo))

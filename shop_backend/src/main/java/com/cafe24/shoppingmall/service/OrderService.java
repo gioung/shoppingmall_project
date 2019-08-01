@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.cafe24.shoppingmall.repository.CartDao;
 import com.cafe24.shoppingmall.repository.OrderDao;
+import com.cafe24.shoppingmall.repository.ShopDao;
 import com.cafe24.shoppingmall.repository.UserDao;
 import com.cafe24.shoppingmall.repository.vo.CartVo;
 import com.cafe24.shoppingmall.repository.vo.MemberVo;
 import com.cafe24.shoppingmall.repository.vo.OrderVo;
 import com.cafe24.shoppingmall.repository.vo.OrderedProductVo;
+import com.cafe24.shoppingmall.repository.vo.ProductDetailVo;
 
 @Service
 public class OrderService {
@@ -25,6 +27,9 @@ public class OrderService {
 	CartDao cartDao;
 	@Autowired
 	UserDao userDao;
+	@Autowired
+	ShopDao shopDao;
+
 	/* ####### CREATE ###### */
 	//주문하기
 	public boolean doOrder(OrderVo orderVo) {
@@ -73,10 +78,11 @@ public class OrderService {
 			
 		}
 		
-		//order table insert
-		if(orderDao.doOrder(orderVo)) {
+		//재고 확인 및 재고 차감
+		if(isEnoughQty(orderVo.getOrderList())) {
+			//order table insert
+			orderDao.doOrder(orderVo);
 			//orderList table insert
-			System.out.println("OrderList = "+ orderVo.getOrderList());
 			return orderDao.addOrderList(orderVo.getOrderList());
 			}
 		
@@ -85,6 +91,45 @@ public class OrderService {
 	
 	
 	
+	//주문 수량이 재고 수량보다 작거나 같은지
+	private boolean isEnoughQty(List<OrderedProductVo> orderList) {
+		int size = orderList.size();
+		List<ProductDetailVo> pdvList = new ArrayList<>(size);
+		for(int i=0; i<size; i++) {
+			ProductDetailVo pdv = new ProductDetailVo();
+			pdv.setProduct_no(orderList.get(i).getProduct_no());
+			pdv.setPd_detail_no(orderList.get(i).getPd_detail_no());
+			pdvList.add(pdv);
+		}
+		//수정하기
+		List<Long> qtyList = shopDao.getQtyByOrderList(pdvList);
+		
+		for(int i=0; i<size; i++) {
+			if(qtyList.get(i)<orderList.get(i).getQty())
+				return false;
+		}
+		
+		//작다면 재고 차감
+		for(int i=0; i<size; i++) {
+			long result = qtyList.get(i)-orderList.get(i).getQty();
+			pdvList.get(i).setInventory(result);
+		}
+		return true;
+	}
+
+	/* ####### SELECT ###### */
+	public List<OrderVo> getOrderList(String id) {
+
+		return orderDao.getOrderList(id);
+	}
+	
+	//주문 상세내역 조회
+	public List<OrderedProductVo> getOrderDetailList(OrderVo orderVo) {
+		
+		return orderDao.getOrderDetailList(orderVo);
+	}
+
+
 	/* ####### DELETE ###### */
 	public boolean cancelOrder(OrderVo orderVo) {
 		boolean isOwner=orderDao.isOwner(orderVo);
@@ -97,5 +142,13 @@ public class OrderService {
 		return false;
 		
 	}
+
+
+
+	
+
+
+
+	
 
 }

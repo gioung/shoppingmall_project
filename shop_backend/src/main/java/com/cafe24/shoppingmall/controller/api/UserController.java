@@ -1,7 +1,5 @@
 package com.cafe24.shoppingmall.controller.api;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;

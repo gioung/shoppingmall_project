@@ -37,6 +37,18 @@ public class OrderDao {
 		return orderVo.getId().equals(result.getId());
 	}
 	
+	//해당 id의 주문내역 조회
+	public List<OrderVo> getOrderList(String id) {
+		List<OrderVo> orderList = sqlSession.selectList("order.getOrderList", id);
+		return orderList;
+	}
+	
+	//주문 상세 내역 조회
+	public List<OrderedProductVo> getOrderDetailList(OrderVo orderVo) {
+		List<OrderedProductVo> orderDetailList = sqlSession.selectList("order.getOrderDetailList", orderVo);
+		return orderDetailList;
+	}
+	
 	
 	
 	// DELETE
@@ -51,6 +63,8 @@ public class OrderDao {
 		
 		return 0 < sqlSession.delete("order.cancelOrderList", orderVo);
 	}
+	
+	
 	
 	
 }
