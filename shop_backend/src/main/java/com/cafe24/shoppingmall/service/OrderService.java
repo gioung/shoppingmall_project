@@ -118,6 +118,7 @@ public class OrderService {
 	}
 
 	/* ####### SELECT ###### */
+	//전체 주문내역 조회
 	public List<OrderVo> getOrderList(String id) {
 
 		return orderDao.getOrderList(id);
@@ -131,6 +132,7 @@ public class OrderService {
 
 
 	/* ####### DELETE ###### */
+	//주문취소
 	public boolean cancelOrder(OrderVo orderVo) {
 		boolean isOwner=orderDao.isOwner(orderVo);
 		System.out.println("isOwner = " + isOwner);
