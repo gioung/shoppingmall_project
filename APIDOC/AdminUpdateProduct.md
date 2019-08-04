@@ -162,7 +162,5 @@ Status = 200<br>
 
 
 - <b>개발시 발생한 issue</b>
-
-  1. Map객체를 RequestMessage의 body에 넣어서 보낼때 Controller 단에서 어떻게 유효성 검사를 하는가?
-
+ 1. Map객체를 RequestMessage의 body에 넣어서 보낼때 Controller 단에서 어떻게 유효성 검사를 하는가?
      => Validator 객체를 이용하여 Map에 저장되어 있는 vo객체들을 꺼내서 유효성 검사를 하는 방법을 찾아서 적용하였습니다.
