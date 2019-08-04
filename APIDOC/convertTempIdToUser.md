@@ -4,15 +4,7 @@
 
  1. 비회원이  회원가입시 비회원의 장바구니의 id값을 TempId에서 회원 Id로 변환시킨다.
 
-    
-
-<b>개발시 발생한 issue</b>
-
- 1. 장바구니 테이블 컬럼에는 tempId 컬럼이 존재하지 않는다. mybatis를 이용하여 쿼리문을 작성할 때 변경하기 위한 회원id값과 tempId값 두개가 필요한데 이를 어떻게 처리 할 것인가?
-
-    => CartVo 클래스에 tempId 프로퍼티를 추가하고 xml파일에서 ${}문법을 이용하여 값을 매핑시킨다.
-
-    
+      
 
 ■ 실제동작코드 
 
@@ -95,6 +87,11 @@ ska2253@naver.com 으로 회원가입 , 기존에 하나의 상품이 장바구�
 		resultActions.andDo(print()).andExpect(status().isOk()).andExpect(jsonPath("$.result", is("success")));
 	}
 ```
+<b>개발시 발생한 issue</b>
+
+ 1. 장바구니 테이블 컬럼에는 tempId 컬럼이 존재하지 않는다. mybatis를 이용하여 쿼리문을 작성할 때 변경하기 위한 회원id값과 tempId값 두개가 필요한데 이를 어떻게 처리 할 것인가?
+
+    => CartVo 클래스에 tempId 프로퍼티를 추가하고 xml파일에서 ${}문법을 이용하여 값을 매핑시킨다.
 
 
 
