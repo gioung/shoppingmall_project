@@ -188,5 +188,5 @@ Status = 400<br>
 
 
 - <b>개발시 발생한 issue</b>
-  	1. 로그인시 Controller 단에서 @Valid를 이용하면 MemberVo 객체의 모든 property의 유효성을 검사하게 된다. 따라서 @Valid를 없애고 명시적으로 지정한 property만 검사하도록 코드를 작성하였다. 
+ 1. 로그인시 Controller 단에서 @Valid를 이용하면 MemberVo 객체의 모든 property의 유효성을 검사하게 된다. 따라서 @Valid를 없애고 명시적으로 지정한 property만 검사하도록 코드를 작성하였다. 
 
