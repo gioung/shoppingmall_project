@@ -25,7 +25,7 @@ import com.cafe24.shoppingmall.dto.JSONResult;
 
 
 @Configuration
-@EnableWebSecurity
+//@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		@Bean
 	    @Override

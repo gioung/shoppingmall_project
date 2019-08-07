@@ -66,8 +66,8 @@ public class HelloControllerTest {
         params.add("grant_type", "client_credentials");
         params.add("scope", "read");
         params.add("scope", "write");
-        params.add("client_id", "shoppingmall");
-        params.add("client_secret", "1234");
+//        params.add("client_id", "shoppingmall");
+//        params.add("client_secret", "1234");
 
         ResultActions result = mockMvc
             	.perform(post("/oauth/token")
@@ -77,7 +77,8 @@ public class HelloControllerTest {
                             .contentType(MediaType.APPLICATION_JSON))
     			.andDo(print())
     			.andExpect(status().isOk());            	
-
+        
+        System.out.println("result = "+result.andReturn().getResponse().getContentType());
         String resultString = result.andReturn().getResponse().getContentAsString();
         System.out.println("resultString = "+resultString);
         JacksonJsonParser jsonParser = new JacksonJsonParser();

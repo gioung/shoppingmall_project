@@ -1,14 +1,11 @@
 package com.cafe24.shoppingmall.repository;
 
 
-import static org.junit.Assert.assertNotNull;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe24.shoppingmall.repository.vo.MemberVo;
-import com.cafe24.shoppingmall.repository.vo.OrderVo;
 
 @Repository
 public class UserDao {

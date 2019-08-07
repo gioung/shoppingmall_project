@@ -21,6 +21,7 @@ public class ShopService {
 	// 상품 등록
 	public boolean addProduct(ProductVo productVo, List<ProductDetailVo> productDetailVoList) {
 		long product_no = shopDao.addProduct(productVo);
+		
 		//#상품 상세 등록#
 		//등록된 상품 번호로 product_no 설정
 		for(int i=0; i< productDetailVoList.size(); i++) {
@@ -29,8 +30,10 @@ public class ShopService {
 			productDetailVo.setPd_detail_no(i+1);
 		}
 		
-		return shopDao.addProductDetail(productDetailVoList); 
 		
+		
+		return shopDao.addProductDetail(productDetailVoList); 
+
 	}
 	
 	

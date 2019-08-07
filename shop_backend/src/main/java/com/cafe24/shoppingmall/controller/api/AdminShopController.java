@@ -27,9 +27,9 @@ import com.cafe24.shoppingmall.repository.vo.CategoryVo;
 import com.cafe24.shoppingmall.repository.vo.ProductDetailVo;
 import com.cafe24.shoppingmall.repository.vo.ProductVo;
 import com.cafe24.shoppingmall.service.ShopService;
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -54,8 +54,8 @@ public class AdminShopController {
 			ProductVo productVo = gson.fromJson(String.valueOf(map.get("product")), ProductVo.class);
 			List<ProductDetailVo> productDetailVoList = gson.fromJson(String.valueOf(map.get("productDetailList")), listType);
 
-			System.out.println(productVo);
-			System.out.println(productDetailVoList);
+//			System.out.println("상품 = "+productVo);
+//			System.out.println("상품 디테일 리스트 = "+productDetailVoList);
 			// 상품 등록
 			boolean judge = shopService.addProduct(productVo, productDetailVoList);
 			if(!judge)

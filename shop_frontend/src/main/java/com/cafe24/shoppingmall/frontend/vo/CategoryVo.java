@@ -1,4 +1,4 @@
-package com.cafe24.shoppingmall.repository.vo;
+package com.cafe24.shoppingmall.frontend.vo;
 
 import javax.validation.constraints.NotNull;
 

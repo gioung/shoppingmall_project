@@ -219,11 +219,67 @@ public class ShopControllerTest {
 			.content(new Gson().toJson(map))
 			.characterEncoding("utf-8"));
 			
-		
-			resultActions
-			.andExpect(status().isCreated())
-			.andDo(print());
+			ProductVo productVo2 = new ProductVo(2L,"\"플레이스 썸머 나시\"", 14000L, "imageURL", "\"스트릿 백나염이 매력적인 썸머 나시!\"","상세설명", true, "원자재", "공급사", "제조사", "원산지",1L ,2L);
+			long[] inventorys2 = {90L, 95L};
+			List<ProductDetailVo> productDetailVoList2 = new ArrayList<>();
+			
+			for(int i=0; i<inventorys2.length; i++) {
+				productDetailVoList2.add(new ProductDetailVo(optionValList.get(i), inventorys2[i]));
+			}
+			
+			Map<String, Object> map2 = new HashMap<>();
+			map2.put("product", productVo2);
+			map2.put("productDetailList", productDetailVoList2);
+			
+			resultActions = mockMvc.perform(post(SHOPADMINURL+"/list")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(new Gson().toJson(map2))
+			.characterEncoding("utf-8"));
+			
+			ProductVo productVo3 = new ProductVo(3L,"\"코모도 5부 밴딩 슬랙스\"", 15000L, "imageURL", "\"편안함, 시원함, 착용감 모두 우수한 일석삼조 밴딩 팬츠\"",
+					"상세설명", true, "원자재", "공급사", "제조사", "원산지",2L ,1L);
+			long[] inventorys3 = {28L, 30L, 32L, 34L};
+			List<ProductDetailVo> productDetailVoList3 = new ArrayList<>();
+			
+			for(int i=0; i<inventorys3.length; i++) {
+				productDetailVoList3.add(new ProductDetailVo(optionValList.get(i), inventorys3[i]));
+			}
+			
+			Map<String, Object> map3 = new HashMap<>();
+			map3.put("product", productVo3);
+			map3.put("productDetailList", productDetailVoList3);
+			
+			resultActions = mockMvc.perform(post(SHOPADMINURL+"/list")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(new Gson().toJson(map3))
+			.characterEncoding("utf-8"));
+			
+			ProductVo productVo4 = new ProductVo(4L,"\"소프트 밴딩 스판 슬랙스\"", 34000L, "imageURL", "\"편안한 밴딩 디테일로\r\n" + 
+					"멋스럽고 깔끔하게 착용할 수 있는 밴딩 슬랙스\"",
+					"상세설명", true, "원자재", "공급사", "제조사", "원산지",2L ,2L);
+			long[] inventorys4 = {28L, 30L, 32L, 34L};
+			List<ProductDetailVo> productDetailVoList4 = new ArrayList<>();
+			
+			for(int i=0; i<inventorys4.length; i++) {
+				productDetailVoList4.add(new ProductDetailVo(optionValList.get(i), inventorys4[i]));
+			}
+			
+			Map<String, Object> map4 = new HashMap<>();
+			map4.put("product", productVo4);
+			map4.put("productDetailList", productDetailVoList4);
+			
+			resultActions = mockMvc.perform(post(SHOPADMINURL+"/list")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(new Gson().toJson(map4))
+			.characterEncoding("utf-8"));
+			
+//			resultActions
+//			.andExpect(status().isCreated())
+//			.andDo(print());
+			
+			
 		}
+		
 		
 		//#3. 관리자 상품목록 조회
 		// case1. 성공케이스 
@@ -354,9 +410,22 @@ public class ShopControllerTest {
 //	@Test
 //	public void testF_3() throws Exception {
 //		long no = 1L;
-//
+//		long no2 = 2L;
+//		long no3 = 3L;
+//		long no4 = 4L;
+//		
 //		ResultActions resultActions = mockMvc
 //				.perform(delete(SHOPADMINURL + "/list/{no}", no).characterEncoding("utf-8"));
+//		
+//		mockMvc
+//		.perform(delete(SHOPADMINURL + "/list/{no}", no2).characterEncoding("utf-8"));
+//		
+//		mockMvc
+//		.perform(delete(SHOPADMINURL + "/list/{no}", no3).characterEncoding("utf-8"));
+//		
+//		mockMvc
+//		.perform(delete(SHOPADMINURL + "/list/{no}", no4).characterEncoding("utf-8"));
+//		
 //
 //		resultActions.andDo(print()).andExpect(status().isOk());
 //
@@ -394,7 +463,7 @@ public class ShopControllerTest {
 //			categoryVo.setMain_no(1L);
 //			shopService.deleteMainCategory(categoryVo);
 //		}
-		
+//		
 		
 		
 		

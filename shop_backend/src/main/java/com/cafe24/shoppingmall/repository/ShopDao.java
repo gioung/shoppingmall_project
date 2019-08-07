@@ -21,9 +21,10 @@ public class ShopDao {
 	// 상품 생성
 	public long addProduct(ProductVo productVo) {
 		
+		long product_no = productVo.getProduct_no();
 		sqlSession.insert("product.addproduct", productVo);
 		
-		return 1L;
+		return product_no;
 	}
 
 	// 카테고리 생성

@@ -44,10 +44,10 @@ security:
          user:
               name: test
               password: 5678
-         oauth2:
-                client:
-                       client-id: shoppingmall
-                       client-secret: 1234
+#         oauth2:
+#                client:
+#                       client-id: shoppingmall
+#                       client-secret: 1234
                        
 mybatis:
         config-location: classpath:mybatis/configuration.xml
