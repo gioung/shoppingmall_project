@@ -317,83 +317,83 @@ public class ShopControllerTest {
 			
 		}
 		
-		//#6 특정 상품 옵션 삭제
-		//case1. 성공 케이스
-		@Test
-		public void testF_1() throws Exception{
-			// 상품번호가 1인 상품의 옵션중 2번째 옵션을 삭제한다.
-			long no = 1L;
-			long p_no = 2L;
-			
-			ResultActions resultActions = mockMvc.perform(delete(SHOPADMINURL+"/list/{no}/{p_no}", no , p_no)
-					.characterEncoding("utf-8"));
-			
-			resultActions
-			.andDo(print())
-			.andExpect(status().isOk());
-		}
-		
-		//case2. 실패 케이스 : 없는 옵션삭제를 요청
-		@Test
-		public void testF_2() throws Exception{
-			// 상품번호가 1인 상품의 옵션중 5번째 옵션을 삭제한다.
-			// 5번째 옵션은 없는 옵션이다.
-			long no = 1L;
-			long p_no = 5L;
-			
-			ResultActions resultActions = mockMvc.perform(delete(SHOPADMINURL+"/list/{no}/{p_no}", no , p_no)
-					.characterEncoding("utf-8"));
-			
-			resultActions
-			.andDo(print())
-			.andExpect(status().isBadRequest());
-		}
-		
-	// #7 상품삭제
-	// case1. 성공 케이스
-	@Test
-	public void testF_3() throws Exception {
-		long no = 1L;
-
-		ResultActions resultActions = mockMvc
-				.perform(delete(SHOPADMINURL + "/list/{no}", no).characterEncoding("utf-8"));
-
-		resultActions.andDo(print()).andExpect(status().isOk());
-
-	}
-
-	// 하위 카테고리 삭제
-		//case1. 성공 케이스
-		@Test
-		public void testF_4() throws Exception{
-			System.out.println("하위 카테고리 삭제");
-			long main_no = 1L; //main_no = 1 이고
-			long sub_no = 1L; //sub_no = 1 인 카테고리 삭제
-			ResultActions resultActions = mockMvc.perform(delete(SHOPADMINURL+"/category/list/{no}/{s_no}",main_no,sub_no)
-					.characterEncoding("utf-8"));
-			
-			resultActions
-			.andDo(print())
-			.andExpect(status().isOk());
-		}
-		
-		// 메인 카테고리 삭제 
-		@Test
-		public void testF_5() throws Exception{
-			System.out.println("상위 카테고리 삭제");
-			long main_no = 2L; // main_no = 2 에 속하는 모든 카테고리 삭제
-			
-			ResultActions resultActions = mockMvc.perform(delete(SHOPADMINURL+"/category/list/{no}",main_no)
-					.characterEncoding("utf-8"));
-			
-			resultActions
-			.andDo(print())
-			.andExpect(status().isOk());
-			
-			CategoryVo categoryVo = new CategoryVo();
-			categoryVo.setMain_no(1L);
-			shopService.deleteMainCategory(categoryVo);
-		}
+//		//#6 특정 상품 옵션 삭제
+//		//case1. 성공 케이스
+//		@Test
+//		public void testF_1() throws Exception{
+//			// 상품번호가 1인 상품의 옵션중 2번째 옵션을 삭제한다.
+//			long no = 1L;
+//			long p_no = 2L;
+//			
+//			ResultActions resultActions = mockMvc.perform(delete(SHOPADMINURL+"/list/{no}/{p_no}", no , p_no)
+//					.characterEncoding("utf-8"));
+//			
+//			resultActions
+//			.andDo(print())
+//			.andExpect(status().isOk());
+//		}
+//		
+//		//case2. 실패 케이스 : 없는 옵션삭제를 요청
+//		@Test
+//		public void testF_2() throws Exception{
+//			// 상품번호가 1인 상품의 옵션중 5번째 옵션을 삭제한다.
+//			// 5번째 옵션은 없는 옵션이다.
+//			long no = 1L;
+//			long p_no = 5L;
+//			
+//			ResultActions resultActions = mockMvc.perform(delete(SHOPADMINURL+"/list/{no}/{p_no}", no , p_no)
+//					.characterEncoding("utf-8"));
+//			
+//			resultActions
+//			.andDo(print())
+//			.andExpect(status().isBadRequest());
+//		}
+//		
+//	// #7 상품삭제
+//	// case1. 성공 케이스
+//	@Test
+//	public void testF_3() throws Exception {
+//		long no = 1L;
+//
+//		ResultActions resultActions = mockMvc
+//				.perform(delete(SHOPADMINURL + "/list/{no}", no).characterEncoding("utf-8"));
+//
+//		resultActions.andDo(print()).andExpect(status().isOk());
+//
+//	}
+//
+//	// 하위 카테고리 삭제
+//		//case1. 성공 케이스
+//		@Test
+//		public void testF_4() throws Exception{
+//			System.out.println("하위 카테고리 삭제");
+//			long main_no = 1L; //main_no = 1 이고
+//			long sub_no = 1L; //sub_no = 1 인 카테고리 삭제
+//			ResultActions resultActions = mockMvc.perform(delete(SHOPADMINURL+"/category/list/{no}/{s_no}",main_no,sub_no)
+//					.characterEncoding("utf-8"));
+//			
+//			resultActions
+//			.andDo(print())
+//			.andExpect(status().isOk());
+//		}
+//		
+//		// 메인 카테고리 삭제 
+//		@Test
+//		public void testF_5() throws Exception{
+//			System.out.println("상위 카테고리 삭제");
+//			long main_no = 2L; // main_no = 2 에 속하는 모든 카테고리 삭제
+//			
+//			ResultActions resultActions = mockMvc.perform(delete(SHOPADMINURL+"/category/list/{no}",main_no)
+//					.characterEncoding("utf-8"));
+//			
+//			resultActions
+//			.andDo(print())
+//			.andExpect(status().isOk());
+//			
+//			CategoryVo categoryVo = new CategoryVo();
+//			categoryVo.setMain_no(1L);
+//			shopService.deleteMainCategory(categoryVo);
+//		}
 		
 		
 		

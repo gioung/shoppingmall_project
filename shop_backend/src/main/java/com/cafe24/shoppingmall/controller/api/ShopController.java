@@ -19,7 +19,7 @@ import com.cafe24.shoppingmall.service.ShopService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController("shopAPIController")
-@RequestMapping(value = "/api/product")
+@RequestMapping(value = "/api/product/")
 public class ShopController {
 
 	@Autowired

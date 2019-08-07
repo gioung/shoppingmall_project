@@ -2,8 +2,9 @@ package com.cafe24.shoppingmall.repository.vo;
 
 import java.sql.Date;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 public class CartVo {
 

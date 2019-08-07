@@ -1,0 +1,58 @@
+server:
+       port: 8888
+       servlet: 
+          contextPath: /v1
+               
+       error:
+             whitelabel:
+                        enabled: false
+
+spring:
+       profiles:
+                active: dev
+       devtools:
+                livereload:
+                           enabled: true
+       http:
+            encoding:
+                     charset: UTF-8
+                     enabled: true
+                     forced: true
+                     forced-request: true
+                     forced-response: true
+            converters:
+                       preferred-json-mapper: gson
+       aop:
+           auto: true
+       aop-proxy-target-class: true
+
+
+       datasource:
+                  initialization-mode: always
+                  driver-class-name: org.mariadb.jdbc.Driver
+                  url: jdbc:mariadb://192.168.1.53:3307/shoppingmall
+                  username: shoppingmall
+                  password: shoppingmall
+                  
+       mvc:
+           view:
+                prefix: /WEB-INF/views/
+                suffix: .jsp
+        
+
+security:
+         user:
+              name: test
+              password: 5678
+         oauth2:
+                client:
+                       client-id: shoppingmall
+                       client-secret: 1234
+                       
+mybatis:
+        config-location: classpath:mybatis/configuration.xml
+        
+logging:
+        config: classpath:logback.xml
+                           
+       

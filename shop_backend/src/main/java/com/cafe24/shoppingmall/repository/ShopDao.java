@@ -67,7 +67,7 @@ public class ShopDao {
 	}
 	//진열상태가 true인 상품리스트 조회
 	public List<ProductVo> getProductList() {
-		
+		System.out.println("Dao 실행");
 		return sqlSession.selectList("product.getProductList");
 	}
 	
