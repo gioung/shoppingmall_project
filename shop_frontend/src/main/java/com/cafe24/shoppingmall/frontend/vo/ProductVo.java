@@ -130,6 +130,21 @@ public class ProductVo {
 	public void setOrigin(String origin) {
 		this.origin = origin;
 	}
+	public long getMain_no() {
+		return main_no;
+	}
+
+	public void setMain_no(long main_no) {
+		this.main_no = main_no;
+	}
+
+	public long getSub_no() {
+		return sub_no;
+	}
+
+	public void setSub_no(long sub_no) {
+		this.sub_no = sub_no;
+	}
 
 	@Override
 	public String toString() {

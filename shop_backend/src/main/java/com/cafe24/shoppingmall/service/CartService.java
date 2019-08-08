@@ -1,6 +1,5 @@
 package com.cafe24.shoppingmall.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 

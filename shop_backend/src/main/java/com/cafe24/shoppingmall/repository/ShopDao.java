@@ -68,8 +68,22 @@ public class ShopDao {
 	}
 	//진열상태가 true인 상품리스트 조회
 	public List<ProductVo> getProductList() {
-		System.out.println("Dao 실행");
 		return sqlSession.selectList("product.getProductList");
+	}
+	
+	//메인카테고리 별 상품조회
+	public List<ProductVo> getProductList(long main_no) {
+		
+		return sqlSession.selectList("product.getProductListByMainCategory", main_no);
+	}
+	
+	//서브카테고리 별 상품조회
+	public List<ProductVo> getProductList(long main_no, long sub_no) {
+		CategoryVo categoryVo = new CategoryVo();
+		categoryVo.setMain_no(main_no);
+		categoryVo.setSub_no(sub_no);
+		
+		return sqlSession.selectList("product.getProductListBySubCategory", categoryVo);
 	}
 	
 	//특정 상품 조회
@@ -167,6 +181,10 @@ public class ShopDao {
 		sqlSession.delete("category.deleteSubCategoryByMain", categoryVo);
 		return 1 == sqlSession.delete("category.deleteMainCategory", categoryVo);
 	}
+
+	
+
+	
 
 	
 

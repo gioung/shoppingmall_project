@@ -11,6 +11,8 @@
 | 관리자 상품등록             | POST   | /api/admin/product/list                      | 7.19     | 50m          | 7.23       | 2h(밑에 이유) |
 | 관리자 상품목록조회         | GET    | /api/admin/product/list                      | 7.22     | 30m          | 7.24       | 20m           |
 | 관리자 특정 상품조회        | GET    | /api/admin/product/list/{no}                 | 7.22     | 40m          | 7.24       | 20m           |
+| 카테고리별 상품 조회        | GET    | /api/product/list/{no}                       |          |              | 8.05       | 20m           |
+| 서브카테고리별 상품 조회    | GET    | /api/product/list/{no}/{sub_no}              |          |              | 8.05       | 20m           |
 | 관리자 특정 상품수정        | PUT    | /api/admin/product/list/{no}                 | 7.22     | 30m          | 7.24       | 1h(밑에이유)  |
 | 관리자 특정 상품 삭제       | DELETE | /api/admin/product/list/{no}                 | 7.22     | 30m          | 7.24       | 15m           |
 | 관리자 특정 상품 옵션  삭제 | DELETE | /api/admin/product/list/{no}/{d_no}          | 7.23     | 30m          | 7.25       | 15m           |

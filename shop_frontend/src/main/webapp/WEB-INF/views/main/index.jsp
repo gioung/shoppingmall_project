@@ -13,7 +13,54 @@
 	<!-- Bootstrap core CSS -->
 	<link href="${pageContext.servletContext.contextPath }/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom styles for this template -->
-	<link href="${pageContext.servletContext.contextPath }/assets/css/shop-homepage.css" rel="stylesheet">
+	<link href="${pageContext.servletContext.contextPath }/assets/css/shop-hom
+	epage.css" rel="stylesheet">
+	<link href="${pageContext.servletContext.contextPath }/assets/js/category.js" rel="script">
+	<script>
+		function showProductBySubCategory(main_no, sub_no) {
+		$.ajax({
+					url : "${pageContext.servletContext.contextPath }/category/"
+							+ main_no + "/" + sub_no,
+					type : "get",
+					cache : false,
+					dataType : "json",
+					data : "",
+					success : function(response) {
+						var productList = response.data;
+
+						/* html 초기화*/
+						$("#product_list").html("");
+
+						/* before생성*/
+						var img_before = '<div class="col-lg-4 col-md-6 mb-4">'
+								+ '<div class="card h-100">';
+
+						var img_after = '</a>' + '<div class="card-body">'
+								+ '<h4 class="card-title">';
+
+						var after = '</div>'
+								+ '<div class="card-footer">'
+								+ '<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>'
+								+ '</div>' + '</div>' + '</div>';
+						/* 상품조회*/
+						for ( var i in productList) {
+							var vo = productList[i];
+							var tag = img_before
+									+ '<a href="${pageContext.servletContext.contextPath }/product/'+vo.product_no+'">'
+									+ '<img class="card-img-top" src="${pageContext.servletContext.contextPath }/assets/image/'
+								+ vo.image + '" alt="">'
+									+ img_after + '<a href="${pageContext.servletContext.contextPath }/product/'+vo.product_no+'">' + vo.name
+									+ '</a>' + '</h4>' + '<h5>' + vo.price
+									+ '</h5>' + '<p class="card-text">'
+									+ vo.summary_desc + '</p>' + after;
+
+							$("#product_list").append(tag);
+
+						}
+					}
+				});
+	}
+</script>
 </head>
 <body>
 	<!-- Navigation -->
@@ -21,18 +68,10 @@
 		<c:param name="active" value="shopping" />
 	</c:import>
 	<!-- /.Navigation -->
-	
 	<div class="container">
 		<div class="row">
-
-			<div class="col-lg-3">
-				<h1 class="my-4">Oung's Mall</h1>
-				<div class="list-group">
-				<c:forEach items='${mainCategoryList }' var='vo' varStatus='status'>
-					<a href="#" class="list-group-item">${vo.name }</a> 
-				</c:forEach>	
-				</div>
-			</div>
+			<!-- 카테고리 include -->
+			<c:import url="/WEB-INF/views/includes/category.jsp"></c:import>
 			<!-- /.col-lg-3 -->
 
 			<div class="col-lg-9">
@@ -68,18 +107,26 @@
 						class="sr-only">Next</span>
 					</a>
 				</div>
-
-				<div class="row">
-				<c:forEach items='${productList }' var='vo' varStatus='status'>
+				<div id="sub_category_list" style="margin-bottom: 10px">
+					<c:forEach items='${subCategoryList }' var='vo'>
+						<a href="#" onclick="showProductBySubCategory(${vo.main_no },${vo.sub_no })">${vo.name } &nbsp</a>
+					</c:forEach>
+				</div>
+				<div class="row" id="product_list">
+				<c:choose>
+				<c:when test="${not empty productList}">
+				<c:forEach items='${productList }' var='vo'>
 					<div class="col-lg-4 col-md-6 mb-4">
 						<div class="card h-100">
-							<a href="#"><img class="card-img-top"
-								src="http://placehold.it/700x400" alt=""></a>
+							<c:set var="productDetailPage" value="${pageContext.servletContext.contextPath }/product/${vo.product_no }" />
+							<a href="${productDetailPage }">
+							<img class="card-img-top"
+								src="${pageContext.servletContext.contextPath }/assets/image/${vo.image }" alt=""></a>
 							<div class="card-body">
 								<h4 class="card-title">
-									<a href="#">${vo.name }</a>
+									<a href="${productDetailPage }">${vo.name }</a>
 								</h4>
-								<h5>$${vo.price }</h5>
+								<h5>${vo.price }</h5>
 								<p class="card-text">${vo.summary_desc }</p>
 							</div>
 							<div class="card-footer">
@@ -89,6 +136,11 @@
 						</div>
 					</div>
 					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<h1>등록된 상품이 존재하지 않습니다.</h1>
+				</c:otherwise>
+				</c:choose>
 				</div>
 			
 			</div>

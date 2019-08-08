@@ -21,7 +21,6 @@ public class CartVo {
 	private long product_no;
 	@NotNull
 	private boolean ismember;
-	private String tempId;
 	
 	public CartVo() {
 		
@@ -127,15 +126,6 @@ public class CartVo {
 	}
 	public void setIsmember(boolean ismember) {
 		this.ismember = ismember;
-	}
-	
-	
-	public String getTempId() {
-		return tempId;
-	}
-
-	public void setTempId(String tempId) {
-		this.tempId = tempId;
 	}
 
 	@Override

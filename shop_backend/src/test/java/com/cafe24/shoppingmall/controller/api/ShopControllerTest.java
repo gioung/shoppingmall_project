@@ -47,6 +47,7 @@ public class ShopControllerTest {
 	private static final String OPTIONURL = "/api/option";
 	
 	private static List<String> optionValList = new ArrayList<>();
+	private static List<String> optionValList2 = new ArrayList<>();
 	@Autowired
 	private WebApplicationContext webApplicationContext;
 	@Autowired
@@ -90,7 +91,6 @@ public class ShopControllerTest {
 					optionValList.add(valueList1.get(i).concat(valueList2.get(j)));
 				}
 			}
-			System.out.println("optionValList = "+ optionValList);
 			
 			ResultActions resultAction = mockMvc.perform(post(OPTIONURL+"/list")
 					.contentType(MediaType.APPLICATION_JSON)
@@ -101,8 +101,37 @@ public class ShopControllerTest {
 			.andExpect(jsonPath("$.result", is("success")))
 			.andDo(print());
 			
+			// 옵션3
+			OptionVo optionVo3 = new OptionVo();
+			optionVo3.setOpt_name("색상");
+			List<String> valueList3 = new ArrayList<>();
+			valueList3.add("그레이"); valueList3.add("블랙");
+			optionVo3.setOpt_val(valueList3);
+						
+			// 옵션4
+			OptionVo optionVo4 = new OptionVo();
+			optionVo4.setOpt_name("사이즈");
+			List<String> valueList4 = new ArrayList<>();
+			valueList4.add("28"); valueList4.add("30");
+			optionVo4.setOpt_val(valueList4);
+						
+			Map<String,Object> map2 = new HashMap<>();
+			map2.put("option1", optionVo3);
+			map2.put("option2", optionVo4);
+						
+			// 옵션 값 리스트 생성
+			for(int i=0; i<valueList3.size(); i++) {
+				for(int j=0; j<valueList4.size(); j++) {
+						optionValList2.add(valueList3.get(i).concat(valueList4.get(j)));
+					}
+				}			
 			
+			mockMvc.perform(post(OPTIONURL+"/list")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(new Gson().toJson(map2))
+					.characterEncoding("utf-8"));
 		}
+	
 		//# 카테고리 등록 테스트
 		@Test
 		public void testB_0() throws Exception {
@@ -117,7 +146,7 @@ public class ShopControllerTest {
 			//서브 카테고리 2-1
 			CategoryVo subCategoryVo3 = new CategoryVo(2L, 1L, "반바지");
 			//서브 카테고리 2-2
-			CategoryVo subCategoryVo4 = new CategoryVo(2L, 2L, "슬렉스");
+			CategoryVo subCategoryVo4 = new CategoryVo(2L, 2L, "슬랙스");
 			
 			List<CategoryVo> categoryList = new ArrayList<>();
 			categoryList.add(categoryVo1);
@@ -169,7 +198,7 @@ public class ShopControllerTest {
 		public void testB_03() throws Exception{
 			System.out.println("메인 카테고리 수정");
 			CategoryVo categoryVo = new CategoryVo();
-			categoryVo.setName("BOTTOM");
+			categoryVo.setName("TOP");
 			
 			ResultActions resultActions = mockMvc.perform(put(SHOPADMINURL+"/category/list/{no}", 1L)
 					.contentType(MediaType.APPLICATION_JSON)
@@ -202,7 +231,8 @@ public class ShopControllerTest {
 		@Test
 		public void testB_1() throws Exception {
 			System.out.println("상품등록 테스트");
-			ProductVo productVo = new ProductVo(1L,"티셔츠", 42000L, "imageURL", "요약설명", "상세설명", true, "원자재", "공급사", "제조사", "원산지",1L ,1L);
+			ProductVo productVo = new ProductVo(1L,"\"레스트 모던 카라 티셔츠\"", 42000L, "반팔티.jpg", "\"군더더기 없는 깔끔한 라인의 트임 카라 반팔 티셔츠\"",
+					"상세설명", true, "원자재", "공급사", "제조사", "원산지",1L ,1L);
 			long[] inventorys = {100L, 90L, 95L, 77L};
 			List<ProductDetailVo> productDetailVoList = new ArrayList<>();
 			
@@ -219,7 +249,7 @@ public class ShopControllerTest {
 			.content(new Gson().toJson(map))
 			.characterEncoding("utf-8"));
 			
-			ProductVo productVo2 = new ProductVo(2L,"\"플레이스 썸머 나시\"", 14000L, "imageURL", "\"스트릿 백나염이 매력적인 썸머 나시!\"","상세설명", true, "원자재", "공급사", "제조사", "원산지",1L ,2L);
+			ProductVo productVo2 = new ProductVo(2L,"\"플레이스 썸머 나시\"", 14000L, "나시.jpg", "\"스트릿 백나염이 매력적인 썸머 나시!\"","상세설명", true, "원자재", "공급사", "제조사", "원산지",1L ,2L);
 			long[] inventorys2 = {90L, 95L};
 			List<ProductDetailVo> productDetailVoList2 = new ArrayList<>();
 			
@@ -236,13 +266,13 @@ public class ShopControllerTest {
 			.content(new Gson().toJson(map2))
 			.characterEncoding("utf-8"));
 			
-			ProductVo productVo3 = new ProductVo(3L,"\"코모도 5부 밴딩 슬랙스\"", 15000L, "imageURL", "\"편안함, 시원함, 착용감 모두 우수한 일석삼조 밴딩 팬츠\"",
+			ProductVo productVo3 = new ProductVo(3L,"\"코모도 5부 밴딩 반바지\"", 15000L, "반바지.gif", "\"편안함, 시원함, 착용감 모두 우수한 일석삼조 밴딩 팬츠\"",
 					"상세설명", true, "원자재", "공급사", "제조사", "원산지",2L ,1L);
 			long[] inventorys3 = {28L, 30L, 32L, 34L};
 			List<ProductDetailVo> productDetailVoList3 = new ArrayList<>();
 			
 			for(int i=0; i<inventorys3.length; i++) {
-				productDetailVoList3.add(new ProductDetailVo(optionValList.get(i), inventorys3[i]));
+				productDetailVoList3.add(new ProductDetailVo(optionValList2.get(i), inventorys3[i]));
 			}
 			
 			Map<String, Object> map3 = new HashMap<>();
@@ -254,14 +284,14 @@ public class ShopControllerTest {
 			.content(new Gson().toJson(map3))
 			.characterEncoding("utf-8"));
 			
-			ProductVo productVo4 = new ProductVo(4L,"\"소프트 밴딩 스판 슬랙스\"", 34000L, "imageURL", "\"편안한 밴딩 디테일로\r\n" + 
+			ProductVo productVo4 = new ProductVo(4L,"\"소프트 밴딩 스판 슬랙스\"", 34000L, "슬랙스.jpg", "\"편안한 밴딩 디테일로\r\n" + 
 					"멋스럽고 깔끔하게 착용할 수 있는 밴딩 슬랙스\"",
 					"상세설명", true, "원자재", "공급사", "제조사", "원산지",2L ,2L);
 			long[] inventorys4 = {28L, 30L, 32L, 34L};
 			List<ProductDetailVo> productDetailVoList4 = new ArrayList<>();
 			
 			for(int i=0; i<inventorys4.length; i++) {
-				productDetailVoList4.add(new ProductDetailVo(optionValList.get(i), inventorys4[i]));
+				productDetailVoList4.add(new ProductDetailVo(optionValList2.get(i), inventorys4[i]));
 			}
 			
 			Map<String, Object> map4 = new HashMap<>();
@@ -281,19 +311,48 @@ public class ShopControllerTest {
 		}
 		
 		
-		//#3. 관리자 상품목록 조회
-		// case1. 성공케이스 
-		@Test
-		public void testC() throws Exception{
-			System.out.println("관리자 상품목록 조회 테스트");
+	//#3. 관리자 상품목록 조회
+	// case1. 성공케이스 
+	@Test
+	public void testC() throws Exception{
+		System.out.println("관리자 상품목록 조회 테스트");
 			
-			ResultActions resultActions = mockMvc.perform(get(SHOPADMINURL+"/list"));
+		ResultActions resultActions = mockMvc.perform(get(SHOPADMINURL+"/list"));
 			
-			resultActions
-			.andExpect(status().isOk())
-			.andExpect(jsonPath("$.result", is("success")))
-			.andDo(print());
+		resultActions
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.result", is("success")))
+		.andDo(print());
 		}
+	
+	
+	//카테고리별 상품 조회
+	@Test
+	public void testC_1() throws Exception{
+		System.out.println("테스트");
+		
+		ResultActions resultActions = mockMvc.perform(get(SHOPCOMMONURL+"/list/{no}",1L));
+		
+		resultActions
+		.andDo(print())
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.result", is("success")));
+		
+	}
+	
+	//서브카테고리별 상품 조회
+	@Test
+	public void testC_2() throws Exception{
+		System.out.println("서브카테고리별 상품 조회");
+		
+		ResultActions resultActions = mockMvc.perform(get(SHOPCOMMONURL+"/list/{no}/{sub_no}",1L,1L));
+		
+		resultActions
+		.andDo(print())
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.result", is("success")));
+		
+	}
 		
 		//#4. 관리자 상품 조회
 		// case1. 성공케이스 
@@ -309,69 +368,80 @@ public class ShopControllerTest {
 			.andDo(print());
 		}
 		
-		//#5 관리사 상품 수정
-		//case1. 성공케이스
 		@Test
-		public void testE_1() throws Exception{
-			System.out.println("관리자 상품 수정 테스트");
-			long no = 1L;
-			ProductVo productVo = new ProductVo(no,"청바지", 50000L, "imageURL", "요약설명", "상세설명", true, "원자재", "공급사", "제조사", "원산지",1L ,1L);
-			long[] inventorys = {100L, 90L, 95L, 77L};
-			String[] options = {"검정95", "회색105", "빨강110", "초록100"};
-			List<ProductDetailVo> productDetailVoList = new ArrayList<>();
+		public void testD_1() throws Exception{
+			System.out.println("유저 상품 조회 테스트");
 			
-			
-			for(int i=0; i<inventorys.length; i++) {
-				optionValList.set(i, options[i]);
-				productDetailVoList.add(new ProductDetailVo(i+1, no, optionValList.get(i), inventorys[i]));
-			}
-			Map<String, Object> map = new HashMap<>();
-			map.put("product", productVo);
-			map.put("productDetailList", productDetailVoList);
-			
-			System.out.println("requestJSON = " + new Gson().toJson(map));
-			ResultActions resultActions = mockMvc.perform(put(SHOPADMINURL+"/list/{no}",no)
-					.contentType(MediaType.APPLICATION_JSON)
-					.content(new Gson().toJson(map))
-					.characterEncoding("utf-8"));
+			ResultActions resultActions = mockMvc.perform(get(SHOPCOMMONURL+"/{no}",1L));
 			
 			resultActions
-			.andDo(print())
 			.andExpect(status().isOk())
-			.andExpect(jsonPath("$.result", is("success")));
-			
+			.andExpect(jsonPath("$.result", is("success")))
+			.andDo(print());
 		}
-		//case2. 필수값을 넣지 않았을경우
-		//name = null 로 수정
-		@Test
-		public void testE_2() throws Exception{
-			long no = 1L;
-			ProductVo productVo = new ProductVo(no,null, 50000L, "imageURL", "요약설명", "상세설명", true, "원자재", "공급사", "제조사", "원산지",1L ,1L);
-			long[] inventorys = {100L, 90L, 95L, 77L};
-			String[] options = {"검정95", "회색105", "빨강110", "초록100"};
-			List<ProductDetailVo> productDetailVoList = new ArrayList<>();
-			
-			
-			for(int i=0; i<inventorys.length; i++) {
-				optionValList.set(i, options[i]);
-				productDetailVoList.add(new ProductDetailVo(i+1, no, optionValList.get(i), inventorys[i]));
-			}
-			Map<String, Object> map = new HashMap<>();
-			map.put("product", productVo);
-			map.put("productDetailList", productDetailVoList);
-			
-			
-			ResultActions resultActions = mockMvc.perform(put(SHOPADMINURL+"/list/{no}",no)
-					.contentType(MediaType.APPLICATION_JSON)
-					.content(new Gson().toJson(map))
-					.characterEncoding("utf-8"));
-			
-			resultActions
-			.andDo(print())
-			.andExpect(status().isBadRequest())
-			.andExpect(jsonPath("$.result", is("fail")));
-			
-		}
+//		//#5 관리사 상품 수정
+//		//case1. 성공케이스
+////		@Test
+//		public void testE_1() throws Exception{
+//			System.out.println("관리자 상품 수정 테스트");
+//			long no = 1L;
+//			ProductVo productVo = new ProductVo(no,"립넥 소프트 반팔티", 50000L, "imageURL", "\"댄디한 느낌 물씬, 립넥 포인트의 유니크한 반팔티\"", "상세설명", true, "원자재", "공급사", "제조사", "원산지",1L ,1L);
+//			long[] inventorys = {100L, 90L, 95L, 77L};
+//			String[] options = {"검정95", "회색105", "빨강110", "초록100"};
+//			List<ProductDetailVo> productDetailVoList = new ArrayList<>();
+//			
+//			
+//			for(int i=0; i<inventorys.length; i++) {
+//				optionValList.set(i, options[i]);
+//				productDetailVoList.add(new ProductDetailVo(i+1, no, optionValList.get(i), inventorys[i]));
+//			}
+//			Map<String, Object> map = new HashMap<>();
+//			map.put("product", productVo);
+//			map.put("productDetailList", productDetailVoList);
+//			
+//			System.out.println("requestJSON = " + new Gson().toJson(map));
+//			ResultActions resultActions = mockMvc.perform(put(SHOPADMINURL+"/list/{no}",no)
+//					.contentType(MediaType.APPLICATION_JSON)
+//					.content(new Gson().toJson(map))
+//					.characterEncoding("utf-8"));
+//			
+//			resultActions
+//			.andDo(print())
+//			.andExpect(status().isOk())
+//			.andExpect(jsonPath("$.result", is("success")));
+//			
+//		}
+//		//case2. 필수값을 넣지 않았을경우
+//		//name = null 로 수정
+//		@Test
+//		public void testE_2() throws Exception{
+//			long no = 1L;
+//			ProductVo productVo = new ProductVo(no,null, 50000L, "imageURL", "요약설명", "상세설명", true, "원자재", "공급사", "제조사", "원산지",1L ,1L);
+//			long[] inventorys = {100L, 90L, 95L, 77L};
+//			String[] options = {"검정95", "회색105", "빨강110", "초록100"};
+//			List<ProductDetailVo> productDetailVoList = new ArrayList<>();
+//			
+//			
+//			for(int i=0; i<inventorys.length; i++) {
+//				optionValList.set(i, options[i]);
+//				productDetailVoList.add(new ProductDetailVo(i+1, no, optionValList.get(i), inventorys[i]));
+//			}
+//			Map<String, Object> map = new HashMap<>();
+//			map.put("product", productVo);
+//			map.put("productDetailList", productDetailVoList);
+//			
+//			
+//			ResultActions resultActions = mockMvc.perform(put(SHOPADMINURL+"/list/{no}",no)
+//					.contentType(MediaType.APPLICATION_JSON)
+//					.content(new Gson().toJson(map))
+//					.characterEncoding("utf-8"));
+//			
+//			resultActions
+//			.andDo(print())
+//			.andExpect(status().isBadRequest())
+//			.andExpect(jsonPath("$.result", is("fail")));
+//			
+//		}
 		
 //		//#6 특정 상품 옵션 삭제
 //		//case1. 성공 케이스

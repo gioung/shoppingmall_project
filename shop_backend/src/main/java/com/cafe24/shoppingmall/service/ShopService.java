@@ -49,11 +49,23 @@ public class ShopService {
 	public List<ProductVo> getAllProductList() {
 			
 			return shopDao.getAllProductList();
-		}
+	}
 	
 	//진열상태가 true인 상품 목록 조회
 	public List<ProductVo> getProductList() {
 		return shopDao.getProductList();
+	}
+	
+	//메인카테고리 별 상품 조회
+	public List<ProductVo> getProductList(long main_no) {
+		
+		return shopDao.getProductList(main_no);
+	}
+	
+	//서브카테고리 별 상품 조회
+	public List<ProductVo> getProductList(long main_no, long sub_no) {
+	
+		return shopDao.getProductList(main_no, sub_no);
 	}
 	
 	//관리자 특정 상품 조회
@@ -61,7 +73,9 @@ public class ShopService {
 		ProductVo productVo = shopDao.getSpecificProduct(productNo);
 		List<ProductDetailVo> productDetailVoList = shopDao.getSpecificProductDetail(productNo);
 		Map<String, Object> map = new HashMap<>();
-		map.put("product", productVo);
+		if(null != productVo)
+			map.put("product", productVo);
+		if(null != productDetailVoList)
 		map.put("productDetailList", productDetailVoList);
 		return map;		
 	}
@@ -138,6 +152,12 @@ public class ShopService {
 		
 		return shopDao.updateSubCategory(categoryVo);
 	}
+
+
+	
+
+
+	
 	
 
 	

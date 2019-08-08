@@ -40,6 +40,16 @@
 		select * from product where display=true;
 	</select>
 	
+	<!-- 메인카테고리 별 상품조회 -->
+	<select id="getProductListByMainCategory" resultType="productvo" parameterType="long">
+		select * from product where display=true and main_no=#{main_no };
+	</select>
+	
+	<!-- 서브카테고리 별 상품조회 -->
+	<select id="getProductListBySubCategory" resultType="productvo" parameterType="categoryvo">
+		select * from product where display=true and main_no=#{main_no } and sub_no=#{sub_no };
+	</select>
+	
 	<!-- 특정 상품 조회 -->
 	<select id="getSpecificProduct" parameterType="long" resultType="productvo">
 	<![CDATA[
