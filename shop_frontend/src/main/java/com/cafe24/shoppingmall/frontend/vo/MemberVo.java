@@ -25,7 +25,19 @@ public class MemberVo {
 	private String phone_num;
 	
 	private String address;
+	private boolean admin;
+	public MemberVo() {
+		
+	}
 	
+	public MemberVo(String email, String name, String password, String birth, Gender gender, String phone_num) {
+		this.email = email;
+		this.name = name;
+		this.password = password;
+		this.birth = birth;
+		this.gender = gender;
+		this.phone_num = phone_num;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -50,7 +62,6 @@ public class MemberVo {
 	public void setBirth(String birth) {
 		this.birth = birth;
 	}
-	
 	public Gender getGender() {
 		return gender;
 	}
@@ -69,13 +80,21 @@ public class MemberVo {
 	public void setPhone_num(String phone_num) {
 		this.phone_num = phone_num;
 	}
-	
 	public String getAddress() {
 		return address;
 	}
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberVo [email=" + email + ", name=" + name + ", password=" + password

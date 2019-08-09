@@ -15,13 +15,17 @@
      <link href="${pageContext.servletContext.contextPath }/assets/css/user-join.css" rel="stylesheet">
 	 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	 
 </head>
 <body>
+	
  <div class="container">
  <!---heading---->
-     <header class="heading"> 회원 가입</header><hr></hr>
-	<!---Form starting----> 
+     <header class="heading">회원 가입</header><hr></hr>
+     <c:if test="${param.result == 'fail' }">
+     	<script>alert('가입 형식이 맞지 않습니다.')</script>
+     </c:if>
+     
+     <!---Form starting----> 
 	<form action="${pageContext.servletContext.contextPath }/user/join" method="post">
 	<div class="row ">
 	<!-----For email---->
@@ -83,11 +87,11 @@
 				 </div>
 			 
 			     <div class="col-xs-4 male">	 
-				     <input type="radio" name="gender"  id="gender" value="boy">Male
+				     <input type="radio" name="gender"  id="gender" value="M">Male
 				 </div>
 				 
 				 <div class="col-xs-4 female">
-				     <input type="radio"  name="gender" id="gender" value="girl" >Female
+				     <input type="radio"  name="gender" id="gender" value="F" >Female
 			     </div>
 			
 		  	 </div>

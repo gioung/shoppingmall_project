@@ -8,18 +8,19 @@
 	insert into member(reg_date , name, password, birth, email, gender, phone_num, admin) values( 
 	now(),
 	aes_encrypt(#{name },SHA2('shopmall',512)),
-	SHA2(#{password },512),
+	#{password },
 	#{birth },
 	aes_encrypt(#{email },SHA2('shopmall',512)), 
 	'M', 
 	aes_encrypt(#{phone_num },SHA2('shopmall',512)),
-	0);
+	#{admin });
 	]]>
 	</insert>
 	
 	<select id="selectByEmail" parameterType="string" resultType="membervo">
 	<![CDATA[
-	select * from member where email=aes_encrypt(#{email },SHA2('shopmall',512));
+	select aes_decrypt(email,SHA2('shopmall',512))as email,password,aes_decrypt(name,SHA2('shopmall',512)) as name,admin
+	 from member where email=aes_encrypt(#{email },SHA2('shopmall',512));
 	]]>
 	</select>
 	

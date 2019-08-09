@@ -11,8 +11,6 @@ public class MemberVo {
 	private String email;
 	@NotNull
 	private String name;
-	@Pattern(regexp="^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,16}$",
-			message="비밀번호는 8자 이상 16자 이하의 알파벳, 숫자, 특수문자를 조합하여 작성해야 합니다.")
 	private String password;
 	@NotNull
 	private String birth;
@@ -25,6 +23,8 @@ public class MemberVo {
 	private String phone_num;
 	
 	private String address;
+	
+	private boolean admin=false;
 	
 	public String getEmail() {
 		return email;
@@ -75,6 +75,14 @@ public class MemberVo {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	
+	
+	public boolean isAdmin() {
+		return admin;
+	}
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 	@Override
 	public String toString() {

@@ -1,5 +1,6 @@
 package com.cafe24.shoppingmall.frontend.controller;
 
+import java.security.Principal;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,12 +24,23 @@ public class CartController {
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	@ResponseBody
-	public JSONResult2 addCart(@ModelAttribute CartVo cartVo, HttpServletRequest request, HttpServletResponse response) {
+	public JSONResult2 addCart(@ModelAttribute CartVo cartVo, HttpServletRequest request, HttpServletResponse response,
+			Principal principal) {
+//		if(principal.getName() != null)
+//			System.out.println("principal = "+principal.getName());
+		/* 회원일경우 */
 		//아이디 유무 확인 후 아이디값과 ismember 넣기(비회원이면 null)
-		cartVo.setId(null);
-		cartVo.setIsmember(false);
+		if(principal != null) {
+			cartVo.setId(principal.getName());
+			CartVo myCartVo = cartService.addCart(cartVo);
+			return JSONResult2.success(myCartVo);
+		}
+		
+			
 		
 		
+		
+		/* 비회원일경우 */
 		//쿠키 존재유무 확인
 		boolean isTempId = false;
 		Cookie[] cookies = request.getCookies();
@@ -50,5 +62,6 @@ public class CartController {
 		}
 		
 		return JSONResult2.success(myCartVo);
+		
 	}
 }

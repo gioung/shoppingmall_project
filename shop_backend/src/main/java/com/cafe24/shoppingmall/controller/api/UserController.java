@@ -51,12 +51,24 @@ public class UserController {
 
 		boolean judge = userService.existEmail(email);
 		
-		if(judge == false)
-			return new ResponseEntity<JSONResult>(JSONResult.success(judge),HttpStatus.OK);
+		if(judge)
+			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(true));
 		else
-			return new ResponseEntity<JSONResult>(JSONResult.fail("중복된 이메일 존재"),HttpStatus.OK);
+			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.fail("중복된 이메일 존재")); 
 	}
 
+	// selectByEmail
+		@ApiOperation(value = "회원정보 가져오기")
+		@RequestMapping(value = "/info", method = RequestMethod.GET)
+		public ResponseEntity<JSONResult> getInfo(@RequestParam(value = "email", required = true, defaultValue = "") String email) {
+
+			MemberVo memberVo = userService.getInfo(email);
+			
+			if(memberVo!=null)
+				return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(memberVo));
+			else
+				return ResponseEntity.status(HttpStatus.OK).body(JSONResult.fail("해당 회원정보가 없습니다.")); 
+		}
 	
 	// 회원가입 , forwarding
 	@ApiOperation(value = "회원가입")
@@ -65,10 +77,12 @@ public class UserController {
 		
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldErrors());
-			return new ResponseEntity<JSONResult>(JSONResult.fail("데이터가 유효하지 않습니다."),HttpStatus.BAD_REQUEST);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("유효하지 않은 값입니다."));
 		}
+		
 		// Service에 삽입 요청을 하는 code
-		return new ResponseEntity<JSONResult>(JSONResult.success(userService.registerMember(memberVo)),HttpStatus.CREATED);
+		return ResponseEntity.status(HttpStatus.CREATED).body(JSONResult.success(userService.registerMember(memberVo)));
+		
 	}
 
 	// 로그인, redirect

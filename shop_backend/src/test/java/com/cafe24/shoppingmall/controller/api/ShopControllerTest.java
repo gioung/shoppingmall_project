@@ -313,72 +313,72 @@ public class ShopControllerTest {
 		
 	//#3. 관리자 상품목록 조회
 	// case1. 성공케이스 
-	@Test
-	public void testC() throws Exception{
-		System.out.println("관리자 상품목록 조회 테스트");
-			
-		ResultActions resultActions = mockMvc.perform(get(SHOPADMINURL+"/list"));
-			
-		resultActions
-		.andExpect(status().isOk())
-		.andExpect(jsonPath("$.result", is("success")))
-		.andDo(print());
-		}
-	
-	
-	//카테고리별 상품 조회
-	@Test
-	public void testC_1() throws Exception{
-		System.out.println("테스트");
-		
-		ResultActions resultActions = mockMvc.perform(get(SHOPCOMMONURL+"/list/{no}",1L));
-		
-		resultActions
-		.andDo(print())
-		.andExpect(status().isOk())
-		.andExpect(jsonPath("$.result", is("success")));
-		
-	}
-	
-	//서브카테고리별 상품 조회
-	@Test
-	public void testC_2() throws Exception{
-		System.out.println("서브카테고리별 상품 조회");
-		
-		ResultActions resultActions = mockMvc.perform(get(SHOPCOMMONURL+"/list/{no}/{sub_no}",1L,1L));
-		
-		resultActions
-		.andDo(print())
-		.andExpect(status().isOk())
-		.andExpect(jsonPath("$.result", is("success")));
-		
-	}
+//	@Test
+//	public void testC() throws Exception{
+//		System.out.println("관리자 상품목록 조회 테스트");
+//			
+//		ResultActions resultActions = mockMvc.perform(get(SHOPADMINURL+"/list"));
+//			
+//		resultActions
+//		.andExpect(status().isOk())
+//		.andExpect(jsonPath("$.result", is("success")))
+//		.andDo(print());
+//		}
+//	
+//	
+//	//카테고리별 상품 조회
+//	@Test
+//	public void testC_1() throws Exception{
+//		System.out.println("테스트");
+//		
+//		ResultActions resultActions = mockMvc.perform(get(SHOPCOMMONURL+"/list/{no}",1L));
+//		
+//		resultActions
+//		.andDo(print())
+//		.andExpect(status().isOk())
+//		.andExpect(jsonPath("$.result", is("success")));
+//		
+//	}
+//	
+//	//서브카테고리별 상품 조회
+//	@Test
+//	public void testC_2() throws Exception{
+//		System.out.println("서브카테고리별 상품 조회");
+//		
+//		ResultActions resultActions = mockMvc.perform(get(SHOPCOMMONURL+"/list/{no}/{sub_no}",1L,1L));
+//		
+//		resultActions
+//		.andDo(print())
+//		.andExpect(status().isOk())
+//		.andExpect(jsonPath("$.result", is("success")));
+//		
+//	}
 		
 		//#4. 관리자 상품 조회
 		// case1. 성공케이스 
-		@Test
-		public void testD() throws Exception{
-			System.out.println("관리자 상품 조회 테스트");
-			
-			ResultActions resultActions = mockMvc.perform(get(SHOPADMINURL+"/list/{no}",1L));
-			
-			resultActions
-			.andExpect(status().isOk())
-			.andExpect(jsonPath("$.result", is("success")))
-			.andDo(print());
-		}
-		
-		@Test
-		public void testD_1() throws Exception{
-			System.out.println("유저 상품 조회 테스트");
-			
-			ResultActions resultActions = mockMvc.perform(get(SHOPCOMMONURL+"/{no}",1L));
-			
-			resultActions
-			.andExpect(status().isOk())
-			.andExpect(jsonPath("$.result", is("success")))
-			.andDo(print());
-		}
+//		@Test
+//		public void testD() throws Exception{
+//			System.out.println("관리자 상품 조회 테스트");
+//			
+//			ResultActions resultActions = mockMvc.perform(get(SHOPADMINURL+"/list/{no}",1L));
+//			
+//			resultActions
+//			.andExpect(status().isOk())
+//			.andExpect(jsonPath("$.result", is("success")))
+//			.andDo(print());
+//		}
+//		
+//		@Test
+//		public void testD_1() throws Exception{
+//			System.out.println("유저 상품 조회 테스트");
+//			
+//			ResultActions resultActions = mockMvc.perform(get(SHOPCOMMONURL+"/{no}",1L));
+//			
+//			resultActions
+//			.andExpect(status().isOk())
+//			.andExpect(jsonPath("$.result", is("success")))
+//			.andDo(print());
+//		}
 //		//#5 관리사 상품 수정
 //		//case1. 성공케이스
 ////		@Test

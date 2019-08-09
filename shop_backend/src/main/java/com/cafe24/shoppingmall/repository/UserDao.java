@@ -18,7 +18,7 @@ public class UserDao {
 	
 	// ####### INSERT ########
 	
-	public boolean addMember(MemberVo memberVo) {
+	public Boolean addMember(MemberVo memberVo) {
 		int count = sqlSession.insert("member.insertMember", memberVo);
 		return 1 == count;
 		
@@ -32,11 +32,16 @@ public class UserDao {
 		return null==address;
 	}
 
-	public Boolean getEmail(String email) {
+	public boolean getEmail(String email) {
 		MemberVo memberVo = sqlSession.selectOne("member.selectByEmail", email);
-		return memberVo!=null;
+		return memberVo==null;
 	}
 
+
+	public MemberVo getInfoByEmail(String email) {
+		MemberVo memberVo = sqlSession.selectOne("member.selectByEmail", email);
+		return memberVo;
+	}
 
 
 	public Boolean getMemberByEmailandPassword(MemberVo memberVo) {
@@ -63,6 +68,7 @@ public class UserDao {
 		return 1 == sqlSession.update("member.addMemberAddress", memberVo);
 		
 	}
+
 
 	
 
