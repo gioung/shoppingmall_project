@@ -5,12 +5,14 @@
 | 회원가입                    | POST   | /api/user/signup                             | 7.17     | 1h           | 7.17       | 1h            |
 | 이메일체크                  | GET    | /api/user/checkemail                         | 7.17     | 30m          | 7.17       | 30m           |
 | 로그인                      | POST   | /api/user/login                              | 7.17     | 1h           | 7.17~ 7.18 | 30m           |
+| 관리자 회원목록             | GET    | /api/admin/user/list                         |          |              |            |               |
 | 회원정보수정                | PUT    | /api/user/modification                       | 7.18     | 50m          | 7.19       | 45m           |
 | 회원탈퇴                    | DELETE | /api/user/out                                | 7.18     | 50m          | 7.19       | 30m           |
 | 옵션목록생성                | POST   | /api/option/list                             | 7.19     | 50m          | 7.23       | 2h(밑에 이유) |
 | 관리자 상품등록             | POST   | /api/admin/product/list                      | 7.19     | 50m          | 7.23       | 2h(밑에 이유) |
 | 관리자 상품목록조회         | GET    | /api/admin/product/list                      | 7.22     | 30m          | 7.24       | 20m           |
 | 관리자 특정 상품조회        | GET    | /api/admin/product/list/{no}                 | 7.22     | 40m          | 7.24       | 20m           |
+| 유저 상품상세 조회          | GET    | /api/product/{no}                            |          |              | 8.06       | 30m           |
 | 카테고리별 상품 조회        | GET    | /api/product/list/{no}                       |          |              | 8.05       | 20m           |
 | 서브카테고리별 상품 조회    | GET    | /api/product/list/{no}/{sub_no}              |          |              | 8.05       | 20m           |
 | 관리자 특정 상품수정        | PUT    | /api/admin/product/list/{no}                 | 7.22     | 30m          | 7.24       | 1h(밑에이유)  |

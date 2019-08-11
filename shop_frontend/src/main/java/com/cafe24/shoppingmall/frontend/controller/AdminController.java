@@ -6,8 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletRequest;
-
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +18,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cafe24.shoppingmall.frontend.service.CategoryService;
+import com.cafe24.shoppingmall.frontend.service.FileuploadService;
 import com.cafe24.shoppingmall.frontend.service.ProductService;
 import com.cafe24.shoppingmall.frontend.service.UserSerivce;
 import com.cafe24.shoppingmall.frontend.vo.CategoryVo;
@@ -38,6 +39,8 @@ public class AdminController {
 	ProductService productService;
 	@Autowired
 	CategoryService categoryService;
+	@Autowired
+	FileuploadService fileuploadService;
 	
 	//ADMIN 몌인
 	@GetMapping({"", "/main"})
@@ -78,12 +81,22 @@ public class AdminController {
 	@PostMapping("/product/registration")
 	public String productCreate(@ModelAttribute ProductVo productVo, BindingResult bindingResult,
 			@RequestParam(value ="option1")String[] option1, 
-			@RequestParam(value="option2")String[] option2) {
+			@RequestParam(value="option2")String[] option2
+			/*@RequestParam("upload-image")MultipartFile multipartFile*/) {
 		
 		if(bindingResult.hasErrors()) {
 			System.out.println(bindingResult.getAllErrors());
 			return "redirect:/admin/product?result=fail";
 		}
+		
+		//file저장하기 
+//		if(multipartFile!=null) {
+//			String url = fileuploadService.restore(multipartFile); 
+//			System.out.println("이미지 url = "+url);
+//			
+//			productVo.setImage(url);
+//		}
+		
 		//리스트로 옵션값 변환
 		List<OptionVo> optionList = new ArrayList<>();
 		optionList.add(new OptionVo("사이즈",Arrays.asList(option1)));

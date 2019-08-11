@@ -45,14 +45,13 @@ public class AdminShopController {
 	@ApiOperation(value = "관리자 상품 등록")
 	@RequestMapping(value = "/list", method = RequestMethod.POST) 
 	public ResponseEntity<JSONResult> addProducts(@RequestBody Map<String,Object> map, BindingResult bindingResult) {
-			Gson gson = new GsonBuilder().create();
+			Gson gson = new GsonBuilder().disableHtmlEscaping().create();
 			Type listType = new TypeToken<ArrayList<ProductDetailVo>>(){}.getType();
 			
 			ProductVo productVo = gson.fromJson(String.valueOf(map.get("product")), ProductVo.class);
 			List<ProductDetailVo> productDetailVoList = gson.fromJson(String.valueOf(map.get("productDetailList")), listType);
-
-//			System.out.println("상품 = "+productVo);
-//			System.out.println("상품 디테일 리스트 = "+productDetailVoList);
+		
+			
 			// 상품 등록
 			boolean judge = shopService.addProduct(productVo, productDetailVoList);
 			if(!judge)

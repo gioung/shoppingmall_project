@@ -99,6 +99,10 @@ var i = 0;
 						<td><input type="number" name="price" min="1"></td>
 						</tr>
 						<tr>
+			      			<td class="label">이미지</td>
+			      			<td><input type="file" name="upload-image"></td>      			
+			      		</tr>   
+						<tr>
 							<td class="label">진열여부</td>
 							<td><input type="radio" name="display" value="true" checked="checked"/> 예
 								<input type="radio" name="display" value="false"/> 아니오
