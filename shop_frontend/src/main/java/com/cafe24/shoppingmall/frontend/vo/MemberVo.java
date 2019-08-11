@@ -1,7 +1,10 @@
 package com.cafe24.shoppingmall.frontend.vo;
 
+import java.sql.Date;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+
 import org.hibernate.validator.constraints.Email;
 
 import com.cafe24.shoppingmall.enums.Gender;
@@ -23,7 +26,7 @@ public class MemberVo {
 	@NotNull
 	@Pattern (regexp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$", message="핸드폰 번호 형식이 아닙니다.")
 	private String phone_num;
-	
+	private String reg_date;
 	private String address;
 	private boolean admin;
 	public MemberVo() {
@@ -56,12 +59,8 @@ public class MemberVo {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getBirth() {
-		return birth;
-	}
-	public void setBirth(String birth) {
-		this.birth = birth;
-	}
+	
+	
 	public Gender getGender() {
 		return gender;
 	}
@@ -95,11 +94,33 @@ public class MemberVo {
 		this.admin = admin;
 	}
 
+	public String getBirth() {
+		return birth;
+	}
+
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
+
+	public String getReg_date() {
+		return reg_date;
+	}
+
+	public void setReg_date(String reg_date) {
+		this.reg_date = reg_date;
+	}
+
 	@Override
 	public String toString() {
-		return "MemberVo [email=" + email + ", name=" + name + ", password=" + password
-				+ ", birth=" + birth + ", gender=" + gender + ", tel_num=" + tel_num + ", phone_num=" + phone_num
-				+ "," + "]";
+		return "MemberVo [email=" + email + ", name=" + name + ", password=" + password + ", birth=" + birth
+				+ ", gender=" + gender + ", tel_num=" + tel_num + ", phone_num=" + phone_num + ", reg_date=" + reg_date
+				+ ", address=" + address + ", admin=" + admin + "]";
 	}
+	
+	
+
+	
+
+
 
 }

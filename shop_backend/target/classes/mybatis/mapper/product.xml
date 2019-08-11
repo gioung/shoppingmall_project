@@ -5,9 +5,9 @@
 
 	<insert id="addproduct" parameterType="productvo">
 	<![CDATA[
-	insert into product(product_no, name, price, image, summary_desc, detail_desc, manufacturing_date, display,
+	insert into product(name, price, image, summary_desc, detail_desc, manufacturing_date, display,
 	material, provider, manufacturer, origin, main_no, sub_no) 
-	values(#{product_no}, #{name }, #{price },#{image },#{summary_desc },#{detail_desc }, now()
+	values(#{name }, #{price },#{image },#{summary_desc },#{detail_desc }, now()
 	,#{display }, #{material },#{provider }, #{manufacturer },#{origin },#{main_no }, #{sub_no });
 	]]>
 	<selectKey keyProperty="product_no" resultType="long" order="AFTER">
@@ -33,7 +33,8 @@
 	
 	<!-- 모든 상품 조회 -->
 	<select id="getAllProductList" resultType="productvo">
-		select * from product;
+		select a.product_no,a.name,a.price,a.manufacturing_date,a.display,b.name as category_name 
+    from product as a,main_category as b where a.main_no = b.main_no;
 	</select>
 	
 	<select id="getProductList" resultType="productvo">

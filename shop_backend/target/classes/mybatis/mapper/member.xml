@@ -36,6 +36,16 @@
 	]]>
 	</select>
 	
+	<select id="getAllMember" resultType="membervo">
+	<![CDATA[
+		select aes_decrypt(email,SHA2('shopmall',512))as email,
+		aes_decrypt(name,SHA2('shopmall',512)) as name,
+		aes_decrypt(phone_num,SHA2('shopmall',512)) as phone_num,
+		birth,gender,reg_date,address 
+		from member where admin=0;
+	]]>
+	</select>
+	
 	<delete id="deleteByEmail" parameterType="membervo">
 	<![CDATA[
 	delete from member where email=aes_encrypt(#{email },SHA2('shopmall',512)) 

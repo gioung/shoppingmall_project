@@ -1,6 +1,8 @@
 package com.cafe24.shoppingmall.repository;
 
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -47,6 +49,10 @@ public class UserDao {
 	public Boolean getMemberByEmailandPassword(MemberVo memberVo) {
 		MemberVo member = sqlSession.selectOne("member.selectByEmailandPassword", memberVo);
 		return member!=null;
+	}
+	
+	public List<MemberVo> getAllMember(){
+		return sqlSession.selectList("member.getAllMember");
 	}
 
 	// ####### DELETE ########

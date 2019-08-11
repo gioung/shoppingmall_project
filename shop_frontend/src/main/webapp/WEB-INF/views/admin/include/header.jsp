@@ -2,10 +2,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-		<div id="header">
-			<h1>관리자페이지</h1>
-			<ul>
-				<li><a href="${pageContext.request.contextPath }">사이트 메인</a><li>
-				<li><a href="${pageContext.request.contextPath }/user/logout">로그아웃</a><li>
-			</ul>
-		</div>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="${pageContext.servletContext.contextPath }">홈 <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="${pageContext.servletContext.contextPath }/user/locaout">로그아웃</a>
+            </li>
+          </ul>
+        </div>
+      </nav>

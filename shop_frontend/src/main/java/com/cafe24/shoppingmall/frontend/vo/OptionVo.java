@@ -6,6 +6,11 @@ public class OptionVo {
 	private String opt_name;
 	private List<String> opt_val;
 	
+	public OptionVo(String opt_name, List<String> opt_val) {
+		super();
+		this.opt_name = opt_name;
+		this.opt_val = opt_val;
+	}
 	public String getOpt_name() {
 		return opt_name;
 	}

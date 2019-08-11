@@ -16,24 +16,24 @@ public class ProductVo {
 	//이미지
 	private String image;
 	//요약설명
-	@NotNull(message = "반드시 값이 있어야 합니다.")
-	@Length(min = 1, max = 255, message = "요약설명은 최대 1자이상, 255자 이하") //요약설명은 최대 1자이상, 255자 이하
+	//@NotNull(message = "반드시 값이 있어야 합니다.")
+	//@Length(min = 1, max = 255, message = "요약설명은 최대 1자이상, 255자 이하") //요약설명은 최대 1자이상, 255자 이하
 	private String summary_desc;
 	//상세설명
-	@NotNull(message = "반드시 값이 있어야 합니다.")
+	//@NotNull(message = "반드시 값이 있어야 합니다.")
 	private String detail_desc;
 	@NotNull(message = "반드시 값이 있어야 합니다.")
 	private boolean display;
-	@NotNull(message = "반드시 값이 있어야 합니다.")
 	private String material;
-	@NotNull(message = "반드시 값이 있어야 합니다.")
 	private String provider;
-	@NotNull(message = "반드시 값이 있어야 합니다.")
 	private String manufacturer;
 	@NotNull(message = "반드시 값이 있어야 합니다.")
+	private String manufacturing_date;
 	private String origin;
 	private long main_no;
 	private long sub_no;
+	
+	private String category_name;
 	
 	public ProductVo() {
 		
@@ -130,14 +130,52 @@ public class ProductVo {
 	public void setOrigin(String origin) {
 		this.origin = origin;
 	}
+	
+
+	public long getMain_no() {
+		return main_no;
+	}
+
+	public void setMain_no(long main_no) {
+		this.main_no = main_no;
+	}
+
+	public long getSub_no() {
+		return sub_no;
+	}
+
+	public void setSub_no(long sub_no) {
+		this.sub_no = sub_no;
+	}
+
+	public String getManufacturing_date() {
+		return manufacturing_date;
+	}
+
+	public void setManufacturing_date(String manufacturing_date) {
+		this.manufacturing_date = manufacturing_date;
+	}
+
+	public String getCategory_name() {
+		return category_name;
+	}
+
+	public void setCategory_name(String category_name) {
+		this.category_name = category_name;
+	}
 
 	@Override
 	public String toString() {
 		return "ProductVo [product_no=" + product_no + ", name=" + name + ", price=" + price + ", image=" + image
 				+ ", summary_desc=" + summary_desc + ", detail_desc=" + detail_desc + ", display=" + display
-				+ ", material=" + material + ", provider=" + provider + ", manufacturer=" + manufacturer + ", origin="
-				+ origin + ", main_no=" + main_no + ", sub_no=" + sub_no + "]";
+				+ ", material=" + material + ", provider=" + provider + ", manufacturer=" + manufacturer
+				+ ", manufacturing_date=" + manufacturing_date + ", origin=" + origin + ", main_no=" + main_no
+				+ ", sub_no=" + sub_no + ", category_name=" + category_name + "]";
 	}
+
+	
+
+	
 
 	
 	

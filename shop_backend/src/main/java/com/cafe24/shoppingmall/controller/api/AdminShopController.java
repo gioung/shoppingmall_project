@@ -45,9 +45,6 @@ public class AdminShopController {
 	@ApiOperation(value = "관리자 상품 등록")
 	@RequestMapping(value = "/list", method = RequestMethod.POST) 
 	public ResponseEntity<JSONResult> addProducts(@RequestBody Map<String,Object> map, BindingResult bindingResult) {
-			
-			
-		
 			Gson gson = new GsonBuilder().create();
 			Type listType = new TypeToken<ArrayList<ProductDetailVo>>(){}.getType();
 			
@@ -63,7 +60,7 @@ public class AdminShopController {
 			
 			
 			// Service에 삽입 요청을 하는 code
-			return ResponseEntity.status(HttpStatus.CREATED).body(JSONResult.success(map));
+			return ResponseEntity.status(HttpStatus.CREATED).body(JSONResult.success(true));
 		}
 	
 	@ApiOperation(value = "관리자 상품 목록")
@@ -76,7 +73,7 @@ public class AdminShopController {
 			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(productList));
 			 
 		// Service에 삽입 요청을 하는 code
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("상품 등록 실패"));
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.fail("상품 목록이 존재하지 않습니다."));
 	}
 	
 	@ApiOperation(value = "관리자 상품 조회")

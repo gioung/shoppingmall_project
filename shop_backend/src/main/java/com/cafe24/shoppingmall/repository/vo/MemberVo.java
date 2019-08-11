@@ -2,6 +2,7 @@ package com.cafe24.shoppingmall.repository.vo;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+
 import org.hibernate.validator.constraints.Email;
 
 import com.cafe24.shoppingmall.enums.Gender;
@@ -14,6 +15,7 @@ public class MemberVo {
 	private String password;
 	@NotNull
 	private String birth;
+	private String reg_date;
 	@NotNull
 	private Gender gender;
 	
@@ -44,12 +46,7 @@ public class MemberVo {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getBirth() {
-		return birth;
-	}
-	public void setBirth(String birth) {
-		this.birth = birth;
-	}
+	
 	
 	public Gender getGender() {
 		return gender;
@@ -77,18 +74,31 @@ public class MemberVo {
 		this.address = address;
 	}
 	
-	
 	public boolean isAdmin() {
 		return admin;
 	}
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
 	}
+	public String getBirth() {
+		return birth;
+	}
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
+	public String getReg_date() {
+		return reg_date;
+	}
+	public void setReg_date(String reg_date) {
+		this.reg_date = reg_date;
+	}
 	@Override
 	public String toString() {
-		return "MemberVo [email=" + email + ", name=" + name + ", password=" + password
-				+ ", birth=" + birth + ", gender=" + gender + ", tel_num=" + tel_num + ", phone_num=" + phone_num
-				+ "," + "]";
+		return "MemberVo [email=" + email + ", name=" + name + ", password=" + password + ", birth=" + birth
+				+ ", reg_date=" + reg_date + ", gender=" + gender + ", tel_num=" + tel_num + ", phone_num=" + phone_num
+				+ ", address=" + address + ", admin=" + admin + "]";
 	}
+	
+	
 
 }

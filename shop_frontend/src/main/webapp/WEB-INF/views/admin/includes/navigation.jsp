@@ -13,10 +13,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" href="${pageContext.servletContext.contextPath }">홈 <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="${pageContext.servletContext.contextPath }/admin">홈 <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="${pageContext.servletContext.contextPath }/user/locaout">로그아웃</a>
+              <a class="nav-link" href="${pageContext.servletContext.contextPath }/user/logout">로그아웃</a>
             </li>
           </ul>
         </div>
