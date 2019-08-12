@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
+import com.cafe24.shoppingmall.dto.OptionListDTO;
 import com.cafe24.shoppingmall.repository.vo.OptionVo;
 import com.cafe24.shoppingmall.service.OptionService;
 import com.google.gson.Gson;
@@ -30,15 +31,14 @@ public class OptionController {
 	//옵션 등록
 	@ApiOperation(value = "옵션 리스트 조회")
 	@RequestMapping(value = "/list", method = RequestMethod.POST)
-	public ResponseEntity<JSONResult> addOption(@RequestBody Map<String,Object> map) {
+	public ResponseEntity<JSONResult> addOption(@RequestBody OptionListDTO optionListDTO) {
 		
-		Gson gson = new GsonBuilder().create();
-		OptionVo option1 = gson.fromJson(String.valueOf(map.get("option1")), OptionVo.class);
-		OptionVo option2 = gson.fromJson(String.valueOf(map.get("option2")), OptionVo.class);
+//		Gson gson = new GsonBuilder().create();
+//		OptionVo option1 = gson.fromJson(String.valueOf(map.get("option1")), OptionVo.class);
+//		OptionVo option2 = gson.fromJson(String.valueOf(map.get("option2")), OptionVo.class);
 		
-		List<OptionVo> optionList = new ArrayList<>();
-		optionList.add(option1);
-		optionList.add(option2);
+		List<OptionVo> optionList = optionListDTO.getOptionList();
+		
 		List<String> optionValList = optionService.addOptionValList(optionList);
 	
 		if(optionValList != null){

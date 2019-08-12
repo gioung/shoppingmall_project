@@ -14,7 +14,10 @@ public class JSONResult2 {
 		return new JSONResult2("fail", message, null);
 	}
 	
-	private JSONResult2(String result, String message, Object data) {
+	public JSONResult2() {
+		
+	}
+	public JSONResult2(String result, String message, Object data) {
 		this.result = result;
 		this.message = message;
 		this.data = data;

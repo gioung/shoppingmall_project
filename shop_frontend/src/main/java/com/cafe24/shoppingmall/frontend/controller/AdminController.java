@@ -80,8 +80,8 @@ public class AdminController {
 	//상품 등록
 	@PostMapping("/product/registration")
 	public String productCreate(@ModelAttribute ProductVo productVo, BindingResult bindingResult,
-			@RequestParam(value ="option1")String[] option1, 
-			@RequestParam(value="option2")String[] option2,
+			@RequestParam(value ="options")String[] optionList,
+			@RequestParam(value= "inventory")Long[] inventory,
 			@RequestParam("upload-image")MultipartFile multipartFile) {
 		
 		if(bindingResult.hasErrors()) {
@@ -97,17 +97,13 @@ public class AdminController {
 			productVo.setImage(url);
 		}
 		
-		//리스트로 옵션값 변환
-		List<OptionVo> optionList = new ArrayList<>();
-		optionList.add(new OptionVo("사이즈",Arrays.asList(option1)));
-		optionList.add(new OptionVo("컬러",Arrays.asList(option2)));
-		
 		List<ProductDetailVo> productDetailList = new ArrayList<>();
 		
 		Map<String,Object> map = new HashMap<>();
 		map.put("product", productVo);
 		map.put("productDetailList", productDetailList);
-		map.put("optionList",optionList);
+		map.put("optionList",Arrays.asList(optionList));
+		map.put("inventory", Arrays.asList(inventory));
 		
 		//addProduct
 		String result = productService.addProduct(map);

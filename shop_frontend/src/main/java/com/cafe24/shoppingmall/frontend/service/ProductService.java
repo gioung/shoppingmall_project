@@ -23,17 +23,11 @@ public class ProductService {
 	public String addProduct(Map<String,Object> map) {
 		List<ProductDetailVo> productDetailList = (List<ProductDetailVo>)map.get("productDetailList");
 		ProductVo productVo = (ProductVo)map.get("product");
-		List<OptionVo> optionList = (List<OptionVo>)map.get("optionList");
+		List<String> optionList = (List<String>)map.get("optionList");
+		List<Long> inventory = (List<Long>)map.get("inventory");
 		
-		//사이즈
-		List<String> sizeList = optionList.get(0).getOpt_val(); 
-		List<String> colorList = optionList.get(1).getOpt_val(); 
-		//옵션 생성
-		for(String size : sizeList) {
-			for(String color : colorList) {
-				String option = size.concat("/"+color);
-				productDetailList.add(new ProductDetailVo(option, 100L));
-			}
+		for(int i=0; i<optionList.size(); i++) {
+			productDetailList.add(new ProductDetailVo(optionList.get(i),inventory.get(i)));
 		}
 		
 //		System.out.println("productDetailList 옵션 = "+productDetailList);

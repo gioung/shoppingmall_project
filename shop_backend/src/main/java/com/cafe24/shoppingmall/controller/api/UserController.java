@@ -48,7 +48,20 @@ public class UserController {
 			@ApiImplicitParam(name = "email", value = "이메일주소", required = true, paramType = "query", dataType = "string", defaultValue = "") })
 	@RequestMapping(value = "/checkemail", method = RequestMethod.GET)
 	public ResponseEntity<JSONResult> checkEmail(@RequestParam(value = "email", required = true, defaultValue = "") String email) {
-
+		
+		MemberVo memberVo = new MemberVo();
+		memberVo.setEmail(email);
+		
+		Validator validator = 
+				Validation.buildDefaultValidatorFactory().getValidator();
+		
+		Set<ConstraintViolation<MemberVo>> validatorResults = 
+				validator.validateProperty(memberVo, "email");
+		
+		// 아이디 또는 비밀번호 형식이 잘 안맞을 경우
+		if(!validatorResults.isEmpty()) 
+				return ResponseEntity.status(HttpStatus.OK).body(JSONResult.fail("올바른 형식이 아닙니다."));
+		
 		boolean judge = userService.existEmail(email);
 		
 		if(judge)

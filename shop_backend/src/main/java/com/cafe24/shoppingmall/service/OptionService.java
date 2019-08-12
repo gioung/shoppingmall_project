@@ -36,7 +36,7 @@ public class OptionService {
 		// 옵션 값 리스트 생성
 		for(int i=0; i<optionList1.size(); i++) {
 			for(int j=0; j<optionList2.size(); j++) {
-					optionValList.add(optionList1.get(i).concat(optionList2.get(j)));
+					optionValList.add(optionList1.get(i).concat("/"+optionList2.get(j)));
 				}
 			}
 		

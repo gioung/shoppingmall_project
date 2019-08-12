@@ -3,14 +3,17 @@
 
 #user		{ margin:20px auto;	width:540px; }
 #join-form	{
-	width:300px;
+	width:400px;
 	padding:10px;
 	border:1px solid #666;
 	border-radius: 10px;
 	margin:50px auto;
 }
 #join-form .inputs{
-	width: 80%
+	width: 70%;
+}
+#join-form #id-certification{
+	float: right;
 }
 
 

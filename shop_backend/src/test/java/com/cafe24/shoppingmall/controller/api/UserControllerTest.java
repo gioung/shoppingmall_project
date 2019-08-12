@@ -62,20 +62,20 @@ public class UserControllerTest {
 			System.out.println("Test End!");
 	}
 	//관리자 id insert
-//	@Test
-//	public void TestA_0() throws Exception{
-//		 MemberVo vo = new MemberVo(); 
-//		  vo.setEmail("user@google.com");
-//		  vo.setName("유저임");
-//		  vo.setPassword("gioung1234!");
-//		  vo.setBirth("1993-12-22");
-//		  vo.setGender(Gender.M);
-//		  vo.setPhone_num("010-1234-9833");
-//		  vo.setAdmin(false);
-//		  
-//		  mockMvc.perform(post(SHAREDURL+"/signup").contentType(MediaType.APPLICATION_JSON)
-//					 .content(new Gson().toJson(vo)).characterEncoding("utf-8")); 
-//	}
+	@Test
+	public void TestA_0() throws Exception{
+		 MemberVo vo = new MemberVo(); 
+		  vo.setEmail("admin@google.com");
+		  vo.setName("유저임");
+		  vo.setPassword("gioung1234!");
+		  vo.setBirth("1993-12-22");
+		  vo.setGender(Gender.M);
+		  vo.setPhone_num("010-1234-9833");
+		  vo.setAdmin(true);
+		  
+		  mockMvc.perform(post(SHAREDURL+"/signup").contentType(MediaType.APPLICATION_JSON)
+					 .content(new Gson().toJson(vo)).characterEncoding("utf-8")); 
+	}
 	
 //	//ska2253@naver.com insert
 //	@Test
@@ -203,18 +203,18 @@ public class UserControllerTest {
 //		  .andDo(print());
 //	  }
 	//회원 조회
-	@Test
-	public void TestB_0() throws Exception{
-		 System.out.println("회원조회 테스트");
-		  
-		  ResultActions resultActions =
-		  mockMvc.perform(get(ADMINUSERURL+"/list")
-		  .characterEncoding("utf-8"));
-		  
-		  resultActions.andDo(print())
-		  .andExpect(status().isOk()) 
-		  .andExpect(jsonPath("$.result",is("success"))); 
-	}
+//	@Test
+//	public void TestB_0() throws Exception{
+//		 System.out.println("회원조회 테스트");
+//		  
+//		  ResultActions resultActions =
+//		  mockMvc.perform(get(ADMINUSERURL+"/list")
+//		  .characterEncoding("utf-8"));
+//		  
+//		  resultActions.andDo(print())
+//		  .andExpect(status().isOk()) 
+//		  .andExpect(jsonPath("$.result",is("success"))); 
+//	}
 //
 //	/* #2.로그인 테스트 */
 //	  // case1. 성공케이스
@@ -342,8 +342,8 @@ public class UserControllerTest {
 //		  .andDo(print()); 
 //	  }
 //	  
-//	  //#4.회원 탈퇴
-//	  // case1. 해당 아이디의 비밀번호가 일치하지 않을경우
+	  //#4.회원 탈퇴
+	  // case1. 해당 아이디의 비밀번호가 일치하지 않을경우
 //	  @Test 
 //	  public void TestD_1() throws Exception { 
 //		  System.out.println("회원 탈퇴 테스트");

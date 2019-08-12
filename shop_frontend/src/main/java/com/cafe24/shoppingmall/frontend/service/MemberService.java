@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.cafe24.shoppingmall.frontend.dto.JSONResult;
+import com.cafe24.shoppingmall.frontend.dto.JSONResult2;
 import com.cafe24.shoppingmall.frontend.vo.MemberVo;
 
 @Service
@@ -28,9 +29,18 @@ public class MemberService {
 		return jsonResult.getResult();
 	}
 	
+	/* SELECT */
+	public JSONResult2 checkemail(String email) {
+		String endpoint = "http://localhost:8888/v1/api/user/checkemail?email="+email;
+		
+		return restTemplate.getForObject(endpoint, JSONResult2.class);
+	}
+	
 	// DTO Class
 	private static class JSONResultMember extends JSONResult<Boolean> {
 		
 	}
+
+	
 
 }

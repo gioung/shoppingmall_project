@@ -133,39 +133,39 @@ public class ShopControllerTest {
 //		}
 //	
 //		//# 카테고리 등록 테스트
-//		@Test
-//		public void testB_0() throws Exception {
-//			System.out.println("카테고리 등록 테스트");
-//			// 메인 카테고리 1
-//			CategoryVo categoryVo1 = new CategoryVo(1L, "TOP");
-//			CategoryVo categoryVo2 = new CategoryVo(2L, "PANTS");
-//			//서브 카테고리 1-1
-//			CategoryVo subCategoryVo1 = new CategoryVo(1L, 1L, "반팔티");
-//			//서브 카테고리 1-2
-//			CategoryVo subCategoryVo2 = new CategoryVo(1L, 2L, "나시");
-//			//서브 카테고리 2-1
-//			CategoryVo subCategoryVo3 = new CategoryVo(2L, 1L, "반바지");
-//			//서브 카테고리 2-2
-//			CategoryVo subCategoryVo4 = new CategoryVo(2L, 2L, "슬랙스");
-//			
-//			List<CategoryVo> categoryList = new ArrayList<>();
-//			categoryList.add(categoryVo1);
-//			categoryList.add(categoryVo2);
-//			categoryList.add(subCategoryVo1);
-//			categoryList.add(subCategoryVo2);
-//			categoryList.add(subCategoryVo3);
-//			categoryList.add(subCategoryVo4);
-//		
-//			
-//			ResultActions resultActions = mockMvc.perform(post(SHOPADMINURL+"/category")
-//					.contentType(MediaType.APPLICATION_JSON)
-//					.content(new Gson().toJson(categoryList))
-//					.characterEncoding("utf-8"));
-//			
-//			resultActions.andDo(print())
-//			.andExpect(status().isCreated());
-//					
-//		}
+		@Test
+		public void testB_0() throws Exception {
+			System.out.println("카테고리 등록 테스트");
+			// 메인 카테고리 1
+			CategoryVo categoryVo1 = new CategoryVo(1L, "TOP");
+			CategoryVo categoryVo2 = new CategoryVo(2L, "PANTS");
+			//서브 카테고리 1-1
+			CategoryVo subCategoryVo1 = new CategoryVo(1L, 1L, "반팔티");
+			//서브 카테고리 1-2
+			CategoryVo subCategoryVo2 = new CategoryVo(1L, 2L, "나시");
+			//서브 카테고리 2-1
+			CategoryVo subCategoryVo3 = new CategoryVo(2L, 1L, "반바지");
+			//서브 카테고리 2-2
+			CategoryVo subCategoryVo4 = new CategoryVo(2L, 2L, "슬랙스");
+			
+			List<CategoryVo> categoryList = new ArrayList<>();
+			categoryList.add(categoryVo1);
+			categoryList.add(categoryVo2);
+			categoryList.add(subCategoryVo1);
+			categoryList.add(subCategoryVo2);
+			categoryList.add(subCategoryVo3);
+			categoryList.add(subCategoryVo4);
+		
+			
+			ResultActions resultActions = mockMvc.perform(post(SHOPADMINURL+"/category")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(new Gson().toJson(categoryList))
+					.characterEncoding("utf-8"));
+			
+			resultActions.andDo(print())
+			.andExpect(status().isCreated());
+					
+		}
 //		
 //		//# 카테고리 조회
 //		@Test

@@ -15,6 +15,37 @@
 	<!-- Custom styles for this template -->
 	<link href="${pageContext.servletContext.contextPath }/assets/css/shop-login.css" rel="stylesheet">
 	<link href="${pageContext.servletContext.contextPath }/assets/css/user.css" rel="stylesheet" type="text/css">
+	<script>
+		function certification(){
+			var email = $('#email')[0].value;
+			$.ajax({	
+				url : "${pageContext.servletContext.contextPath }/user/checkemail?email="+email,
+				type : "get",
+				success : function(response) {
+					console.log(response.result);
+					if(response.result == "success"){
+						alert("사용 가능한 아이디 입니다.");
+						$('#id-certification')[0].disabled = true;
+						$('#submit')[0].disabled = false;
+					}
+					else if(response.result == "fail"){
+						alert("사용할 수 없는 아이디 입니다.");
+					}
+				},
+				error :function(data){
+				    alert("error");
+				  }
+			});
+		}
+		
+		function resetCertification(){
+			$('#id-certification')[0].disabled = false;
+			$('#submit')[0].disabled = true;
+		}
+		
+		
+		
+	</script>
 </head>
 <body>
 	<!-- Navigation -->
@@ -22,7 +53,11 @@
 		<c:param name="active" value="login" />
 	</c:import>
 	<!-- /.Navigation -->
-	
+	<c:if test="${param.result eq 'fail' }">
+	<script>
+		alert('유효하지 않은 데이터입니다.')
+	</script>
+	</c:if>
  	<div class="container" id="join-form">
  		<h1>회원 가입</h1>
  		<form method="POST"	action="${pageContext.servletContext.contextPath }/user/join">
@@ -31,7 +66,8 @@
 					<input id="name" class="inputs" name="name" type="text" value="" placeholder="이름을 입력하세요">
 					
 					<label class="block-label" for="email">이메일</label> 
-					<input id="email" class="inputs" name="email" type="email" value="" placeholder="이메일을 입력하세요">
+					<input id="email" class="inputs" name="email" type="email" value="" placeholder="이메일을 입력하세요" onchange="resetCertification()">	
+					<button id="id-certification" onclick="certification()" type="button">id 중복체크</button>
 					
 					<label class="block-label">패스워드</label> 
 					<input class="inputs" name="password"type="password" value="" placeholder="패스워드를 입력하세요.">
@@ -54,11 +90,11 @@
 
 					<fieldset>
 						<legend>약관동의</legend>
-						<input id="agree-prov" type="checkbox" name="agreeProv" value="y">
+						<input id="agree-prov" type="checkbox" name="agreeProv" value="y" required>
 						<label>서비스 약관에 동의합니다.</label>
 					</fieldset>
 
-					<input type="submit" value="가입하기">
+					<input id="submit" type="submit" value="가입하기" disabled="disabled">
 
 				</form>
 	</div>

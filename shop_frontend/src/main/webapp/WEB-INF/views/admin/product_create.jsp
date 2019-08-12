@@ -47,7 +47,7 @@ var i = 0;
 				    alert("error");
 				  }
 			});
-	}
+	};
 	
 	function addOption(){
 		var element ='<div id="op'+i+'">'+
@@ -58,11 +58,38 @@ var i = 0;
 		
 		$('#option').append(element);
 		i++;
-	}
+	};
+	
+	
 	function delOption(i){
 		$('#op'+i).remove();
 		i--;
-	}
+	};
+	
+	function createOptionList(){
+		var param = $("form[name=product-info]").serialize();
+		$.ajax({
+			url : "${pageContext.servletContext.contextPath }/option/list",
+			type : "get",
+			dataType : "json",
+			data : param,
+			success : function(list) {
+			$('#option-list')[0].hidden = false;
+			for(var i=0; i<list.length; i++){
+				var element =
+				'<div id="oplist'+i+'">'+
+				'옵션 <input type="text" readonly="readonly" name="options" value="'+list[i]+'" />'+
+					' 재고 <input type="number" name="inventory" min="1"/>'+
+				'</div>';
+				$('#option-list-td').append(element); 
+				}
+				
+			},
+			error :function(data){
+			    alert("error");
+			  }
+		});
+	}; 
 </script>
 </head>
 <body>
@@ -84,7 +111,7 @@ var i = 0;
 
 			<div id="content">
 			<div id="product">
-				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath }/admin/product/registration"
+				<form class="board-form" name="product-info" method="post" action="${pageContext.servletContext.contextPath }/admin/product/registration"
 				enctype="multipart/form-data">
 					<h1>상품 등록</h1>
 					<table class="tbl-ex">
@@ -135,11 +162,17 @@ var i = 0;
 						</tr>
 						<tr>
 							<td class="label">옵션</td>
-							<td id='option'>사이즈 <input class="option-style" type="text" name="option1">
+							<td id='option'>사이즈 
+							<input class="option-style" type="text" name="option1">
 								컬러 <input class="option-style" type="text" name="option2">
 								<button class="option-style" type="button" onclick="addOption()">추가</button>
+								<button id="option-create-list" type="button" onclick="createOptionList()">옵션리스트 생성</button>
 							</td>
 							
+						</tr>
+						<tr id="option-list" hidden="true">
+							<td class="label">옵션리스트</td>
+							<td id="option-list-td"></td>
 						</tr>
 					</table>
 					<div class="bottom">
