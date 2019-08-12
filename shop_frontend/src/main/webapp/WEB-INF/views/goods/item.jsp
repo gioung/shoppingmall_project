@@ -55,7 +55,7 @@ function addCart(){
 				<form action="" method="post" name="cartvalue">
 				<div class="card mt-4">
 					<img class="card-img-top img-fluid"
-						src="${pageContext.servletContext.contextPath }/assets/image/${product.image }" alt="이미지">
+						src="${pageContext.servletContext.contextPath }${product.image }" alt="이미지">
 					<div class="card-body">
 						<input type="hidden" name="product_no" value="${product.product_no }">
 						<h3 class="card-title">${product.name }</h3>

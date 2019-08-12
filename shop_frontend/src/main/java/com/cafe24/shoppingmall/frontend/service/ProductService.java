@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.cafe24.shoppingmall.frontend.dto.JSONResult;
+import com.cafe24.shoppingmall.frontend.dto.ProductDTO;
 import com.cafe24.shoppingmall.frontend.vo.OptionVo;
 import com.cafe24.shoppingmall.frontend.vo.ProductDetailVo;
 import com.cafe24.shoppingmall.frontend.vo.ProductVo;
@@ -30,15 +31,18 @@ public class ProductService {
 		//옵션 생성
 		for(String size : sizeList) {
 			for(String color : colorList) {
-				String option = size.concat(color);
+				String option = size.concat("/"+color);
 				productDetailList.add(new ProductDetailVo(option, 100L));
 			}
 		}
 		
-		System.out.println("productDetailList 옵션 = "+productDetailList);
+//		System.out.println("productDetailList 옵션 = "+productDetailList);
+		
+		ProductDTO product = new ProductDTO(productVo, productDetailList);
+		
 		
 		String endpoint = "http://localhost:8888/v1/api/admin/product/list";
-		JSONResultBoolean jsonResult = restTemplate.postForObject(endpoint, map, JSONResultBoolean.class);
+		JSONResultBoolean jsonResult = restTemplate.postForObject(endpoint, product, JSONResultBoolean.class);
 		
 		return jsonResult.getResult();
 		
@@ -84,6 +88,7 @@ public class ProductService {
 		JSONResultProduct jsonResult = restTemplate.getForObject(endpoint, JSONResultProduct.class);
 		return jsonResult.getData();
 	}
+	
 	// DTO Class
 	private static class JSONResultProductList extends JSONResult<List<ProductVo>> {
 	}
@@ -93,7 +98,9 @@ public class ProductService {
 	private static class JSONResultBoolean extends JSONResult<Boolean>{
 		
 	}
-	
+	private static class JSONResultMap{
+		
+	}
 
 	
 

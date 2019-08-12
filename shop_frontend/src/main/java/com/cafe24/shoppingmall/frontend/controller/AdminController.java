@@ -81,8 +81,8 @@ public class AdminController {
 	@PostMapping("/product/registration")
 	public String productCreate(@ModelAttribute ProductVo productVo, BindingResult bindingResult,
 			@RequestParam(value ="option1")String[] option1, 
-			@RequestParam(value="option2")String[] option2
-			/*@RequestParam("upload-image")MultipartFile multipartFile*/) {
+			@RequestParam(value="option2")String[] option2,
+			@RequestParam("upload-image")MultipartFile multipartFile) {
 		
 		if(bindingResult.hasErrors()) {
 			System.out.println(bindingResult.getAllErrors());
@@ -90,12 +90,12 @@ public class AdminController {
 		}
 		
 		//file저장하기 
-//		if(multipartFile!=null) {
-//			String url = fileuploadService.restore(multipartFile); 
-//			System.out.println("이미지 url = "+url);
-//			
-//			productVo.setImage(url);
-//		}
+		if(multipartFile!=null) {
+			String url = fileuploadService.restore(multipartFile); 
+			System.out.println("이미지 url = "+url);
+			
+			productVo.setImage(url);
+		}
 		
 		//리스트로 옵션값 변환
 		List<OptionVo> optionList = new ArrayList<>();

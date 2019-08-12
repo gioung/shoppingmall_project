@@ -47,7 +47,7 @@
 							var vo = productList[i];
 							var tag = img_before
 									+ '<a href="${pageContext.servletContext.contextPath }/product/'+vo.product_no+'">'
-									+ '<img class="card-img-top" src="${pageContext.servletContext.contextPath }/assets/image/'
+									+ '<img class="card-img-top" src="${pageContext.servletContext.contextPath }'
 								+ vo.image + '" alt="">'
 									+ img_after + '<a href="${pageContext.servletContext.contextPath }/product/'+vo.product_no+'">' + vo.name
 									+ '</a>' + '</h4>' + '<h5>' + vo.price
@@ -121,7 +121,7 @@
 							<c:set var="productDetailPage" value="${pageContext.servletContext.contextPath }/product/${vo.product_no }" />
 							<a href="${productDetailPage }">
 							<img class="card-img-top"
-								src="${pageContext.servletContext.contextPath }/assets/image/${vo.image }" alt=""></a>
+								src="${pageContext.servletContext.contextPath }${vo.image }" alt=""></a>
 							<div class="card-body">
 								<h4 class="card-title">
 									<a href="${productDetailPage }">${vo.name }</a>

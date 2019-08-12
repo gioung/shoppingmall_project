@@ -20,9 +20,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
+import com.cafe24.shoppingmall.dto.ProductDTO;
 import com.cafe24.shoppingmall.repository.vo.CategoryVo;
 import com.cafe24.shoppingmall.repository.vo.ProductDetailVo;
 import com.cafe24.shoppingmall.repository.vo.ProductVo;
@@ -40,18 +43,23 @@ public class AdminShopController {
 	@Autowired
 	ShopService shopService;
 	
-
 	// 상품 등록
 	@ApiOperation(value = "관리자 상품 등록")
 	@RequestMapping(value = "/list", method = RequestMethod.POST) 
-	public ResponseEntity<JSONResult> addProducts(@RequestBody Map<String,Object> map, BindingResult bindingResult) {
-			Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-			Type listType = new TypeToken<ArrayList<ProductDetailVo>>(){}.getType();
+	public ResponseEntity<JSONResult> addProducts(
+			 @RequestBody ProductDTO product,
+			 BindingResult bindingResult) {
 			
-			ProductVo productVo = gson.fromJson(String.valueOf(map.get("product")), ProductVo.class);
-			List<ProductDetailVo> productDetailVoList = gson.fromJson(String.valueOf(map.get("productDetailList")), listType);
-		
 			
+			ProductVo productVo = product.getProduct();
+			List<ProductDetailVo> productDetailVoList = product.getProductDetailList();
+	
+//			Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+//			Type listType = new TypeToken<ArrayList<ProductDetailVo>>(){}.getType();
+//			
+//			ProductVo productVo = gson.fromJson(String.valueOf(map.get("product")), ProductVo.class);
+//			List<ProductDetailVo> productDetailVoList = gson.fromJson(String.valueOf(map.get("productDetailList")), listType);
+//			
 			// 상품 등록
 			boolean judge = shopService.addProduct(productVo, productDetailVoList);
 			if(!judge)
@@ -61,7 +69,6 @@ public class AdminShopController {
 			// Service에 삽입 요청을 하는 code
 			return ResponseEntity.status(HttpStatus.CREATED).body(JSONResult.success(true));
 		}
-	
 	@ApiOperation(value = "관리자 상품 목록")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ResponseEntity<JSONResult> getAllProductList() {

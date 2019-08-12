@@ -58,7 +58,7 @@
 						<th>판매가</th>
 						<th>진열상태</th>
 						<th>상품분류</th>
-						<th>상품등록일</th>
+						<th>상품제조일</th>
 					</tr>
 					<c:forEach items='${productList }' var='productvo'>
 						<tr>

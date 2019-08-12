@@ -1,110 +1,71 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!------ Include the above in your HEAD tag ---------->
-
-<!Doctype html>
-<html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>  
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-     <meta charset="UTF-8">
-     <title>Registration Form</title>
-     <meta name="viewport" content="width=device-width, initial-scale=1">
-     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-     <link href="${pageContext.servletContext.contextPath }/assets/css/user-join.css" rel="stylesheet">
-	 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-	 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Shop Homepage - Start Bootstrap Template</title>
+	<!-- Bootstrap core CSS -->
+	<link href="${pageContext.servletContext.contextPath }/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom styles for this template -->
+	<link href="${pageContext.servletContext.contextPath }/assets/css/shop-login.css" rel="stylesheet">
+	<link href="${pageContext.servletContext.contextPath }/assets/css/user.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+	<!-- Navigation -->
+	<c:import url='/WEB-INF/views/includes/navigation.jsp'>
+		<c:param name="active" value="login" />
+	</c:import>
+	<!-- /.Navigation -->
 	
- <div class="container">
- <!---heading---->
-     <header class="heading">회원 가입</header><hr></hr>
-     <c:if test="${param.result == 'fail' }">
-     	<script>alert('가입 형식이 맞지 않습니다.')</script>
-     </c:if>
-     
-     <!---Form starting----> 
-	<form action="${pageContext.servletContext.contextPath }/user/join" method="post">
-	<div class="row ">
-	<!-----For email---->
-		 <div class="col-sm-12">
-		     <div class="row">
-			     <div class="col-xs-4">
-		             <label class="mail" >이메일</label></div>
-			     <div class="col-xs-8"	>	 
-			          <input type="email" name="email"  id="email" placeholder="이메일을 입력하세요." class="form-control" >
-		         </div>
-		     </div>
-		 </div>
-	 <!-----For Password and confirm password---->
-          <div class="col-sm-12">
-		         <div class="row">
-				     <div class="col-xs-4">
-		 	              <label class="pass">패스워드</label></div>
-				  <div class="col-xs-8">
-			             <input type="password" name="password" id="password" placeholder="패스워드를 입력하세요." class="form-control">
-				 </div>
-          </div>
-		  </div>
-		  
-		  <div class="col-sm-12">
-             <div class="row">
-			     <div class="col-xs-4">
-          	         <label class="firstname">이름</label> </div>
-		         <div class="col-xs-8">
-		             <input type="text" name="name" id="name" placeholder="이름을 입력하세요." class="form-control ">
-             </div>
-		      </div>
-		 </div>
-		 
-		 <div class="col-sm-12">
-		     <div class="row">
-			     <div class="col-xs-4">
-                     <label class="lastname">연락처</label></div>
-				<div class ="col-xs-8">	 
-		             <input type="tel" name="phone_num" id="phone_num" class="form-control last" placeholder="연락처를 입력하세요.">
-                </div>
-		     </div>
-		 </div>
-		 
-         <div class="col-sm-12">
-		     <div class="row">
-			     <div class="col-xs-4">
-                     <label class="lastname">생일</label></div>
-				<div class ="col-xs-8">	 
-		             <input type="date" name="birth" id="birth" class="form-control last">
-                </div>
-		     </div>
-		 </div>
-		  
-     <!-----------For Gender-------->
-         <div class="col-sm-12">
-		     <div class ="row">
-                 <div class="col-xs-4 ">
-			       <label class="gender">Gender:</label>
-				 </div>
-			 
-			     <div class="col-xs-4 male">	 
-				     <input type="radio" name="gender"  id="gender" value="M">Male
-				 </div>
-				 
-				 <div class="col-xs-4 female">
-				     <input type="radio"  name="gender" id="gender" value="F" >Female
-			     </div>
-			
-		  	 </div>
-		     <div class="col-sm-12">
-		         <input type="submit" value="가입하기">
-		   </div>
-		 </div>
-	 </div>	 
-	</form>	 		 
-		 
-</div>
+ 	<div class="container" id="join-form">
+ 		<h1>회원 가입</h1>
+ 		<form method="POST"	action="${pageContext.servletContext.contextPath }/user/join">
 
-</body>		
+					<label class="block-label" for="name">이름</label> 
+					<input id="name" class="inputs" name="name" type="text" value="" placeholder="이름을 입력하세요">
+					
+					<label class="block-label" for="email">이메일</label> 
+					<input id="email" class="inputs" name="email" type="email" value="" placeholder="이메일을 입력하세요">
+					
+					<label class="block-label">패스워드</label> 
+					<input class="inputs" name="password"type="password" value="" placeholder="패스워드를 입력하세요.">
+
+					<label class="block-label">연락처</label>
+					<input class="inputs" type="tel" name="phone_num" id="phone_num"  placeholder="연락처를 입력하세요.">
+					
+					<label class="block-label">생일</label>	 
+		            <input type="date" name="birth" id="birth">
+		             
+					<label class="block-label">Gender:</label>
+				
+					<div class="col-xs-4 male">	 
+				    	 <input type="radio" name="gender"  id="gender" value="M">Male
+				 	</div>
+				 
+				 	<div class="col-xs-4 female">
+				    	 <input type="radio"  name="gender" id="gender" value="F" >Female
+			     	</div>
+
+					<fieldset>
+						<legend>약관동의</legend>
+						<input id="agree-prov" type="checkbox" name="agreeProv" value="y">
+						<label>서비스 약관에 동의합니다.</label>
+					</fieldset>
+
+					<input type="submit" value="가입하기">
+
+				</form>
+	</div>
+	<!-- /.container -->
+
+	<!-- Footer -->
+	<c:import url='/WEB-INF/views/includes/footer.jsp' />
+	<!-- /.Footer -->
+</body>
 </html>
-	 
-	 

@@ -84,7 +84,8 @@ var i = 0;
 
 			<div id="content">
 			<div id="product">
-				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath }/admin/product/registration">
+				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath }/admin/product/registration"
+				enctype="multipart/form-data">
 					<h1>상품 등록</h1>
 					<table class="tbl-ex">
 						<tr>
