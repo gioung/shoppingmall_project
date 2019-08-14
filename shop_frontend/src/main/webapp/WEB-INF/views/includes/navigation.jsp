@@ -13,7 +13,6 @@
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav ml-auto">
 				<c:choose>
@@ -26,7 +25,7 @@
 							<a class="nav-link" href="${pageContext.servletContext.contextPath }/user/logout">로그아웃</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="${pageContext.servletContext.contextPath }/cs">고객센터</a>
+							<a class="nav-link" href="${pageContext.servletContext.contextPath }/user/cart">장바구니</a>
 						</li>
 					</c:when>			
 					<c:otherwise>
@@ -39,9 +38,7 @@
 						<li class="nav-item">
 							<a class="nav-link" href="${pageContext.servletContext.contextPath }/user/join">회원가입</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="${pageContext.servletContext.contextPath }/cs">고객센터</a>
-						</li>
+						
 					</c:otherwise>				
 				</c:choose>
 			</ul>

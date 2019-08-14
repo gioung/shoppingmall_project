@@ -1,6 +1,7 @@
 package com.cafe24.shoppingmall.frontend.vo;
 
 import java.sql.Date;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -8,6 +9,7 @@ import javax.validation.constraints.Pattern;
 
 public class OrderVo {
 	private long order_no;
+	private Long[] seq_no;
 	private String recv_name;
 	private String recv_tel;
 	@NotNull
@@ -19,11 +21,11 @@ public class OrderVo {
 	private String ord_tel;
 	@NotNull
 	private boolean is_same;
-	private Date order_date;
+	private String order_date;
 	@NotNull
 	private long pay;
 	@NotNull
-	private boolean ismember;
+	private boolean ismember = false;
 	@NotNull
 	private boolean iscart;
 	private String id;
@@ -102,10 +104,10 @@ public class OrderVo {
 	public void setIs_same(boolean is_same) {
 		this.is_same = is_same;
 	}
-	public Date getOrder_date() {
+	public String getOrder_date() {
 		return order_date;
 	}
-	public void setOrder_date(Date order_date) {
+	public void setOrder_date(String order_date) {
 		this.order_date = order_date;
 	}
 	public long getPay() {
@@ -140,12 +142,21 @@ public class OrderVo {
 	public void setOrderList(List<OrderedProductVo> orderList) {
 		this.orderList = orderList;
 	}
+	
+	public Long[] getSeq_no() {
+		return seq_no;
+	}
+
+	public void setSeq_no(Long[] seq_no) {
+		this.seq_no = seq_no;
+	}
+
 	@Override
 	public String toString() {
-		return "OrderVo [order_no=" + order_no + ", recv_name=" + recv_name + ", recv_tel=" + recv_tel
-				+ ", destination=" + destination + ", ord_name=" + ord_name + ", ord_tel=" + ord_tel + ", is_same="
-				+ is_same + ", order_date=" + order_date + ", pay=" + pay + ", ismember=" + ismember + ", iscart="
-				+ iscart + ", id=" + id + ", orderList=" + orderList + "]";
+		return "OrderVo [order_no=" + order_no + ", seq_no=" + Arrays.toString(seq_no) + ", recv_name=" + recv_name
+				+ ", recv_tel=" + recv_tel + ", destination=" + destination + ", ord_name=" + ord_name + ", ord_tel="
+				+ ord_tel + ", is_same=" + is_same + ", order_date=" + order_date + ", pay=" + pay + ", ismember="
+				+ ismember + ", iscart=" + iscart + ", id=" + id + ", orderList=" + orderList + "]";
 	}
 	
 	

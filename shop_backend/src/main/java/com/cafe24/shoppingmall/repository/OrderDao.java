@@ -43,13 +43,23 @@ public class OrderDao {
 		return orderList;
 	}
 	
+	//해당 order_no의 주문내역 조회
+	public OrderVo getOrder(long order_no) {
+		OrderVo orderVo = sqlSession.selectOne("order.getOrderByNo", order_no);
+		return orderVo;
+	}
+	
 	//주문 상세 내역 조회
 	public List<OrderedProductVo> getOrderDetailList(OrderVo orderVo) {
 		List<OrderedProductVo> orderDetailList = sqlSession.selectList("order.getOrderDetailList", orderVo);
 		return orderDetailList;
 	}
 	
-	
+	//관리자 주문 전체내역 조회
+	public List<OrderVo> getAllOrderList() {
+		List<OrderVo> orderList = sqlSession.selectList("order.getAllOrderList");
+		return orderList;
+	}
 	
 	// DELETE
 	//주문 취소
@@ -63,6 +73,7 @@ public class OrderDao {
 		
 		return 0 < sqlSession.delete("order.cancelOrderList", orderVo);
 	}
+	
 	
 	
 	

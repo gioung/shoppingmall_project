@@ -7,13 +7,9 @@ public class OrderedProductVo {
 	private long qty;
 	private long pay;
 	
-	public OrderedProductVo( long order_no, long product_no, long pd_detail_no, long qty,long pay) {
-		this.product_no = product_no;
-		this.pd_detail_no = pd_detail_no;
-		this.order_no = order_no;
-		this.qty = qty;
-		this.pay = pay;
-	}
+	//product와 pd_detail과의 join을위해 필요한 property
+	private String product_name;
+	private String option;
 	
 	public long getProduct_no() {
 		return product_no;
@@ -45,11 +41,23 @@ public class OrderedProductVo {
 	public void setPay(long pay) {
 		this.pay = pay;
 	}
-
+	public String getProduct_name() {
+		return product_name;
+	}
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
+	public String getOption() {
+		return option;
+	}
+	public void setOption(String option) {
+		this.option = option;
+	}
 	@Override
 	public String toString() {
 		return "OrderedProductVo [product_no=" + product_no + ", pd_detail_no=" + pd_detail_no + ", order_no="
-				+ order_no + ", qty=" + qty + ", pay=" + pay + "]";
+				+ order_no + ", qty=" + qty + ", pay=" + pay + ", product_name=" + product_name + ", option=" + option
+				+ "]";
 	}
 	
 	

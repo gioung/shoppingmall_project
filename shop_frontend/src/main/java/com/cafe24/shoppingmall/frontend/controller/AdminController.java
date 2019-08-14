@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,13 +19,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cafe24.shoppingmall.frontend.dto.OrderProductDTO;
 import com.cafe24.shoppingmall.frontend.service.CategoryService;
 import com.cafe24.shoppingmall.frontend.service.FileuploadService;
+import com.cafe24.shoppingmall.frontend.service.OrderService;
 import com.cafe24.shoppingmall.frontend.service.ProductService;
 import com.cafe24.shoppingmall.frontend.service.UserSerivce;
 import com.cafe24.shoppingmall.frontend.vo.CategoryVo;
 import com.cafe24.shoppingmall.frontend.vo.MemberVo;
-import com.cafe24.shoppingmall.frontend.vo.OptionVo;
+import com.cafe24.shoppingmall.frontend.vo.OrderVo;
+import com.cafe24.shoppingmall.frontend.vo.OrderedProductVo;
 import com.cafe24.shoppingmall.frontend.vo.ProductDetailVo;
 import com.cafe24.shoppingmall.frontend.vo.ProductVo;
 
@@ -41,6 +43,8 @@ public class AdminController {
 	CategoryService categoryService;
 	@Autowired
 	FileuploadService fileuploadService;
+	@Autowired
+	OrderService orderService;
 	
 	//ADMIN 몌인
 	@GetMapping({"", "/main"})
@@ -48,6 +52,28 @@ public class AdminController {
 		return "admin/index";
 	}
 	
+	//주문 목록 조회
+	@GetMapping("/order")
+	public String orderPage(Model model){
+		
+		List<OrderVo> orderList = orderService.getOrderList();
+		model.addAttribute("orderList", orderList);
+		
+		return "admin/order";
+	}
+	
+	//해당 주문 번호의 주문내역 조회
+	@GetMapping("/orderdetail/{order_no}")
+	public String orderDetailPage(@PathVariable("order_no")long order_no,Model model){
+		
+		OrderProductDTO orders = orderService.getOrderListForOrderNo(order_no);
+		OrderVo orderVo = orders.getOrderVo();
+		List<OrderedProductVo> orderedProductList = orders.getOrderProductList();
+		model.addAttribute("orderVo", orderVo);
+		model.addAttribute("orderedProductList", orderedProductList);
+			
+			return "admin/order_detail";
+		}
 	//회원 관리 페이지
 	@GetMapping("/user")
 	public String userPage(Model model) {
@@ -126,4 +152,6 @@ public class AdminController {
 		
 		return subCategoryList;
 	}
+	
+	
 }

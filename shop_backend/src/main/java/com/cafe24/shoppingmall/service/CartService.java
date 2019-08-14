@@ -21,7 +21,6 @@ CartDao cartDao;
 	/* ######## INSERT ######### */
 	//장바구니 담기
 	public boolean addProductToCart(CartVo cartVo) {
-		System.out.println("cartVoId = " + cartVo.getId());
 		if(null == cartVo.getId()) {
 			TempId = createTempId();
 			System.out.println("TempId = " + TempId);
@@ -32,7 +31,6 @@ CartDao cartDao;
 	// 이미 담겨있다면 수량만 증가 시켜준다.
 	CartVo existCartVo = cartDao.getProductInCart(cartVo);
 	if(null != existCartVo) {
-		cartVo.setQty(existCartVo.getQty()+cartVo.getQty());
 		cartVo.setSeq_no(existCartVo.getSeq_no());
 		return cartDao.addProductQty(cartVo);
 	}
@@ -54,9 +52,22 @@ CartDao cartDao;
 	/* ######## SELECT ######### */
 	// 카트리스트 조회
 	public List<CartVo> getProductListInCart(String id) {
-		return cartDao.getProductListInCart(id);
+		//가격 계산
+		List<CartVo> cartList = cartDao.getProductListInCart(id);
+		for(CartVo cartVo : cartList) {
+			cartVo.setPrice(cartVo.getQty()*cartVo.getPrice());
+		}
+		return cartList;
 	}
 
+	// 특정 카트 조회
+	public CartVo getProductToOrder(String id, long seq_no) {
+		//가격 계산
+		CartVo cartVo = cartDao.getProductToOrder(id, seq_no);
+		cartVo.setPrice(cartVo.getQty()*cartVo.getPrice());
+		
+		return cartVo;
+	}
 	// 임시 ID 조회
 	public String getTempId() {
 		return TempId;

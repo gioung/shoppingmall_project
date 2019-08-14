@@ -47,6 +47,8 @@ public class CustomUrlAuthenticationSuccessHandler extends SimpleUrlAuthenticati
 		
     	if( accept == null || accept.matches( ".*application/json.*" ) == false ) {
     		request.getSession(true).setAttribute("loginNow", true);
+    		request.getSession().setAttribute("userId", request.getParameter("email"));
+    		
     		if(securityUser.getAuthorities() != null)
     			getRedirectStrategy().sendRedirect( request, response, "/admin" );
     		else

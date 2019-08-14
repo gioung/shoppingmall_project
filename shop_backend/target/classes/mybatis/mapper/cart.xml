@@ -30,7 +30,20 @@
 <!-- 특정 회원의 장바구니 리스트 -->
 <select id="getProductListInCart" parameterType="string" resultType="cartvo">
 <![CDATA[
-	select * from cart where id=#{id };
+	select a.seq_no,a.qty,a.reg_date,b.name,c.option,b.price,b.image,a.product_no,a.pd_detail_no 
+ 	from cart a,product b,pd_detail c 
+ 	where a.product_no = b.product_no and b.product_no=c.product_no and a.pd_detail_no=c.pd_detail_no and a.id=#{id } 
+ 	order by a.seq_no;
+]]>
+</select>
+
+<!-- 특정회원의 특정 장바구니 상품조회 -->
+<select id="getProductToOrder" parameterType="cartvo" resultType="cartvo">
+<![CDATA[
+	select a.seq_no,a.qty,a.reg_date,b.name,c.option,b.price,b.image,a.product_no,a.pd_detail_no 
+ 	from cart a,product b,pd_detail c 
+ 	where a.product_no = b.product_no and b.product_no=c.product_no and a.pd_detail_no=c.pd_detail_no and a.id='${id }' 
+ 	and a.seq_no=${seq_no } order by a.seq_no;
 ]]>
 </select>
 
@@ -64,6 +77,7 @@
 	delete from cart where id=#{id }; 
 ]]>
 </delete>
+
 
 <!-- 장바구니 상품 삭제 -->
 <delete id="deleteProductInCart" parameterType="cartvo">

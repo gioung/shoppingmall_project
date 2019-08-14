@@ -29,6 +29,15 @@ public class CartDao {
 		return sqlSession.selectList("cart.getProductListInCart", id);
 	}
 	
+	//특정 카트 조회
+	public CartVo getProductToOrder(String id,long seq_no) {
+		CartVo cartVo = new CartVo();
+		cartVo.setId(id);
+		cartVo.setSeq_no(seq_no);
+		
+		return sqlSession.selectOne("cart.getProductToOrder", cartVo);
+	}
+	
 	// 상품이 담겨져 있는가?
 	public CartVo getProductInCart(CartVo cartVo) {
 		
@@ -59,11 +68,22 @@ public class CartDao {
 		return 0 < sqlSession.delete("cart.deleteCart", id);
 	}
 	
+	//장바구니 특정 물품 삭제
+	public boolean deleteOneCart(String id, Long seq_no) {
+		CartVo cartVo = new CartVo();
+		cartVo.setId(id);
+		cartVo.setSeq_no(seq_no);
+		
+		return 1 == sqlSession.delete("cart.deleteProductInCart", cartVo);
+	}
+	
 //	장바구니 상품 삭제
 	public boolean deleteProductInCart(CartVo cartVo) {
 		
 		return 1 == sqlSession.delete("cart.deleteProductInCart", cartVo);
 	}
+
+	
 
 	
 

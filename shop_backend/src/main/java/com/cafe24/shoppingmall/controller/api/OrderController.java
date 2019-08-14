@@ -34,13 +34,13 @@ public class OrderController {
 	@ApiOperation(value = "주문 하기")
 	@PostMapping(value = "/list")
 	public ResponseEntity<JSONResult> doOrder(@Valid @RequestBody OrderVo orderVo, BindingResult bindingResult) {
-		
 		if(bindingResult.hasErrors()) {
 			System.out.println(bindingResult.getAllErrors());
 		}
+		System.out.println("orderVO = "+orderVo);
 		
 		if(orderService.doOrder(orderVo)) {
-			return ResponseEntity.status(HttpStatus.CREATED).body(JSONResult.success(orderVo));
+			return ResponseEntity.status(HttpStatus.CREATED).body(JSONResult.success(true));
 		}
 		else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("주문 실패"));
@@ -59,6 +59,7 @@ public class OrderController {
 			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.fail("주문 내역이 존재하지 않습니다."));
 		}
 	}
+	
 	
 	// 주문 상세내역 조회
 	@ApiOperation(value = "주문 상세내역 조회")

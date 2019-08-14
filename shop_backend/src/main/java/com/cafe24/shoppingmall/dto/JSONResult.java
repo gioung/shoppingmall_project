@@ -40,7 +40,7 @@ public class JSONResult {
 	}
 
 	public static JSONResult fail(String message) {
-		return new JSONResult("fail", message, null);
+		return new JSONResult("fail", message, false);
 	}
 	
 	

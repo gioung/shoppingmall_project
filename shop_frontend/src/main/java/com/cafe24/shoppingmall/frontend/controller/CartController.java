@@ -1,15 +1,22 @@
 package com.cafe24.shoppingmall.frontend.controller;
 
 import java.security.Principal;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafe24.shoppingmall.frontend.dto.JSONResult2;
@@ -36,10 +43,6 @@ public class CartController {
 			return JSONResult2.success(myCartVo);
 		}
 		
-			
-		
-		
-		
 		/* 비회원일경우 */
 		//쿠키 존재유무 확인
 		boolean isTempId = false;
@@ -63,5 +66,47 @@ public class CartController {
 		
 		return JSONResult2.success(myCartVo);
 		
+	}
+	//장바구니 수량변경
+	@PostMapping("/update/{seq_no}")
+	@ResponseBody
+	public Long updateCart(@PathVariable("seq_no") long seq_no,
+			@RequestParam("qty")long qty, Authentication authentication) {
+		UserDetails userdetails = (UserDetails)authentication.getPrincipal();
+		String id = userdetails.getUsername();
+		
+		Long updatedQty = cartService.updateCart(seq_no,id,qty);
+		
+		
+		return updatedQty;
+	}
+	
+	//장바구니 삭제
+	@GetMapping("/delete/{seq_no}")
+	@ResponseBody
+	public Boolean deleteCart(@PathVariable("seq_no") long seq_no, Authentication authentication) {
+		UserDetails userdetails = (UserDetails)authentication.getPrincipal();
+		String id = userdetails.getUsername();
+		Boolean isDeleted;
+		
+		isDeleted = cartService.deleteCart(seq_no, id);
+		
+		if(isDeleted == null)
+			isDeleted=false;
+		
+		return isDeleted;
+	}
+	
+	@GetMapping("/delete")
+	public String deleteCartAll(Authentication authentication) {
+		UserDetails userdetails = (UserDetails)authentication.getPrincipal();
+		String id = userdetails.getUsername();
+		Boolean isDeleted;
+		isDeleted = cartService.deleteCartAll(id);
+		
+		if(isDeleted)
+			return "redirect:/user/cart";
+		else
+			return "redirect:/user/cart?result=fail";
 	}
 }

@@ -5,12 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.shoppingmall.repository.CartDao;
 import com.cafe24.shoppingmall.repository.OrderDao;
 import com.cafe24.shoppingmall.repository.ShopDao;
 import com.cafe24.shoppingmall.repository.UserDao;
-import com.cafe24.shoppingmall.repository.vo.CartVo;
 import com.cafe24.shoppingmall.repository.vo.MemberVo;
 import com.cafe24.shoppingmall.repository.vo.OrderVo;
 import com.cafe24.shoppingmall.repository.vo.OrderedProductVo;
@@ -32,6 +32,7 @@ public class OrderService {
 
 	/* ####### CREATE ###### */
 	//주문하기
+	@Transactional
 	public boolean doOrder(OrderVo orderVo) {
 		//주문한 자와 받는 자가 일치하는지 확인
 		// 일치하면 recv_name, tel을 set하기
@@ -45,6 +46,7 @@ public class OrderService {
 			if(userDao.existMemberAddress(orderVo.getId())) {
 			//member table update
 			MemberVo memberVo = new MemberVo();
+			System.out.println("주소 ="+orderVo.getDestination());
 			memberVo.setAddress(orderVo.getDestination());
 			memberVo.setEmail(orderVo.getId());
 			userDao.addMemberAddress(memberVo);
@@ -55,34 +57,37 @@ public class OrderService {
 			orderVo.setId(cartService.getTempId());
 		}
 		//장바구니 유무 검사
-		if(orderVo.isIscart()) {
-			//add OrderedProductList from cartList
-			System.out.println(orderVo.getId());
-			List<CartVo> cartList = cartDao.getProductListInCart(orderVo.getId());
-			System.out.println("CartList = "+cartList);
-			if(null == cartList)
-				return false;
-			//orderList 생성
-			List<OrderedProductVo> orderList= new ArrayList<>(cartList.size());
-			orderVo.setOrderList(orderList);
-			
-			for(int i=0; i<cartList.size(); i++) {
-				CartVo cartVo = cartList.get(i);
-				//가격은 프론트 단에서 계산 할 것이므로 임의로 넣음.
-				orderList.add(new OrderedProductVo(orderVo.getOrder_no(), cartVo.getProduct_no(), cartVo.getPd_detail_no()
-						, cartVo.getQty(), 10000L));
-			}
+		/*
+		 * if(orderVo.isIscart()) { //add OrderedProductList from cartList
+		 * System.out.println(orderVo.getId()); List<CartVo> cartList =
+		 * cartDao.getProductListInCart(orderVo.getId());
+		 * System.out.println("CartList = "+cartList); if(null == cartList) return
+		 * false; //orderList 생성 List<OrderedProductVo> orderList= new
+		 * ArrayList<>(cartList.size()); orderVo.setOrderList(orderList);
+		 * 
+		 * for(int i=0; i<cartList.size(); i++) { CartVo cartVo = cartList.get(i); //가격은
+		 * 프론트 단에서 계산 할 것이므로 임의로 넣음. orderList.add(new
+		 * OrderedProductVo(orderVo.getOrder_no(), cartVo.getProduct_no(),
+		 * cartVo.getPd_detail_no() , cartVo.getQty(), 10000L)); }
+		 */
 			
 			//delete cart
+		if(orderVo.getSeq_no().length > 1)
 			cartDao.deleteCart(orderVo.getId());
-			
-		}
+		else if(orderVo.getSeq_no().length == 1)
+			cartDao.deleteOneCart(orderVo.getId(), orderVo.getSeq_no()[0]);
+//		}
 		
 		//재고 확인 및 재고 차감
 		if(isEnoughQty(orderVo.getOrderList())) {
 			//order table insert
 			orderDao.doOrder(orderVo);
 			//orderList table insert
+			List<OrderedProductVo> opvlist = orderVo.getOrderList();
+			//order_no 설정
+			for(OrderedProductVo opv : opvlist) {
+				opv.setOrder_no(orderVo.getOrder_no());
+			}
 			return orderDao.addOrderList(orderVo.getOrderList());
 			}
 		
@@ -129,7 +134,17 @@ public class OrderService {
 		
 		return orderDao.getOrderDetailList(orderVo);
 	}
-
+	
+	//관리자 주문 전체내역 조회
+	public List<OrderVo> getAllOrderList() {
+		
+		return orderDao.getAllOrderList();
+	}
+	//해당 주문번호의 주문내역 조회
+	public OrderVo getOrder(long order_no) {
+		
+		return orderDao.getOrder(order_no);
+	}
 
 	/* ####### DELETE ###### */
 	//주문취소
@@ -144,6 +159,14 @@ public class OrderService {
 		return false;
 		
 	}
+
+
+
+	
+
+
+
+	
 
 
 

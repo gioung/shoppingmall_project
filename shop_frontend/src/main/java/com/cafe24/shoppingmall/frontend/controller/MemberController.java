@@ -1,9 +1,14 @@
 package com.cafe24.shoppingmall.frontend.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafe24.shoppingmall.frontend.dto.JSONResult2;
 import com.cafe24.shoppingmall.frontend.service.MemberService;
+import com.cafe24.shoppingmall.frontend.vo.CartVo;
 import com.cafe24.shoppingmall.frontend.vo.MemberVo;
 
 @Controller
@@ -53,7 +59,14 @@ public class MemberController {
 		return memberService.checkemail(email);
 	}
 	
-	
-	
+	@GetMapping("/cart")
+	public String userCartList(Authentication authentication, Model model) {
+		UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+		String email = userDetails.getUsername();
+		List<CartVo> cartList = memberService.getCartList(email);
+		System.out.println("cartList = "+cartList);
+		model.addAttribute("cartList", cartList);
+		return "user/cart";
+	}
 	
 }

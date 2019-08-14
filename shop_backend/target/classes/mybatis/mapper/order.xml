@@ -6,10 +6,15 @@
 <!-- 주문하기 -->
 <insert id="doOrder" parameterType="ordervo">
 <![CDATA[
-	insert into orders(order_no, recv_name, recv_tel, destination, ord_name, ord_tel, is_same, order_date, pay, ismember, iscart, id) 
-    values(#{order_no },#{ recv_name },#{recv_tel },#{destination },#{ord_name },#{ord_tel },#{is_same },
+	insert into orders(recv_name, recv_tel, destination, ord_name, ord_tel, is_same, order_date, pay, ismember, iscart, id) 
+    values(#{ recv_name },#{recv_tel },#{destination },#{ord_name },#{ord_tel },#{is_same },
     now(),#{pay },#{ismember },#{iscart },aes_encrypt(#{id },SHA2('shopmall',512)));
 ]]>
+<selectKey keyProperty="order_no" resultType="long" order="AFTER">
+	<![CDATA[
+	select last_insert_id()
+	]]>
+</selectKey>
 </insert>
 
 <!-- 주문 내역 삽입 -->
@@ -40,9 +45,25 @@
 
 <select id="getOrderDetailList" parameterType="ordervo" resultType="orderedproductvo">
 	<![CDATA[
-		select b.order_no,b.product_no,b.pd_detail_no,b.qty,b.pay  
-		 from orders a,orderlist b 
-		 where a.id=aes_encrypt(#{id },SHA2('shopmall',512)) and a.order_no=b.order_no and a.order_no=#{order_no };
+		select a.pay,b.name as product_name,c.option 
+		from orderlist a,product b,pd_detail c 
+		where a.order_no=#{order_no } and a.product_no=b.product_no and b.product_no=c.product_no 
+   		and a.pd_detail_no=c.pd_detail_no;
+	]]>
+</select>
+
+<select id="getOrderByNo" parameterType="long" resultType="ordervo">
+	<![CDATA[
+		select order_no,aes_decrypt(id,SHA2('shopmall',512)) as id,recv_name,recv_tel,destination,
+		ord_name,ord_tel,is_same,order_date,pay
+		 from orders where order_no=#{order_no };
+	]]>
+</select>
+
+<select id="getAllOrderList" resultType="ordervo">
+	<![CDATA[
+		select order_date,aes_decrypt(id,SHA2('shopmall',512)) as id,order_no,destination,pay 
+    	from orders;	
 	]]>
 </select>
 

@@ -26,6 +26,7 @@ function addCart(){
 				data : param,
 				success : function(response) {
 					console.log(response.data);
+					alert("장바구니에 담았습니다.")
 				},
 				error :function(data){
 				    alert("error");
@@ -52,15 +53,17 @@ function addCart(){
 			<!-- /.col-lg-3 -->
 			
 			<div class="col-lg-9">
-				<form action="" method="post" name="cartvalue">
+				<form action="${pageContext.servletContext.contextPath }/order/product" method="get" name="cartvalue">
 				<div class="card mt-4">
 					<img class="card-img-top img-fluid"
 						src="${pageContext.servletContext.contextPath }${product.image }" alt="이미지">
+									
 					<div class="card-body">
 						<input type="hidden" name="product_no" value="${product.product_no }">
 						<h3 class="card-title">${product.name }</h3>
-						<h4>${product.price }</h4>
-						<b>옵션</b>  <select name='pd_detail_no'>
+						<h4>${product.price }<input type="hidden" name="price" value="${product.price }"></h4>
+						<b>옵션</b>  
+						<select name='pd_detail_no'>
 						  <option value='' selected>-- 선택 --</option>
 						  <c:forEach items='${productDetailList }' var='vo' varStatus='status'>
 						  	<option value='${vo.pd_detail_no }'>${vo.option }</option>
@@ -72,7 +75,7 @@ function addCart(){
 							${product.detail_desc }
 						</p>
 						<div>
-							<input type="submit" value="주문하기">
+							<input type="hidden" value="주문하기">
 							<button type="button" onclick="addCart()">장바구니 담기</button>
 						</div>
 					</div>

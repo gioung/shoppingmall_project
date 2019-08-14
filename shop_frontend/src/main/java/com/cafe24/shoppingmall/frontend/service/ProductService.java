@@ -92,9 +92,7 @@ public class ProductService {
 	private static class JSONResultBoolean extends JSONResult<Boolean>{
 		
 	}
-	private static class JSONResultMap{
-		
-	}
+	
 
 	
 
